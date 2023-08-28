@@ -23,7 +23,7 @@ public class Select {
 		String uri = "jdbc:mysql://localhost:3306/jdbc";
 		
 		try {
-			Connection conn = DriverManager.getConnection(uri, "root", "");
+			Connection conn = DriverManager.getConnection(uri, "root", "password2023!");
 			conn.setAutoCommit(false);
 			String select = "SELECT * FROM persona";
 			PreparedStatement ps = conn.prepareStatement(select);
