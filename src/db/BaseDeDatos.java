@@ -26,10 +26,10 @@ public class BaseDeDatos {
 			System.exit(1);
 		}
 		
-		String uri = "jdbc:mysql://localhost:3306/tp1";
+		String uri = "jdbc:mysql://localhost:3306/tp1-ArqWeb";
 		
 		try {
-			Connection conn = DriverManager.getConnection(uri, "root", "password2023!");
+			Connection conn = DriverManager.getConnection(uri, "root", "");
 			conn.setAutoCommit(false);
 			createTables(conn);
 			insertarDatos(conn);
