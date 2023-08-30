@@ -7,7 +7,6 @@ public class FacturaProducto {
 	private int cantidad;
 	
 	public FacturaProducto(int idFactura, int idProducto, int cantidad) {
-		super();
 		this.idFactura = idFactura;
 		this.idProducto = idProducto;
 		this.cantidad = cantidad;
@@ -35,6 +34,12 @@ public class FacturaProducto {
 
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
+	}
+
+	@Override
+	public String toString() {
+		return "FacturaProducto [idFactura=" + idFactura + ", idProducto=" + idProducto + ", cantidad=" + cantidad
+				+ "]";
 	}
 	
 	

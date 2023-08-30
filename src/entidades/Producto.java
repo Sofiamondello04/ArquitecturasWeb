@@ -7,7 +7,6 @@ public class Producto {
 	private float valor;
 	
 	public Producto(int idProducto, String nombre, float valor) {
-		super();
 		this.idProducto = idProducto;
 		this.nombre = nombre;
 		this.valor = valor;
@@ -35,6 +34,11 @@ public class Producto {
 
 	public void setValor(float valor) {
 		this.valor = valor;
+	}
+
+	@Override
+	public String toString() {
+		return "Producto [idProducto=" + idProducto + ", nombre=" + nombre + ", valor=" + valor + "]";
 	}
 	
 	

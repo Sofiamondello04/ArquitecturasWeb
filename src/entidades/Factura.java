@@ -6,7 +6,6 @@ public class Factura {
 	private int idCliente;
 	
 	public Factura(int idFactura, int idCliente) {
-		super();
 		this.idFactura = idFactura;
 		this.idCliente = idCliente;
 	}
