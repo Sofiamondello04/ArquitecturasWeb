@@ -13,7 +13,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
-public class BaseDeDatos {
+public class HelperBaseDeDatos {
 
 	public static void main(String[] args) {
 		String driver = "com.mysql.cj.jdbc.Driver";
@@ -73,18 +73,7 @@ private static void insertarDatos(Connection conn) throws SQLException {
 	
 		
 	}
-/*
-	private static void addPerson(Connection conn, int id, String name, int years) throws SQLException {
-		String insert = "INSERT INTO persona (id, nombre, edad) VALUES (?,?,?)";
-		PreparedStatement ps = conn.prepareStatement(insert);
-		ps.setInt(1, id);
-		ps.setString(2, name);
-		ps.setInt(3, years);
-		ps.executeUpdate();
-		ps.close();
-		conn.commit();
-	}
-*/
+
 	@SuppressWarnings("deprecation")
 	private static void createTables(Connection conn) throws SQLException   {
 		String table = "CREATE TABLE IF NOT EXISTS Cliente (" + 

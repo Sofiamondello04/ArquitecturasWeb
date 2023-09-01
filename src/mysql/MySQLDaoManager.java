@@ -51,14 +51,6 @@ public class MySQLDaoManager implements DAOManager {
 	
 	//PARA PROBARLO
 	
-	public static void main (String [] args) throws SQLException {
-		MySQLDaoManager man = new MySQLDaoManager ("jdbc:mysql://localhost:3306/tp1-ArqWeb", "root", "");
-		List<Cliente> clientes = man.obtenerClienteDAO().obtenerTodos();
-		for (Cliente c: clientes) {
-			System.out.println(c.toString());
-		}
-		
-		
-	}
+	
 
 }
