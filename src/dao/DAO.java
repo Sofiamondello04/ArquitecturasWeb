@@ -2,15 +2,20 @@ package dao;
 
 import java.util.List;
 
-public interface DAO<T, K> {
+/* creo una interfaz de Dao con los metodos comunes de CRUD para poder implementar tantos daos como entidades tenga,
+ * donde O es la clase y v la variable.
+ */
+
+
+public interface DAO<C, V> {
 	
-	void instertar(T a);
+	public void instertar(C c);
 	
-	void modificar(T a);
+	public void modificar(C c);
 	
-	void eliminar(T a);
+	public void eliminar(C c);
 	
-	 List<T> obtenerTodos();
+	public List<C> obtenerTodos();
 	
-	T obtener(K id);
+	public C obtenerUno(V id);
 }

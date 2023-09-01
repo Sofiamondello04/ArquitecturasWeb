@@ -1,9 +1,12 @@
 package mysql;
 
+
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mysql.cj.xdevapi.Result;
@@ -19,52 +22,124 @@ public class MySQLClienteDAO implements ClienteDAO{
 	public MySQLClienteDAO(Connection conn) {
 		this.conn = conn;
 	}
-
+	
+	
 	@Override
-	public void instertar(Cliente a) {
+	public void instertar(Cliente c) {
+		ResultSet res = null;
 		try {
-			String insert = "INSERT INTO Cliente (nombre, email) VALUES (?,?)";
-			PreparedStatement ps = conn.prepareStatement(insert);
-			ps.setString(1, a.getNombre());
-			ps.setString(2, a.getEmail());
+			String insertar = "INSERT INTO Cliente (nombre, email) VALUES (?,?,?)";
+			PreparedStatement ps = conn.prepareStatement(insertar);
+			ps.setString(2, c.getNombre());
+			ps.setString(3, c.getEmail());
+			
+			res = ps.getGeneratedKeys();
+			if (res.next()) {
+				c.setIdCliente(res.getInt(1));
+			}
 			ps.executeUpdate();
-			conn.commit();
+			conn.commit(); //ver si corresponde dejar este cierre de coneccion aca.
+			res.close();
 			ps.close();
 		}
 		catch(SQLException ex){	
 		}
 	}
+	
+	
+	@Override
+	public void modificar(Cliente c) {
+		try {
+			String modificar = "UPDATE Cliente SET nombre= ?, email = ? WHERE idCliente= ?";
+			PreparedStatement ps = conn.prepareStatement(modificar);
+			ps.setInt(1, c.getIdCliente());
+			ps.setString(2, c.getNombre());
+			ps.setString(3, c.getEmail());
+			ps.executeUpdate();
+			conn.commit(); //ver si corresponde dejar este cierre de coneccion aca.
+			ps.close();
+		}
+		catch(SQLException ex){	
+		}
+		
+	}
+	@Override
+	public void eliminar(Cliente c) {
+		try {
+			String eliminar = "DELETE FROM Cliente WHERE idCliente= ?";
+			PreparedStatement ps = conn.prepareStatement(eliminar);
+			ps.setInt(1, c.getIdCliente());
+			ps.executeUpdate();
+			conn.commit(); //ver si corresponde dejar este cierre de coneccion aca.
+			ps.close();
+		}
+		catch(SQLException ex){	
+		}
+		
+	}
+	
+	
+	@Override
+	public Cliente obtenerUno(Integer idCliente) {
+		ResultSet res = null;
+		Cliente cliente = null;
+		try {
+			String obtenerUno = "SELECT idCliente, nombre, email FROM Cliente WHERE idCliente= ?";
+			PreparedStatement ps = conn.prepareStatement(obtenerUno);
+			ps.setInt(1, idCliente);
+			res = ps.executeQuery();
+			if (res.next()) {
+				cliente = resultado(res);
+			}
+			conn.commit(); //ver si corresponde dejar este cierre de coneccion aca.
+			res.close();
+			ps.close();
+		}
+		catch(SQLException ex){	
+		}
+		return cliente;
+	}
+	
+	@Override
+	public List<Cliente> obtenerTodos() {
+		ResultSet res = null;
+		List <Cliente> clientes = new ArrayList<>();
+		try {
+			String obtenerTodos = "SELECT idCliente, nombre, email FROM Cliente";
+			PreparedStatement ps = conn.prepareStatement(obtenerTodos);
+			res = ps.executeQuery();
+			
+			while (res.next()) {
+				clientes.add(resultado(res));
+			}
+			conn.commit(); //ver si corresponde dejar este cierre de coneccion aca.
+			res.close();
+			ps.close();
+		}
+		catch(SQLException ex){	
+		}
+		return clientes;
+	}
 
-	private Cliente convertir(ResultSet rs) {
-		String nombre = rs.getString("nombre");
-		String email = rs.getString("email");
-		Cliente cliente = new Cliente(nombre, email);
-		cliente.setIdCliente(rs.getInt(idCliente));
+	private Cliente resultado (ResultSet res) throws SQLException {
+		
+		int idCliente= (Integer) null;
+		String nombre = res.getString("nombre");
+		String email = res.getString("email");
+		
+		
+		Cliente cliente = new Cliente(idCliente, nombre, email);
+		
+		cliente.setIdCliente(res.getInt(idCliente));
 		return cliente;
 		
 	}
-	@Override
-	public void modificar(Cliente a) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
-	@Override
-	public void eliminar(Cliente a) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
-	@Override
-	public Cliente obtener(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
-	@Override
-	public List<Cliente> obtenerTodos() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }
