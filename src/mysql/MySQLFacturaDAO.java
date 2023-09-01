@@ -1,4 +1,4 @@
-package mysql;
+/*package mysql;
 
 import java.util.List;
 
@@ -38,3 +38,4 @@ public class MySQLFacturaDAO implements FacturaDAO {
 	}
 
 }
+*/

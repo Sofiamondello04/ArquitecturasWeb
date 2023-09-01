@@ -2,6 +2,7 @@ package dao;
 
 import entidades.Cliente;
 
-public interface ClienteDAO extends DAO<Cliente , Integer> {
+
+public interface ClienteDAO extends DAO <Cliente , Integer> {
 
 }

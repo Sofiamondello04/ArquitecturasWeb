@@ -1,6 +1,6 @@
 package mysql;
 
-
+import dao.ClienteDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +17,6 @@ import entidades.Cliente;
 public class MySQLClienteDAO implements ClienteDAO{
 
 	private Connection conn;
-	
 	
 	public MySQLClienteDAO(Connection conn) {
 		this.conn = conn;
@@ -89,7 +88,7 @@ public class MySQLClienteDAO implements ClienteDAO{
 			ps.setInt(1, idCliente);
 			res = ps.executeQuery();
 			if (res.next()) {
-				cliente = resultado(res);
+				cliente = convertir(res);
 			}
 			conn.commit(); //ver si corresponde dejar este cierre de coneccion aca.
 			res.close();
@@ -102,18 +101,18 @@ public class MySQLClienteDAO implements ClienteDAO{
 	
 	@Override
 	public List<Cliente> obtenerTodos() {
-		ResultSet res = null;
+		ResultSet resultado = null;
 		List <Cliente> clientes = new ArrayList<>();
 		try {
 			String obtenerTodos = "SELECT idCliente, nombre, email FROM Cliente";
 			PreparedStatement ps = conn.prepareStatement(obtenerTodos);
-			res = ps.executeQuery();
+			resultado = ps.executeQuery();
 			
-			while (res.next()) {
-				clientes.add(resultado(res));
+			while (resultado.next()) {
+				clientes.add(convertir(resultado));
 			}
 			conn.commit(); //ver si corresponde dejar este cierre de coneccion aca.
-			res.close();
+			resultado.close();
 			ps.close();
 		}
 		catch(SQLException ex){	
@@ -121,17 +120,25 @@ public class MySQLClienteDAO implements ClienteDAO{
 		return clientes;
 	}
 
-	private Cliente resultado (ResultSet res) throws SQLException {
+	private Cliente convertir (ResultSet res) throws SQLException {
 		
-		int idCliente= (Integer) null;
+		/*int idCliente = 0;
 		String nombre = res.getString("nombre");
 		String email = res.getString("email");
 		
 		
-		Cliente cliente = new Cliente(idCliente, nombre, email);
+		Cliente resultado = new Cliente(idCliente, nombre, email);
 		
-		cliente.setIdCliente(res.getInt(idCliente));
+		resultado.setIdCliente(res.getInt(idCliente));
+		return resultado;*/
+		
+		
+		String nombre = res.getString("nombre");
+		String email = res.getString("email");
+		int idCliente = res.getInt("idCliente");
+		Cliente cliente = new Cliente(idCliente, nombre, email);
 		return cliente;
+		
 		
 	}
 	
