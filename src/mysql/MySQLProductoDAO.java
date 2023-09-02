@@ -12,7 +12,7 @@ import java.util.List;
 
 import com.mysql.cj.xdevapi.Result;
 
-
+import entidades.FacturaProducto;
 import entidades.Producto;
 
 public class MySQLProductoDAO implements ProductoDAO{
@@ -133,7 +133,35 @@ public class MySQLProductoDAO implements ProductoDAO{
 		
 	}
 	
+	
+	public void productoMasRecaudado() {
+		
+		ResultSet resultado;
 
+		try {
+			String productoMasRecaudado = "SELECT fp.idProducto, p.nombre\r\n"
+					+ "FROM `tp1-arqweb`.factura_producto fp INNER JOIN producto p ON fp.idProducto = p.idProducto\r\n"
+					+ "GROUP BY idProducto\r\n"
+					+ "ORDER BY SUM(fp.cantidad) * p.valor  DESC\r\n"
+					+ "LIMIT 1";
+			
+			PreparedStatement ps = conn.prepareStatement(productoMasRecaudado);
+			resultado = ps.executeQuery();
+            if (resultado.next()) {
+                int idProducto = resultado.getInt("idProducto");
+                String nombre = resultado.getString("nombre");
+                System.out.println("El producto con mayor recaudacion es "+nombre );
+            }
+            
+            resultado.close();
+            ps.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		
+	}
+	
 	
 
 	

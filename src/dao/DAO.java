@@ -3,7 +3,7 @@ package dao;
 import java.util.List;
 
 /* creo una interfaz de Dao con los metodos comunes de CRUD para poder implementar tantos daos como entidades tenga,
- * donde O es la clase y v la variable.
+ * donde C es la clase y V la variable.
  */
 
 

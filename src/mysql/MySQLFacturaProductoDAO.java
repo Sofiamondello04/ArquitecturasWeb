@@ -134,8 +134,8 @@ public class MySQLFacturaProductoDAO implements FacturaProductoDAO{
 		
 		
 	}
-
-
+	
+	
 	
 
 	

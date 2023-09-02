@@ -31,7 +31,7 @@ public class HelperBaseDeDatos {
 		try {
 			Connection conn = DriverManager.getConnection(uri, "root", "");
 			conn.setAutoCommit(false);
-			//createTables(conn);
+			createTables(conn);
 			//insertarDatos(conn);
 			conn.close();
 		} catch (SQLException e) {
