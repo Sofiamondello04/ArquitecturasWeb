@@ -9,8 +9,10 @@ import java.util.List;
 import dao.ClienteDAO;
 
 import dao.FacturaDAO;
+import dao.FacturaProductoDAO;
 import dao.ProductoDAO;
 import entidades.Cliente;
+import entidades.FacturaProducto;
 
 public class MySQLDaoManager {
 	
@@ -26,6 +28,7 @@ public class MySQLDaoManager {
 	private ClienteDAO cliente= null;
 	private FacturaDAO factura= null;
 	private ProductoDAO producto= null;
+	private FacturaProductoDAO facturaProducto= null;
 	
 	public MySQLDaoManager (String uri, String username, String password) throws SQLException {
 		conn = DriverManager.getConnection(uri, username, password); 
@@ -53,12 +56,19 @@ public class MySQLDaoManager {
 	}
 	
 	public ProductoDAO instanciarProductoDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		if (producto == null) {
+			producto = new MySQLProductoDAO(conn);
+		}
+		return producto;
 	}
-			
-	
-	//PARA PROBARLO
+		
+	public FacturaProductoDAO instanciarFacturaProductoDAO() {
+		if (facturaProducto == null) {
+			facturaProducto = new MySQLFacturaProductoDAO(conn);
+		}
+		return facturaProducto;
+	}
+
 	
 	
 

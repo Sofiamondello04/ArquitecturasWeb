@@ -24,7 +24,7 @@ public class MySQLClienteDAO implements ClienteDAO{
 	
 	
 	@Override
-	public void instertar(Cliente c) {
+	public void insertar(Cliente c) {
 		ResultSet res = null;
 		try {
 			String insertar = "INSERT INTO Cliente (nombre, email) VALUES (?,?,?)";

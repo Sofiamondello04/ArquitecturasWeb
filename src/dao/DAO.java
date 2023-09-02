@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface DAO<C, V> {
 	
-	public void instertar(C c);
+	public void insertar(C c);
 	
 	public void modificar(C c);
 	
