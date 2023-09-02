@@ -31,49 +31,17 @@ public class HelperBaseDeDatos {
 		try {
 			Connection conn = DriverManager.getConnection(uri, "root", "");
 			conn.setAutoCommit(false);
-			createTables(conn);
-			insertarDatos(conn);
-			//addPerson(conn, 1, "Bernardo", 32);
-			//addPerson(conn, 2, "Juan", 30);
+			//createTables(conn);
+			//insertarDatos(conn);
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 	}
-private static void insertarDatos(Connection conn) throws SQLException {
-	CSVParser parser;
-	try {
-		parser = CSVFormat.DEFAULT.withHeader().parse(new
-				FileReader("./Recursos/clientes.csv"));
-		
-		for(CSVRecord row: parser) {
-			int idCliente = Integer.parseInt(row.get("idCliente"));
-			String nombre = row.get("nombre");
-			String email = row.get("email");
-		
-		String insert = "INSERT INTO Cliente (idCliente, nombre, email) VALUES (?,?,?)";
-		PreparedStatement ps = conn.prepareStatement(insert);
-		ps.setInt(1, idCliente);
-		ps.setString(2, nombre);
-		ps.setString(3, email);
-		ps.executeUpdate();
-		conn.commit();
-		ps.close();
-		
-		}
-	conn.close();
-
 	
-		
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+	//CREA LAS TABLAS SI NO EXISTEN
 	
-		
-	}
-
 	@SuppressWarnings("deprecation")
 	private static void createTables(Connection conn) throws SQLException   {
 		String table = "CREATE TABLE IF NOT EXISTS Cliente (" + 
@@ -111,14 +79,50 @@ private static void insertarDatos(Connection conn) throws SQLException {
 		
 		conn.prepareStatement(table4).execute();
 		
-		conn.commit();
-		
-		
-				
-		
-		
-		
+		conn.commit();	
 
 	}
+	
+	//INSERTA LOS DATOS EN LA TABLA
+	
+	private static void insertarDatos(Connection conn) throws SQLException {
+		CSVParser parser;
+		try {
+			parser = CSVFormat.DEFAULT.withHeader().parse(new
+					FileReader("./Recursos/facturas-productos.csv"));
+			
+			for(CSVRecord row: parser) {
+				int idFactura = Integer.parseInt(row.get("idFactura"));
+				int idProducto = Integer.parseInt(row.get("idProducto"));
+				int cantidad = Integer.parseInt(row.get("cantidad"));
+				//Float valor = Float.parseFloat(row.get("valor"));
+				
+				//String nombre = row.get("nombre");
+				//String email = row.get("email");
+			
+			String insert = "INSERT INTO Factura_Producto (idFactura, idProducto, cantidad) VALUES (?,?,?)";
+			PreparedStatement ps = conn.prepareStatement(insert);
+			ps.setInt(1, idFactura);
+			ps.setInt(2, idProducto);
+			ps.setInt(3, cantidad);
+			//ps.setString(2, cantidad);
+			//ps.setString(3, email);
+			ps.executeUpdate();
+			conn.commit();
+			ps.close();
+			
+			}
+		conn.close();
+	
+		
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+			
+	}
+
+
 
 }

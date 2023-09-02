@@ -1,22 +1,27 @@
 package mysql;
 
-import java.lang.reflect.InvocationTargetException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
 import dao.ClienteDAO;
-import dao.DAOManager;
+
 import dao.FacturaDAO;
 import dao.ProductoDAO;
 import entidades.Cliente;
 
-public class MySQLDaoManager implements DAOManager {
+public class MySQLDaoManager {
+	
+	//CREO CONECCION A MYSQL
 	
 	private Connection conn;
-	private String driver = "com.mysql.cj.jdbc.Driver";
-	private String uri = "jdbc:mysql://localhost:3306/tp1-ArqWeb";
+	/*private String driver = "com.mysql.cj.jdbc.Driver";
+	
+	// NO ESTOY USANDO EL DRIVER: VER
+	
+	private String uri = "jdbc:mysql://localhost:3306/tp1-ArqWeb";*/
 	
 	private ClienteDAO cliente= null;
 	private FacturaDAO factura= null;
@@ -28,22 +33,26 @@ public class MySQLDaoManager implements DAOManager {
 	}
 	
 	
+	//CREO LOS DAOS
+	
 
 
-	@Override
-	public ClienteDAO obtenerClienteDAO() {
+	
+	public ClienteDAO instanciarClienteDAO() {
 		if (cliente == null) {
 			cliente = new MySQLClienteDAO(conn);
 		}
 		return cliente;
 	}
-	@Override
-	public FacturaDAO obtenerFacturaDAO() {
-		// TODO Auto-generated method stub
-				return null;
+	
+	public FacturaDAO instanciarFacturaDAO() {
+		if (factura == null) {
+			factura = new MySQLFacturaDAO(conn);
+		}
+		return factura;
 	}
-	@Override
-	public ProductoDAO obtenerProductoDAO() {
+	
+	public ProductoDAO instanciarProductoDAO() {
 		// TODO Auto-generated method stub
 		return null;
 	}
