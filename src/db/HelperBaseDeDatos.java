@@ -32,14 +32,14 @@ public class HelperBaseDeDatos {
 			Connection conn = DriverManager.getConnection(uri, "root", "");
 			conn.setAutoCommit(false);
 			createTables(conn);
-			//insertarDatos(conn);
+			insertarDatos(conn);
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-	}
-	
+	}	
+
 	//CREA LAS TABLAS SI NO EXISTEN
 	
 	@SuppressWarnings("deprecation")
@@ -83,10 +83,89 @@ public class HelperBaseDeDatos {
 
 	}
 	
-	//INSERTA LOS DATOS EN LA TABLA
+	//INSERTA LOS DATOS EN LAS TABLAS
 	
 	private static void insertarDatos(Connection conn) throws SQLException {
+		
 		CSVParser parser;
+		try {
+			parser = CSVFormat.DEFAULT.withHeader().parse(new
+					FileReader("./Recursos/clientes.csv"));
+			
+			for(CSVRecord row: parser) {
+				int idCliente = Integer.parseInt(row.get("idCliente"));
+				String nombre = row.get("nombre");
+				String email = row.get("email");
+				//Float valor = Float.parseFloat(row.get("valor"));
+				
+				//String nombre = row.get("nombre");
+				//String email = row.get("email");
+			
+			String insert = "INSERT INTO Cliente (idCliente, nombre, email) VALUES (?,?,?)";
+			PreparedStatement ps = conn.prepareStatement(insert);
+			ps.setInt(1, idCliente);
+			ps.setString(2, nombre);
+			ps.setString(3, email);
+			//ps.setString(2, cantidad);
+			//ps.setString(3, email);
+			ps.executeUpdate();
+			conn.commit();
+			ps.close();
+			
+			}
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+		
+		try {
+			parser = CSVFormat.DEFAULT.withHeader().parse(new
+					FileReader("./Recursos/productos.csv"));
+			
+			for(CSVRecord row: parser) {
+				int idProducto = Integer.parseInt(row.get("idProducto"));
+				String nombre = row.get("nombre");
+				Float valor = Float.parseFloat(row.get("valor"));
+				
+			String insert = "INSERT INTO Producto (idProducto, nombre, valor) VALUES (?,?,?)";
+			PreparedStatement ps = conn.prepareStatement(insert);
+			ps.setInt(1, idProducto);
+			ps.setString(2, nombre);
+			ps.setFloat(3, valor);
+			//ps.setString(2, cantidad);
+			//ps.setString(3, email);
+			ps.executeUpdate();
+			conn.commit();
+			ps.close();
+			
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+		
+		try {
+			parser = CSVFormat.DEFAULT.withHeader().parse(new
+					FileReader("./Recursos/facturas.csv"));
+			
+			for(CSVRecord row: parser) {
+				int idFactura = Integer.parseInt(row.get("idFactura"));
+				int idCliente = Integer.parseInt(row.get("idCliente"));
+	
+			String insert = "INSERT INTO Factura (idFactura, idCliente) VALUES (?,?)";
+			PreparedStatement ps = conn.prepareStatement(insert);
+			ps.setInt(1, idFactura);
+			ps.setInt(2, idCliente);
+			ps.executeUpdate();
+			conn.commit();
+			ps.close();
+			
+			}
+	
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+		
 		try {
 			parser = CSVFormat.DEFAULT.withHeader().parse(new
 					FileReader("./Recursos/facturas-productos.csv"));
@@ -95,18 +174,12 @@ public class HelperBaseDeDatos {
 				int idFactura = Integer.parseInt(row.get("idFactura"));
 				int idProducto = Integer.parseInt(row.get("idProducto"));
 				int cantidad = Integer.parseInt(row.get("cantidad"));
-				//Float valor = Float.parseFloat(row.get("valor"));
-				
-				//String nombre = row.get("nombre");
-				//String email = row.get("email");
-			
+	
 			String insert = "INSERT INTO Factura_Producto (idFactura, idProducto, cantidad) VALUES (?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(insert);
 			ps.setInt(1, idFactura);
 			ps.setInt(2, idProducto);
 			ps.setInt(3, cantidad);
-			//ps.setString(2, cantidad);
-			//ps.setString(3, email);
 			ps.executeUpdate();
 			conn.commit();
 			ps.close();
@@ -114,15 +187,8 @@ public class HelperBaseDeDatos {
 			}
 		conn.close();
 	
-		
-			
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		
-			
+		}		
 	}
-
-
-
 }

@@ -139,10 +139,10 @@ public class MySQLProductoDAO implements ProductoDAO{
 		ResultSet resultado;
 
 		try {
-			String productoMasRecaudado = "SELECT fp.idProducto, p.nombre\r\n"
-					+ "FROM `tp1-arqweb`.factura_producto fp INNER JOIN producto p ON fp.idProducto = p.idProducto\r\n"
+			String productoMasRecaudado = "SELECT p.idProducto, p.nombre, SUM(fp.cantidad) * p.valor AS recaudacion\r\n"
+					+ "FROM `tp1-arqweb`.producto p INNER JOIN factura_producto fp ON p.idProducto = fp.idProducto\r\n"
 					+ "GROUP BY idProducto\r\n"
-					+ "ORDER BY SUM(fp.cantidad) * p.valor  DESC\r\n"
+					+ "ORDER BY recaudacion DESC\r\n"
 					+ "LIMIT 1";
 			
 			PreparedStatement ps = conn.prepareStatement(productoMasRecaudado);
@@ -150,7 +150,8 @@ public class MySQLProductoDAO implements ProductoDAO{
             if (resultado.next()) {
                 int idProducto = resultado.getInt("idProducto");
                 String nombre = resultado.getString("nombre");
-                System.out.println("El producto con mayor recaudacion es "+nombre );
+                int recaudacion = resultado.getInt("recaudacion");
+                System.out.println("El producto con mayor recaudacion es '"+nombre + "' con $" + recaudacion);
             }
             
             resultado.close();
