@@ -72,8 +72,4 @@ public class Factory {
 		}
 		return facturaProducto;
 	}
-
-	
-	
-
 }

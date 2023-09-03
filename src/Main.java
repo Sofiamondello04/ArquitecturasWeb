@@ -17,14 +17,16 @@ public class Main {
 		
 		Factory factory = new Factory ("jdbc:mysql://localhost:3306/tp1-ArqWeb", "root", "");
 		
-		/*3) Escriba un programa JDBC que retorne el producto que más recaudó. Se define
-		“recaudación” como cantidad de productos vendidos multiplicado por su valor.*/
+		/*3) Escriba un programa JDBC que retorne el producto que mÃ¡s recaudÃ³. Se define
+		â€œrecaudaciÃ³nâ€� como cantidad de productos vendidos multiplicado por su valor.*/
 		
 		
-		factory.instanciarProductoDAO().productoMasRecaudado();
-		
-		/*4) Escriba un programa JDBC que imprima una lista de clientes, ordenada por a cuál se le
-		facturó más.*/
+		//factory.instanciarProductoDAO().productoMasRecaudado();
+		factory.instanciarClienteDAO().listadoClientesPorFacturacion();
+//		factory.instanciarProductoDAO().productoMasRecaudado();
+
+		/*4) Escriba un programa JDBC que imprima una lista de clientes, ordenada por a cuÃ¡l se le
+		facturÃ³ mÃ¡s.*/
 		
 		
 		

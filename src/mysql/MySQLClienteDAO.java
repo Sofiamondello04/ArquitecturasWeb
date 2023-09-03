@@ -1,6 +1,7 @@
 package mysql;
 
 import dao.ClienteDAO;
+import entidades.ClienteDTO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,10 +10,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import com.mysql.cj.xdevapi.Result;
 
 import dao.ClienteDAO;
 import entidades.Cliente;
+import entidades.ClienteDTO;
 
 public class MySQLClienteDAO implements ClienteDAO{
 
@@ -24,6 +27,7 @@ public class MySQLClienteDAO implements ClienteDAO{
 	
 	
 	@Override
+	
 	public void insertar(Cliente c) {
 		ResultSet res = null;
 		try {
@@ -82,6 +86,7 @@ public class MySQLClienteDAO implements ClienteDAO{
 	public Cliente obtenerUno(Integer idCliente) {
 		ResultSet res = null;
 		Cliente cliente = null;
+		
 		try {
 			String obtenerUno = "SELECT idCliente, nombre, email FROM Cliente WHERE idCliente= ?";
 			PreparedStatement ps = conn.prepareStatement(obtenerUno);
@@ -122,31 +127,52 @@ public class MySQLClienteDAO implements ClienteDAO{
 
 	private Cliente convertir (ResultSet res) throws SQLException {
 		
-		/*int idCliente = 0;
-		String nombre = res.getString("nombre");
-		String email = res.getString("email");
-		
-		
-		Cliente resultado = new Cliente(idCliente, nombre, email);
-		
-		resultado.setIdCliente(res.getInt(idCliente));
-		return resultado;*/
-		
-		
 		String nombre = res.getString("nombre");
 		String email = res.getString("email");
 		int idCliente = res.getInt("idCliente");
 		Cliente cliente = new Cliente(idCliente, nombre, email);
+		System.out.println(cliente);
 		return cliente;
+	}
+
+
+	@Override
+	public void listadoClientesPorFacturacion() {
 		
+		ResultSet resultado;
+		
+		try {
+			String listadoClientes = "SELECT c.idCliente, c.nombre, SUM(fp.cantidad * p.valor) AS montofacturacion\r\n"
+					+ "FROM Cliente c LEFT JOIN Factura f ON c.idCliente = f.idCliente LEFT JOIN Factura_Producto fp ON f.idFactura = fp.idFactura LEFT JOIN Producto p ON fp.idProducto = p.idProducto\r\n"
+					+ "GROUP BY c.idCliente, c.nombre\r\n"
+					+ "ORDER BY montofacturacion DESC\r\n";
+			
+			PreparedStatement ps = conn.prepareStatement(listadoClientes);
+			resultado = ps.executeQuery();
+			        
+			List<ClienteDTO> clientes = new ArrayList<>();
+
+            while (resultado.next()) {
+                int idCliente = resultado.getInt("idCliente");
+                String nombre = resultado.getString("nombre");
+                int montoFacturacion = resultado.getInt("montofacturacion");
+
+                ClienteDTO clienteDTO = new ClienteDTO(idCliente, nombre, montoFacturacion);
+                clientes.add(clienteDTO);
+            }
+
+            for (ClienteDTO cliente : clientes) {
+                System.out.println(cliente);
+            }
+
+            resultado.close();
+            ps.close();
+            conn.close();
+        
+		} catch (Exception e) {
+            e.printStackTrace();
+        }
 		
 	}
-	
-
-	
-
-	
-
-	
 
 }

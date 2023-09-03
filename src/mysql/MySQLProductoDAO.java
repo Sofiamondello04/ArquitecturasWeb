@@ -9,10 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.mysql.cj.xdevapi.Result;
-
-import entidades.FacturaProducto;
 import entidades.Producto;
 
 public class MySQLProductoDAO implements ProductoDAO{
@@ -129,8 +125,6 @@ public class MySQLProductoDAO implements ProductoDAO{
 		float valor = res.getFloat("valor");
 		Producto producto = new Producto(idProducto, nombre, valor);
 		return producto;
-		
-		
 	}
 	
 	
