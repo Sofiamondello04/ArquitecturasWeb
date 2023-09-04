@@ -17,7 +17,7 @@ import dao.ProductoDAO;
 import entidades.Cliente;
 import entidades.FacturaProducto;
 
-public class Factory {
+public class FactoryMySQL {
 	
 	private Connection conn;
 	private ClienteDAO cliente= null;
@@ -25,7 +25,7 @@ public class Factory {
 	private ProductoDAO producto= null;
 	private FacturaProductoDAO facturaProducto= null;
 	
-	//CREO CONECCION A MYSQL
+	//CREA CONECCION A MYSQL
 	public static void main (String [] args) {
 		String driver = "com.mysql.cj.jdbc.Driver";
 		try {
@@ -38,13 +38,13 @@ public class Factory {
 		
 	}
 	
-	public Factory (String uri, String username, String password) throws SQLException {
+	public FactoryMySQL (String uri, String username, String password) throws SQLException {
 		conn = DriverManager.getConnection(uri, username, password); 
 		
 	}
 			
 	
-	//CREO LOS DAOS
+	//CREO LOS DAOS SI NO EXISTEN
 	public ClienteDAO instanciarClienteDAO() {
 		if (cliente == null) {
 			cliente = new MySQLClienteDAO(conn);
