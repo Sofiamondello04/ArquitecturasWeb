@@ -1,7 +1,9 @@
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import db.HelperBaseDeDatos;
 import entidades.Cliente;
 import entidades.Factura;
 import entidades.FacturaProducto;
@@ -10,29 +12,22 @@ import mysql.FactoryMySQL;
 
 
 public class Main {
+	
+	
 
 	public static void main (String [] args) throws SQLException {
 		
-		/*1) Cree un programa utilizando JDBC que cree el esquema de la base de datos.
-		 * 2) Considere los CSV dados y escriba un programa JDBC que cargue los datos a la base de
-		 *datos. Considere utilizar la biblioteca Apache Commons CSV, disponible en Maven central,
-		 *para leer los archivos.
-		 *EJECUTAR CLASE HELPER PARA PODER CREAR LAS TABLAS E INSERTAR LOS DATOS*/
-	
-		FactoryMySQL factory = new FactoryMySQL ("jdbc:mysql://localhost:3306/tp1-ArqWeb", "root", "");
 		
-		/*3) Escriba un programa JDBC que retorne el producto que más recaudó. Se define
-		 *recaudación como cantidad de productos vendidos multiplicado por su valor.*/
-		
-		
-		//factory.instanciarProductoDAO().productoMasRecaudado();
-		
+		FactoryMySQL factory = new FactoryMySQL ();
+		factory.crearTablasConDatos();
 
+		factory.instanciarProductoDAO().productoMasRecaudado();
+		System.out.println("\n");
 
-		/*4) Escriba un programa JDBC que imprima una lista de clientes, ordenada por a cuál se le
-		facturó más.*/
+		System.out.println("Lista de clientes ordenada de mayor a menor facturacion:");
+		factory.instanciarClienteDAO().listadoClientesPorFacturacion();
 		
-		//factory.instanciarClienteDAO().listadoClientesPorFacturacion();
+		factory.cerrarConeccion();
 			
 	}
 	

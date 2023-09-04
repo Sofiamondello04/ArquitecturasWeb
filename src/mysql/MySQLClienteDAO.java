@@ -23,6 +23,7 @@ public class MySQLClienteDAO implements ClienteDAO{
 	
 	public MySQLClienteDAO(Connection conn) {
 		this.conn = conn;
+		
 	}
 	
 	
@@ -30,18 +31,18 @@ public class MySQLClienteDAO implements ClienteDAO{
 	
 	public void insertar(Cliente c) {
 		ResultSet res = null;
+		
 		try {
 			String insertar = "INSERT INTO Cliente (nombre, email) VALUES (?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(insertar);
 			ps.setString(2, c.getNombre());
-			ps.setString(3, c.getEmail());
-			
+			ps.setString(3, c.getEmail());			
 			res = ps.getGeneratedKeys();
 			if (res.next()) {
 				c.setIdCliente(res.getInt(1));
 			}
 			ps.executeUpdate();
-			conn.commit(); //ver si corresponde dejar este cierre de coneccion aca.
+			conn.commit(); 
 			res.close();
 			ps.close();
 		}
@@ -59,7 +60,7 @@ public class MySQLClienteDAO implements ClienteDAO{
 			ps.setString(2, c.getNombre());
 			ps.setString(3, c.getEmail());
 			ps.executeUpdate();
-			conn.commit(); //ver si corresponde dejar este cierre de coneccion aca.
+			conn.commit(); 
 			ps.close();
 		}
 		catch(SQLException ex){	
@@ -73,7 +74,7 @@ public class MySQLClienteDAO implements ClienteDAO{
 			PreparedStatement ps = conn.prepareStatement(eliminar);
 			ps.setInt(1, c.getIdCliente());
 			ps.executeUpdate();
-			conn.commit(); //ver si corresponde dejar este cierre de coneccion aca.
+			conn.commit(); 
 			ps.close();
 		}
 		catch(SQLException ex){	
@@ -95,7 +96,7 @@ public class MySQLClienteDAO implements ClienteDAO{
 			if (res.next()) {
 				cliente = convertir(res);
 			}
-			conn.commit(); //ver si corresponde dejar este cierre de coneccion aca.
+			conn.commit(); 
 			res.close();
 			ps.close();
 		}
@@ -116,7 +117,7 @@ public class MySQLClienteDAO implements ClienteDAO{
 			while (resultado.next()) {
 				clientes.add(convertir(resultado));
 			}
-			conn.commit(); //ver si corresponde dejar este cierre de coneccion aca.
+			conn.commit(); 
 			resultado.close();
 			ps.close();
 		}
@@ -137,38 +138,31 @@ public class MySQLClienteDAO implements ClienteDAO{
 
 
 	@Override
-	public void listadoClientesPorFacturacion() {
-		
-		ResultSet resultado;
-		
+	public void listadoClientesPorFacturacion() {		
+		ResultSet resultado;		
 		try {
+			conn.setAutoCommit(false);
 			String listadoClientes = "SELECT c.idCliente, c.nombre, SUM(fp.cantidad * p.valor) AS montofacturacion\r\n"
 					+ "FROM Cliente c LEFT JOIN Factura f ON c.idCliente = f.idCliente LEFT JOIN Factura_Producto fp ON f.idFactura = fp.idFactura LEFT JOIN Producto p ON fp.idProducto = p.idProducto\r\n"
 					+ "GROUP BY c.idCliente, c.nombre\r\n"
-					+ "ORDER BY montofacturacion DESC\r\n";
+					+ "ORDER BY montofacturacion DESC\r\n";	
 			
 			PreparedStatement ps = conn.prepareStatement(listadoClientes);
-			resultado = ps.executeQuery();
-			        
+			resultado = ps.executeQuery();			        
 			List<ClienteDTO> clientes = new ArrayList<>();
-
             while (resultado.next()) {
                 int idCliente = resultado.getInt("idCliente");
                 String nombre = resultado.getString("nombre");
                 int montoFacturacion = resultado.getInt("montofacturacion");
-
                 ClienteDTO clienteDTO = new ClienteDTO(idCliente, nombre, montoFacturacion);
                 clientes.add(clienteDTO);
             }
-
             for (ClienteDTO cliente : clientes) {
                 System.out.println(cliente);
             }
-
+            conn.commit(); 
             resultado.close();
-            ps.close();
-            conn.close();
-        
+            ps.close();      
 		} catch (Exception e) {
             e.printStackTrace();
         }

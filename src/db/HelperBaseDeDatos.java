@@ -14,35 +14,11 @@ import org.apache.commons.csv.CSVRecord;
 
 public class HelperBaseDeDatos {
 
-	public static void main(String[] args) {
-		String driver = "com.mysql.cj.jdbc.Driver";
-	
-	try {
-		Class.forName(driver).getDeclaredConstructor().newInstance();
-	} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-			| NoSuchMethodException | SecurityException | ClassNotFoundException e) {
-		e.printStackTrace();
-		System.exit(1);
-	}
-	
-	String uri = "jdbc:mysql://localhost:3306/tp1-ArqWeb";
-	
-	try {
-		Connection conn = DriverManager.getConnection(uri, "root", "");
-		conn.setAutoCommit(false);
-		createTables(conn);
-		insertarDatos(conn);
-		conn.close();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}
-	
-}	
-
 //CREA LAS TABLAS SI NO EXISTEN
 
 @SuppressWarnings("deprecation")
-private static void createTables(Connection conn) throws SQLException   {
+public void createTables(Connection conn) throws SQLException   {
+	conn.setAutoCommit(false);
 	String table = "CREATE TABLE IF NOT EXISTS Cliente (" + 
 			" idCliente INT NOT NULL AUTO_INCREMENT , " +
 			" nombre VARCHAR(500)," + 
@@ -84,8 +60,8 @@ private static void createTables(Connection conn) throws SQLException   {
 
 //INSERTA LOS DATOS EN LAS TABLAS
 
-private static void insertarDatos(Connection conn) throws SQLException {
-	
+public void insertarDatos(Connection conn) throws SQLException {
+	conn.setAutoCommit(false);
 	CSVParser parser;
 	try {
 		parser = CSVFormat.DEFAULT.withHeader().parse(new
@@ -176,7 +152,7 @@ private static void insertarDatos(Connection conn) throws SQLException {
 			ps.close();
 			
 			}
-		conn.close();
+		
 	
 		} catch (IOException e) {
 			e.printStackTrace();

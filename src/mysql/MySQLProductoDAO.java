@@ -35,7 +35,7 @@ public class MySQLProductoDAO implements ProductoDAO{
 				p.setIdProducto(res.getInt(1));
 			}
 			ps.executeUpdate();
-			conn.commit(); //ver si corresponde dejar este cierre de coneccion aca.
+			conn.commit(); 
 			res.close();
 			ps.close();
 		}
@@ -53,7 +53,7 @@ public class MySQLProductoDAO implements ProductoDAO{
 			ps.setString(2, p.getNombre());
 			ps.setFloat(3, p.getValor());
 			ps.executeUpdate();
-			conn.commit(); //ver si corresponde dejar este cierre de coneccion aca.
+			conn.commit(); 
 			ps.close();
 		}
 		catch(SQLException ex){	
@@ -67,7 +67,7 @@ public class MySQLProductoDAO implements ProductoDAO{
 			PreparedStatement ps = conn.prepareStatement(eliminar);
 			ps.setInt(1, p.getIdProducto());
 			ps.executeUpdate();
-			conn.commit(); //ver si corresponde dejar este cierre de coneccion aca.
+			conn.commit(); 
 			ps.close();
 		}
 		catch(SQLException ex){	
@@ -88,7 +88,7 @@ public class MySQLProductoDAO implements ProductoDAO{
 			if (res.next()) {
 				producto = convertir(res);
 			}
-			conn.commit(); //ver si corresponde dejar este cierre de coneccion aca.
+			conn.commit(); 
 			res.close();
 			ps.close();
 		}
@@ -109,7 +109,7 @@ public class MySQLProductoDAO implements ProductoDAO{
 			while (resultado.next()) {
 				productos.add(convertir(resultado));
 			}
-			conn.commit(); //ver si corresponde dejar este cierre de coneccion aca.
+			conn.commit(); 
 			resultado.close();
 			ps.close();
 		}
@@ -133,6 +133,7 @@ public class MySQLProductoDAO implements ProductoDAO{
 		ResultSet resultado;
 
 		try {
+			conn.setAutoCommit(false);
 			String productoMasRecaudado = "SELECT p.idProducto, p.nombre, SUM(fp.cantidad) * p.valor AS recaudacion\r\n"
 					+ "FROM `tp1-arqweb`.producto p INNER JOIN factura_producto fp ON p.idProducto = fp.idProducto\r\n"
 					+ "GROUP BY idProducto\r\n"
@@ -147,10 +148,9 @@ public class MySQLProductoDAO implements ProductoDAO{
                 int recaudacion = resultado.getInt("recaudacion");
                 System.out.println("El producto con mayor recaudacion es '"+nombre + "' con $" + recaudacion);
             }
-            
+            conn.commit();
             resultado.close();
-            ps.close();
-            conn.close();
+            ps.close();          
         } catch (Exception e) {
             e.printStackTrace();
         }

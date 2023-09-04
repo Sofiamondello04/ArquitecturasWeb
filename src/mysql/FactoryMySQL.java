@@ -14,6 +14,7 @@ import dao.ClienteDAO;
 import dao.FacturaDAO;
 import dao.FacturaProductoDAO;
 import dao.ProductoDAO;
+import db.HelperBaseDeDatos;
 import entidades.Cliente;
 import entidades.FacturaProducto;
 
@@ -24,25 +25,35 @@ public class FactoryMySQL {
 	private FacturaDAO factura= null;
 	private ProductoDAO producto= null;
 	private FacturaProductoDAO facturaProducto= null;
+	private static final String uri = "jdbc:mysql://localhost:3306/tp1-ArqWeb";
+	private static final String username = "root";
+	private static final String password ="";
 	
-	//CREA CONECCION A MYSQL
-	public static void main (String [] args) {
+	
+	
+	public FactoryMySQL () throws SQLException {
 		String driver = "com.mysql.cj.jdbc.Driver";
+		
 		try {
 			Class.forName(driver).getDeclaredConstructor().newInstance();
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException | ClassNotFoundException e) {
 			e.printStackTrace();
 			System.exit(1);
-		}	
+		}
+		conn = DriverManager.getConnection(uri, username, password);
+	}	
+	
+	public void cerrarConeccion () throws SQLException {
 		
+		this.conn.close();
 	}
 	
-	public FactoryMySQL (String uri, String username, String password) throws SQLException {
-		conn = DriverManager.getConnection(uri, username, password); 
-		
-	}
-			
+	public void crearTablasConDatos() throws SQLException {
+		HelperBaseDeDatos helper = new HelperBaseDeDatos();
+		helper.createTables(conn);
+		helper.insertarDatos(conn);
+	}	
 	
 	//CREO LOS DAOS SI NO EXISTEN
 	public ClienteDAO instanciarClienteDAO() {
