@@ -33,14 +33,15 @@ public class MySQLClienteDAO implements ClienteDAO{
 		ResultSet res = null;
 		
 		try {
-			String insertar = "INSERT INTO Cliente (nombre, email) VALUES (?,?,?)";
+			String insertar = "INSERT INTO Cliente (idCliente, nombre, email) VALUES (?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(insertar);
+			ps.setInt(1, c.getIdCliente());
 			ps.setString(2, c.getNombre());
 			ps.setString(3, c.getEmail());			
 			res = ps.getGeneratedKeys();
-			if (res.next()) {
+			/*if (res.next()) {
 				c.setIdCliente(res.getInt(1));
-			}
+			}*/
 			ps.executeUpdate();
 			conn.commit(); 
 			res.close();

@@ -31,9 +31,9 @@ public class MySQLProductoDAO implements ProductoDAO{
 			ps.setFloat(3, p.getValor());
 			
 			res = ps.getGeneratedKeys();
-			if (res.next()) {
+			/*if (res.next()) {
 				p.setIdProducto(res.getInt(1));
-			}
+			}*/
 			ps.executeUpdate();
 			conn.commit(); 
 			res.close();

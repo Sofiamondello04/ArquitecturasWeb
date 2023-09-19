@@ -10,6 +10,13 @@ public class Cliente {
 		this.nombre = nombre;
 		this.email = email;
 	}
+	
+	public Cliente(String nombre, String email) {
+
+		this.nombre = nombre;
+		this.email = email;
+	}
+	
 
 	public int getIdCliente() {
 		return idCliente;

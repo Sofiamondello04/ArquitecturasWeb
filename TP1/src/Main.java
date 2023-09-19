@@ -19,13 +19,24 @@ public class Main {
 		
 		
 		FactoryMySQL factory = new FactoryMySQL ();
-		factory.crearTablasConDatos();
+		
+		/*factory.crearTablasConDatos();*/
 
 		factory.instanciarProductoDAO().productoMasRecaudado();
 		System.out.println("\n");
 
 		System.out.println("Lista de clientes ordenada de mayor a menor facturacion:");
 		factory.instanciarClienteDAO().listadoClientesPorFacturacion();
+		
+		Cliente c = new Cliente(101, "Sofia", "pepito");
+		
+		Producto p = new Producto(200, "aa", 2);
+		
+		factory.instanciarProductoDAO().insertar(p);
+		
+		
+		factory.instanciarClienteDAO().insertar(c);
+		
 		
 		factory.cerrarConeccion();
 			
