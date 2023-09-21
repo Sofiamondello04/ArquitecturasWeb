@@ -3,7 +3,7 @@
 <persistence xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
 
 
-<persistence-unit name= "Integrador-2">
+<persistence-unit name= "TP2-ArqWeb">
 
 <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
@@ -11,7 +11,7 @@
 
 <class>entities.Carrera</class>
 
-<class>entities.EstudianteCarrera</class>
+<class>entities.Inscripcion</class>
 <properties>
 
 <!-- Propiedades de configuracion de JDBC para Derby /-->
@@ -25,7 +25,7 @@
 
 
 <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/Integrador2?createDatabaseIfNotExist=true"/>
+<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/TP2-ArqWeb?createDatabaseIfNotExist=true"/>
 <property name="javax.persistence.jdbc.user" value="root" />
 <property name="javax.persistence.jdbc.password" value=""/>
 
