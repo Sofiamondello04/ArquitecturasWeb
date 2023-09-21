@@ -1,6 +1,7 @@
 package repositories;
 
 import java.util.List;
+import entities.Estudiante;
 
 import entities.Estudiante;
 

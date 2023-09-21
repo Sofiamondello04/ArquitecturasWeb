@@ -2,10 +2,10 @@ package repositories;
 
 import javax.persistence.EntityManager;
 
-public class EstudianteCarreraRepositoryImpl implements EstudianteCarreraRepository {
+public class InscripcionRepositoryImpl implements InscripcionRepository {
 	private EntityManager em;
 	
-	public EstudianteCarreraRepositoryImpl(EntityManager em) {
+	public InscripcionRepositoryImpl(EntityManager em) {
 		this.em = em;
 	}
 	

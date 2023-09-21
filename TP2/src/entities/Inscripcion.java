@@ -13,11 +13,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name ="estudiante_carrera")
-public class EstudianteCarrera {
+public class Inscripcion {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int id_inscripcion;
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_estudiante")
@@ -28,25 +28,23 @@ public class EstudianteCarrera {
 	private Carrera carrera;
 	
 	@Column
-	private int inscripcion;
+	private int anioInscripcion;
 	
 	@Column
-	private int graduacion;
+	private int anioGraduacion;//ver si la necesitamos, quizas con la fecha actual no haga falta
 	
 	@Column
 	private int antiguedad;
 
-	public EstudianteCarrera() {
+	public Inscripcion() {
 		
 	}
 
-	public EstudianteCarrera(Estudiante estudiante, Carrera carrera, int anioInscripcion, int anioGraduacion,
-			int antiguedad) {
-		
+	public Inscripcion(Estudiante estudiante, Carrera carrera, int anioInscripcion, int anioGraduacion,int antiguedad) {	
 		this.estudiante = estudiante;
 		this.carrera = carrera;
-		this.inscripcion = anioInscripcion;
-		this.graduacion = anioGraduacion;
+		this.anioInscripcion = anioInscripcion;
+		this.anioGraduacion = anioGraduacion;
 		this.antiguedad = antiguedad;
 	}
 
@@ -67,19 +65,19 @@ public class EstudianteCarrera {
 	}
 
 	public int getAnioInscripcion() {
-		return inscripcion;
+		return anioInscripcion;
 	}
 
 	public void setAnioInscripcion(int anioInscripcion) {
-		this.inscripcion = anioInscripcion;
+		this.anioInscripcion = anioInscripcion;
 	}
 
 	public int getAnioGraduacion() {
-		return graduacion;
+		return anioGraduacion;
 	}
 
 	public void setAnioGraduacion(int anioGraduacion) {
-		this.graduacion = anioGraduacion;
+		this.anioGraduacion = anioGraduacion;
 	}
 
 	public int getAntiguedad() {
@@ -90,14 +88,14 @@ public class EstudianteCarrera {
 		this.antiguedad = antiguedad;
 	}
 
-	public int getId_ec() {
-		return id;
+	public int getId_inscripcion() {
+		return id_inscripcion;
 	}
 
 	@Override
 	public String toString() {
-		return "EstudianteCarrera [id_ec=" + id+ ", estudiante=" + estudiante + ", carrera=" + carrera
-				+ ", anioInscripcion=" + inscripcion + ", anioGraduacion=" + graduacion + ", antiguedad="
+		return "EstudianteCarrera [id_ec=" + id_inscripcion+ ", estudiante=" + estudiante + ", carrera=" + carrera
+				+ ", anioInscripcion=" + anioInscripcion + ", anioGraduacion=" + anioGraduacion + ", antiguedad="
 				+ antiguedad + "]";
 	}
 }

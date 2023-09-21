@@ -1,6 +1,6 @@
 package repositories;
 
-public interface EstudianteCarreraRepository {
+public interface InscripcionRepository {
 	
 	void altaEstudianteCarrera();
 

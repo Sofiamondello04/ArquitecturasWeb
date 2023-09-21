@@ -19,35 +19,32 @@ import javax.persistence.OneToMany;
 public class Estudiante {
 	@Id
 	private int dni;
-	@Column
+	@Column(nullable=false)
 	private String nombre;
-	@Column
+	@Column(nullable=false)
 	private String apellido;
 	@Column
 	private int edad;
-	@Column
+	@Column(nullable=false)
 	private String genero;
-	
 	@Column (name="ciudad")
 	private String ciudadResidencia;
 	@Column
-	private int LU;
+	private int numLibretaUniversitaria;
+	/*esto se puede hacer asi o hacer una relacion ManyToMany con carreras directamente.
+	el mappedBy corresponde al atributo estudiante de la clase Inscripción.*/
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estudiante")
-	private List<EstudianteCarrera>carreras;
+	private List<Inscripcion> inscripciones;
 	
-	public Estudiante(int dni, String nombre, String apellido, int edad, String genero, String ciudad, int Lu) {
+	public Estudiante(int dni, String nombre, String apellido, int edad, String genero, String ciudad, int numLibretaUniversitaria) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.edad = edad;
 		this.genero = genero;
 		this.dni = dni;
 		this.ciudadResidencia = ciudad;
-		this.LU = Lu;
-		this.carreras = new ArrayList<EstudianteCarrera>();
-	}
-
-	public Estudiante() {
-		this.carreras = new ArrayList<EstudianteCarrera>();
+		this.numLibretaUniversitaria = numLibretaUniversitaria;
+		this.inscripciones = new ArrayList<Inscripcion>();
 	}
 
 	public String getNombres() {
@@ -86,7 +83,6 @@ public class Estudiante {
 		return dni;
 	}
 
-	
 
 	public String getCiudadResidencia() {
 		return ciudadResidencia;
@@ -96,20 +92,20 @@ public class Estudiante {
 		this.ciudadResidencia = ciudadResidencia;
 	}
 
-	public int getNumeroLibreta() {
-		return LU;
+	public int getNumLibretaUniversitaria() {
+		return numLibretaUniversitaria;
 	}
 
-	public void setNumeroLibreta(int numeroLibreta) {
-		this.LU = numeroLibreta;
+	public void setNumLibretaUniversitaria(int numLibretaUniversitaria) {
+		this.numLibretaUniversitaria = numLibretaUniversitaria;
 	}
 
-	public List<EstudianteCarrera> getCarreras() {
-		return carreras;
+	public List<Inscripcion> getInscripciones() {
+		return inscripciones;
 	}
 
-	public void setCarreras(List<EstudianteCarrera> carreras) {
-		this.carreras = carreras;
+	public void setInscripciones(List<Inscripcion> inscripciones) {
+		this.inscripciones = inscripciones;
 	}
 
 
@@ -117,7 +113,7 @@ public class Estudiante {
 	public String toString() {
 		return "Estudiante [nombres=" + nombre + ", apellido=" + apellido
 				+ ", edad=" + edad + ", genero=" + genero + ", dni=" + dni + ", ciudadResidencia=" + ciudadResidencia
-				+ ", numeroLibreta=" + LU + ", carreras=" + carreras + "]";
+				+ ", numLibretaUniversitaria=" + numLibretaUniversitaria + ", carreras=" + inscripciones + "]";
 	}
 
 	

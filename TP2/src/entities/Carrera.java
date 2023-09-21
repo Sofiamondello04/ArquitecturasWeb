@@ -22,52 +22,46 @@ import javax.persistence.OneToMany;
 public class Carrera {
 	@Id
 	private int id_carrera;
-	@Column
+	@Column(nullable=false)// indica que el campo no puede ser nulo
 	private String nombre;
-	
 	@Column 
 	private int duracion;
-	
+	/*La anotacion mappedBy corresponde al atributo carrera de la clase Inscripción.*/
 	@OneToMany (mappedBy = "carrera", fetch=FetchType.LAZY)
-	private List<EstudianteCarrera> estudiantes;
-
-	public Carrera () {
-			this.estudiantes= new ArrayList<EstudianteCarrera>();
-			
-	}
+	private List<Inscripcion> inscriptos;
 
 	public Carrera(int id_carrera, String nombre, int duracion) {
 			this.id_carrera = id_carrera;
 			this.nombre = nombre;
 			this.duracion = duracion;
-			this.estudiantes = new ArrayList<EstudianteCarrera>();
+			this.inscriptos = new ArrayList<Inscripcion>();
 	}
 
-		public String getNombre() {
-			return nombre;
-		}
+	public String getNombre() {
+		return nombre;
+	}
 
-		public void setNombre(String nombre) {
-			this.nombre = nombre;
-		}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-		public List<EstudianteCarrera> getEstudiantes() {
-			return estudiantes;
-		}
+	public List<Inscripcion> getInscriptos() {
+		return inscriptos;
+	}
 
-		public void setEstudiantes(List<EstudianteCarrera> estudiantes) {
-			this.estudiantes = estudiantes;
-		}
+	public void setInscriptos(List<Inscripcion> inscriptos) {
+		this.inscriptos = inscriptos;
+	}
 
-		public int getId_carrera() {
-			return id_carrera;
-		}
+	public int getId_carrera() {
+		return id_carrera;
+	}
 
-		@Override
-		public String toString() {
-			return "Carrera [id_carrera=" + id_carrera + ", nombre=" + nombre + ", estudiantes=" + estudiantes + "]";
-		}
-	
+	@Override
+	public String toString() {
+		return "Carrera [id_carrera=" + id_carrera + ", nombre=" + nombre + ", inscriptos=" + inscriptos + "]";
+	}
+
 	
 	
 
