@@ -23,7 +23,11 @@ public class Main {
 		
 		EstudianteRepositoryImpl est = new EstudianteRepositoryImpl(em);
 		
-		est.listaEstudianteOdenadoPorNombre();		
+		//est.listaEstudianteOdenadoPorNombre();
+		
+		//est.estudiantePorLibreta(548541);
+		
+		//est.listaEstudiantePorGenero("masculino");
 	}
 
 }
