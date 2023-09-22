@@ -1,8 +1,6 @@
 /META-INF/
-/csv/
-/dto/
-/entities/
-/factory/
-/main/
 /repositories/
 /utils/
+/main/
+/entities/
+/csv/

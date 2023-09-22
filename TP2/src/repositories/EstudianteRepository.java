@@ -9,7 +9,7 @@ import entities.Estudiante;
 
 public interface EstudianteRepository {
 	void altaEstudiante(Estudiante e) throws SQLIntegrityConstraintViolationException;
-	List<Estudiante> listaEstudianteOdenadoPorNombre() throws SQLException;
+	List<Estudiante> listaEstudianteOdenadoPorApellido() throws SQLException;
 	Estudiante estudiantePorLibreta(int numeroLibreta) throws SQLException;
 	List<Estudiante> listaEstudiantePorGenero(String genero);
 	

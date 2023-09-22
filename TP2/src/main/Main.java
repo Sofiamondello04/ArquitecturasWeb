@@ -24,18 +24,23 @@ public class Main {
 		
 		EntityManager em = FactoryEntityManager.getInstance();
 		
-		EstudianteRepositoryImpl est = new EstudianteRepositoryImpl(em);
-		Estudiante e = new Estudiante (14570749, "Gladys", "Carbajal", 88, "femenino", "olavarria", 558581);
+		Helper helper = new Helper(em);
+		
+		helper.fillTables();
+		
+		/*EstudianteRepositoryImpl est = new EstudianteRepositoryImpl(em);
+		Estudiante e = new Estudiante (38531771, "Mica", "Carbajal", 88, "femenino", "olavarria", 559582);
 		
 		
 		est.altaEstudiante(e);
+		System.out.println(e);
 		
 		
-		est.listaEstudianteOdenadoPorNombre();
+		est.listaEstudianteOdenadoPorApellido();
 		
-		est.estudiantePorLibreta(548541);
+		est.estudiantePorLibreta(559581);
 		
-		est.listaEstudiantePorGenero("femenino");
+		est.listaEstudiantePorGenero("masculino");*/
 	}
 
 }

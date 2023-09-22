@@ -3,15 +3,15 @@ Ejercicio Integrador
 Considere el diseño de un registro de estudiantes, con la siguiente información: nombres, apellido, edad, género, número de documento, ciudad de residencia, número de libreta universitaria, carrera(s) en la que está inscripto, antigüedad en cada una de esas carreras, y si se graduó o no. Diseñar el diagrama de objetos y el diagrama DER correspondiente.
 Implementar consultas para: 
 
-a) dar de alta un estudiante 
+a) dar de alta un estudiante OK
 
 b) matricular un estudiante en una carrera 
 
-c) recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple. 
+c) recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple. OK 
 
-d) recuperar un estudiante, en base a su número de libreta universitaria. 
+d) recuperar un estudiante, en base a su número de libreta universitaria. OK
 
-e) recuperar todos los estudiantes, en base a su género. 
+e) recuperar todos los estudiantes, en base a su género. OK
 
 f) recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos. 
 

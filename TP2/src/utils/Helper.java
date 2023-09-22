@@ -26,9 +26,6 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 
-
-
-
 public class Helper {
 	private EntityManager em;
 	
@@ -39,20 +36,20 @@ public class Helper {
 	
 	//aca se cargan los csv. Asegurarse que los archivos tengan los mismo nombres
 	
-	public void fillTables(CSVParser datosEstudiantes, CSVParser datosCarrera, CSVParser datosInscripcion) throws SQLException, FileNotFoundException, IOException {
-		em.getTransaction().begin();
-		this.fillTableEstudiante(datosEstudiantes);
-		this.fillTableCarrera(datosCarrera);
-		this.fillTableInscripcion(datosInscripcion);
+	public void fillTables() throws SQLException, FileNotFoundException, IOException {
+		this.em.getTransaction().begin();
+		//this.fillTableEstudiante();
+		//this.fillTableCarrera();
+		this.fillTableInscripcion();
 		em.getTransaction().commit();
-		em.close();
+		
 	}
 	
 
-	public void fillTableEstudiante(CSVParser datosEstudiantes) throws SQLException, FileNotFoundException, IOException {
+	public void fillTableEstudiante() throws SQLException, FileNotFoundException, IOException {
 		
-		
-		datosEstudiantes = CSVFormat.DEFAULT.withHeader().parse(new FileReader("./csv/estudiantes.csv"));
+		CSVParser datosEstudiantes;
+		datosEstudiantes = CSVFormat.DEFAULT.withHeader().parse(new FileReader("./src/csv/estudiantes.csv"));
 		for (CSVRecord row : datosEstudiantes) {
 			int dni = Integer.parseInt(row.get("dni"));
 			String nombre = row.get("nombre");
@@ -70,8 +67,9 @@ public class Helper {
 	}
 		
 		
-		public void fillTableCarrera(CSVParser datosCarrera) throws SQLException, FileNotFoundException, IOException {
-			datosCarrera = CSVFormat.DEFAULT.withHeader().parse(new FileReader("./csv/carreras.csv"));
+		public void fillTableCarrera() throws SQLException, FileNotFoundException, IOException {
+			CSVParser datosCarrera;
+			datosCarrera = CSVFormat.DEFAULT.withHeader().parse(new FileReader("./src/csv/carreras.csv"));
 			for (CSVRecord row : datosCarrera) {
 				int id_carrera = Integer.parseInt(row.get("id_carrera"));
 				String nombre = row.get("carrera");
@@ -84,8 +82,9 @@ public class Helper {
 			}
 		}
 		
-		public void fillTableInscripcion(CSVParser datosInscripcion) throws SQLException, FileNotFoundException, IOException {
-			datosInscripcion = CSVFormat.DEFAULT.withHeader().parse(new FileReader("./csv/inscripcion.csv"));
+		public void fillTableInscripcion() throws SQLException, FileNotFoundException, IOException {
+			CSVParser datosInscripcion;
+			datosInscripcion = CSVFormat.DEFAULT.withHeader().parse(new FileReader("./src/csv/inscripcion.csv"));
 			for (CSVRecord row : datosInscripcion) {
 				int id_estudiante = Integer.parseInt(row.get("id_estudiante"));
 				int id_carrera = Integer.parseInt(row.get("id_carrera"));
@@ -96,7 +95,7 @@ public class Helper {
 				EstudianteRepositoryImpl eri = new EstudianteRepositoryImpl(em);
 				CarreraRepositoryImpl cri = new CarreraRepositoryImpl(em);
 				
-				Estudiante e = eri.estudiantePorDni(id_estudiante);
+				Estudiante e = eri.estudiantePorDNI(id_estudiante);
 				
 				Carrera c = cri.carreraPorId(id_carrera);
 			

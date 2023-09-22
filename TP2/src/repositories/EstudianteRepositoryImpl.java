@@ -28,11 +28,10 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 				em.persist(e);
 			} 
 			else {
-				em.merge(e);
-				
+				em.merge(e);		
 			}
 			this.em.getTransaction().commit();
-			em.close();
+			
 		}
 		catch (Exception ex) {
 			System.out.println("El estudiante ya existe");
@@ -40,13 +39,13 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 	}
 
 	@Override
-	public List<Estudiante> listaEstudianteOdenadoPorNombre() throws SQLException {
+	public List<Estudiante> listaEstudianteOdenadoPorApellido() throws SQLException {
 		this.em.getTransaction().begin();	
 		String jpql = "SELECT e FROM Estudiante e ORDER BY e.apellido DESC";
 		TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
 		List<Estudiante> estudiantes = query.getResultList();
 		if(!estudiantes.isEmpty()) {
-			System.out.println("Estudiantes ordenados por nombre:");
+			System.out.println("Estudiantes ordenados por apellido:");
 			for (Estudiante estudiante : estudiantes) {
 			    System.out.println(estudiante.getApellido() + ", " + estudiante.getNombre());
 			}		
@@ -55,7 +54,7 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 			System.out.println("No se encontraron estudiantes");
 		}
 		this.em.getTransaction().commit();
-		em.close();
+		
 		return estudiantes;
 	}
 
@@ -66,6 +65,7 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 		 TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
 	        query.setParameter("numLibretaUniversitaria", numLibretaUniversitaria);
 	        Estudiante estudiante = query.getSingleResult();
+	        //se podria mejorar con el toString
 	        if (estudiante != null) {
 	            System.out.println("Estudiante encontrado:");
 	            System.out.println("Numero de Libreta: " + estudiante.getNumLibretaUniversitaria());
@@ -76,9 +76,9 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 	        else {
 	            System.out.println("Estudiante no encontrado para el numero de libreta: " + numLibretaUniversitaria);
 	        }
-		this.em.getTransaction().commit();
-		em.close();
-		return estudiante;
+	this.em.getTransaction().commit();
+	
+	return estudiante;
 	}
 
 	@Override
@@ -100,10 +100,19 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 		}
 		
 		this.em.getTransaction().commit();
-		em.close();
+		
 		return estudiantesPorGenero;
 	}
-
+	public Estudiante estudiantePorDNI(int dni) throws SQLException{
+		this.em.getTransaction().begin();	
+		String jpql = "SELECT e FROM Estudiante e WHERE e.dni = :dni";
+		 TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
+	        query.setParameter("dni", dni);
+	        Estudiante estudiante = query.getSingleResult();
+		this.em.getTransaction().commit();
+		
+		return estudiante;
+	}
 	
 
 }
