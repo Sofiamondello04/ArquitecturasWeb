@@ -2,6 +2,7 @@ package repositories;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
@@ -20,18 +21,22 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 	}
 
 	@Override
-	public void altaEstudiante(Estudiante e) throws java.sql.SQLIntegrityConstraintViolationException {
-		
-		this.em.getTransaction().begin();
-		if(!em.contains(e)) {
-			em.persist(e);
-		} 
-		else {
-			em.merge(e);
+	public void altaEstudiante(Estudiante e) throws SQLIntegrityConstraintViolationException {
+		try {
+			this.em.getTransaction().begin();
+			if(!em.contains(e)) {
+				em.persist(e);
+			} 
+			else {
+				em.merge(e);
+				
+			}
+			this.em.getTransaction().commit();
+			em.close();
 		}
-		this.em.getTransaction().commit();
-		em.close();
-	
+		catch (Exception ex) {
+			System.out.println("El estudiante ya existe");
+		}
 	}
 
 	@Override
@@ -77,10 +82,17 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 		TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
 		query.setParameter("genero", genero);
 		List<Estudiante> estudiantesPorGenero = query.getResultList();
-		System.out.println("Estudiantes encontrados con el género "+ genero + ":");
-		for (Estudiante estudiante : estudiantesPorGenero) {
-		    System.out.println(estudiante.getApellido() + ", " + estudiante.getNombre());
+		
+		if (!estudiantesPorGenero.isEmpty()) {
+			System.out.println("Estudiantes encontrados con el género "+ genero + ":");
+			for (Estudiante estudiante : estudiantesPorGenero) {
+			    System.out.println(estudiante.getApellido() + ", " + estudiante.getNombre());
+			}
 		}
+		else {
+			System.out.println("No se encontraron estudiantes con este género");
+		}
+		
 		this.em.getTransaction().commit();
 		em.close();
 		return estudiantesPorGenero;
