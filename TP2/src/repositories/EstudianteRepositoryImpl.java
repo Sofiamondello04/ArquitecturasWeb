@@ -45,8 +45,14 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 		String jpql = "SELECT e FROM Estudiante e ORDER BY e.apellido DESC";
 		TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
 		List<Estudiante> estudiantes = query.getResultList();
-		for (Estudiante estudiante : estudiantes) {
-		    System.out.println(estudiante.getApellido() + ", " + estudiante.getNombre());
+		if(!estudiantes.isEmpty()) {
+			System.out.println("Estudiantes ordenados por nombre:");
+			for (Estudiante estudiante : estudiantes) {
+			    System.out.println(estudiante.getApellido() + ", " + estudiante.getNombre());
+			}		
+		}
+		else {
+			System.out.println("No se encontraron estudiantes");
 		}
 		this.em.getTransaction().commit();
 		em.close();
@@ -97,15 +103,7 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 		em.close();
 		return estudiantesPorGenero;
 	}
-//poner en interface
-	public Estudiante estudiantePorDni(int dni) {
-		//this.em.getTransaction().begin();
-		
-		Estudiante e = em.find(Estudiante.class, dni);
-		//this.em.getTransaction().commit();
-		//em.close();
-		return e;
-	}
+
 	
 
 }

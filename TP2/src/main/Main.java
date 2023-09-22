@@ -25,15 +25,17 @@ public class Main {
 		EntityManager em = FactoryEntityManager.getInstance();
 		
 		EstudianteRepositoryImpl est = new EstudianteRepositoryImpl(em);
-		Estudiante e = new Estudiante (12575806, "Ruben", "Nanti", 65, "masculino", "olavarria", 548581);
+		Estudiante e = new Estudiante (14570749, "Gladys", "Carbajal", 88, "femenino", "olavarria", 558581);
+		
+		
 		est.altaEstudiante(e);
-		System.out.println(e);
 		
-		//est.listaEstudianteOdenadoPorNombre();
 		
-		//est.estudiantePorLibreta(548541);
+		est.listaEstudianteOdenadoPorNombre();
 		
-		//est.listaEstudiantePorGenero("femenino");
+		est.estudiantePorLibreta(548541);
+		
+		est.listaEstudiantePorGenero("femenino");
 	}
 
 }
