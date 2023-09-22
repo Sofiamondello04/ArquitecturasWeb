@@ -46,12 +46,16 @@ public class Estudiante {
 		this.numLibretaUniversitaria = numLibretaUniversitaria;
 		this.inscripciones = new ArrayList<Inscripcion>();
 	}
-
-	public String getNombres() {
+	
+	public Estudiante()
+	{}
+	
+	
+	public String getNombre() {
 		return nombre;
 	}
 
-	public void setNombres(String nombres) {
+	public void setNombre(String nombres) {
 		this.nombre = nombres;
 	}
 

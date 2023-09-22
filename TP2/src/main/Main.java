@@ -1,13 +1,6 @@
 package main;
 
-import java.io.FileReader;
-
 import javax.persistence.EntityManager;
-
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-
-import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -16,7 +9,6 @@ import entities.Estudiante;
 import entities.Carrera;
 import entities.Inscripcion;
 import repositories.EstudianteRepositoryImpl;
-import java.io.FileReader;
 import utils.Helper;
 
 public class Main {
@@ -24,11 +16,14 @@ public class Main {
 	public static void main(String[] args) throws SQLException, IOException  {
 		EntityManager em = FactoryEntityManager.getInstance();
 		
-		/*EstudianteRepositoryImpl eri = new EstudianteRepositoryImpl(em);
-		Estudiante e = new Estudiante (70, "sofia", "mondello", 28, "fem", "tandil", 548541);
-		eri.altaEstudiante(e);
+		/*EstudianteRepositoryImpl est = new EstudianteRepositoryImpl(em);
+		Estudiante e = new Estudiante (33444131, "nicolas", "nanti", 35, "masculino", "olavarria", 548571);
+		est.altaEstudiante(e);
 		System.out.println(e);*/
 		
+		EstudianteRepositoryImpl est = new EstudianteRepositoryImpl(em);
+		
+		est.listaEstudianteOdenadoPorNombre();		
 	}
 
 }
