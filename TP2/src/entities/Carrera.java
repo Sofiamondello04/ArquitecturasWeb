@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,26 +18,32 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
-
-
 @Entity
 @Table(name ="carrera")
 public class Carrera {
+	
 	@Id
 	private int id_carrera;
+	
 	@Column(nullable=false)// indica que el campo no puede ser nulo
 	private String nombre;
 	@Column 
 	private int duracion;
+	
 	/*La anotacion mappedBy corresponde al atributo carrera de la clase Inscripción.*/
-	@OneToMany (mappedBy = "carrera", fetch=FetchType.LAZY)
+	@OneToMany (mappedBy = "carrera", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Inscripcion> inscriptos;
 
-	public Carrera(int id_carrera, String nombre, int duracion) {
-			this.id_carrera = id_carrera;
-			this.nombre = nombre;
-			this.duracion = duracion;
-			this.inscriptos = new ArrayList<Inscripcion>();
+	
+	public Carrera() {
+
+	}
+
+	public Carrera(int id, String nombre, int duracion) {
+		this.id_carrera = id;	
+		this.nombre = nombre;
+		this.duracion = duracion;
+		this.inscriptos = new ArrayList<Inscripcion>();
 	}
 
 	public String getNombre() {

@@ -8,10 +8,30 @@ import entities.Carrera;
 import entities.Estudiante;
 
 public class CarreraRepositoryImpl implements CarreraRepository{
+	
 	private EntityManager em;
 	
 	public CarreraRepositoryImpl(EntityManager em) {
 		this.em = em;
+	}
+
+	
+	@Override
+	public void insertarCarrera(Carrera c) {
+		try {
+			this.em.getTransaction().begin();
+			if(!em.contains(c)) {
+				em.persist(c);
+			} 
+			else {
+				em.merge(c);		
+			}
+			this.em.getTransaction().commit();
+			
+		}
+		catch (Exception ex) {
+			System.out.println("La carrera ya existe");
+		}
 	}
 
 	@Override

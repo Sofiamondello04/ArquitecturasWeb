@@ -37,17 +37,16 @@ public class Helper {
 	//aca se cargan los csv. Asegurarse que los archivos tengan los mismo nombres
 	
 	public void fillTables() throws SQLException, FileNotFoundException, IOException {
-		this.em.getTransaction().begin();
+		//this.em.getTransaction().begin();
 		//this.fillTableEstudiante();
 		//this.fillTableCarrera();
 		this.fillTableInscripcion();
 		em.getTransaction().commit();
-		
+		em.close();
 	}
 	
 
 	public void fillTableEstudiante() throws SQLException, FileNotFoundException, IOException {
-		
 		CSVParser datosEstudiantes;
 		datosEstudiantes = CSVFormat.DEFAULT.withHeader().parse(new FileReader("./src/csv/estudiantes.csv"));
 		for (CSVRecord row : datosEstudiantes) {

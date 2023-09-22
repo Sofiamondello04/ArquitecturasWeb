@@ -41,7 +41,7 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 	@Override
 	public List<Estudiante> listaEstudianteOdenadoPorApellido() throws SQLException {
 		this.em.getTransaction().begin();	
-		String jpql = "SELECT e FROM Estudiante e ORDER BY e.apellido DESC";
+		String jpql = "SELECT e FROM Estudiante e ORDER BY e.apellido ASC";
 		TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
 		List<Estudiante> estudiantes = query.getResultList();
 		if(!estudiantes.isEmpty()) {
@@ -60,25 +60,22 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 
 	@Override
 	public Estudiante estudiantePorLibreta(int numLibretaUniversitaria) throws SQLException{
-		this.em.getTransaction().begin();	
-		String jpql = "SELECT e FROM Estudiante e WHERE e.numLibretaUniversitaria = :numLibretaUniversitaria";
-		 TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
+		// MANEJAR EXCEPCIONES
+		try {
+			this.em.getTransaction().begin();	
+			String jpql = "SELECT e FROM Estudiante e WHERE e.numLibretaUniversitaria = :numLibretaUniversitaria";
+			TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
 	        query.setParameter("numLibretaUniversitaria", numLibretaUniversitaria);
 	        Estudiante estudiante = query.getSingleResult();
-	        //se podria mejorar con el toString
-	        if (estudiante != null) {
-	            System.out.println("Estudiante encontrado:");
-	            System.out.println("Numero de Libreta: " + estudiante.getNumLibretaUniversitaria());
-	            System.out.println("Nombre: " + estudiante.getNombre());
-	            System.out.println("Apellido: " + estudiante.getApellido());
-	        } 
-	        
-	        else {
-	            System.out.println("Estudiante no encontrado para el numero de libreta: " + numLibretaUniversitaria);
+	        if (estudiante!=null) {
+	        	System.out.println(estudiante);
+	            this.em.getTransaction().commit();
 	        }
-	this.em.getTransaction().commit();
-	
-	return estudiante;
+	    }
+		catch (Exception exc) {
+			System.out.println("Estudiante no encontrado para el numero de libreta: " + numLibretaUniversitaria);
+		}
+		return null;
 	}
 
 	@Override
@@ -88,7 +85,6 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 		TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
 		query.setParameter("genero", genero);
 		List<Estudiante> estudiantesPorGenero = query.getResultList();
-		
 		if (!estudiantesPorGenero.isEmpty()) {
 			System.out.println("Estudiantes encontrados con el género "+ genero + ":");
 			for (Estudiante estudiante : estudiantesPorGenero) {
@@ -103,6 +99,7 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 		
 		return estudiantesPorGenero;
 	}
+	
 	public Estudiante estudiantePorDNI(int dni) throws SQLException{
 		this.em.getTransaction().begin();	
 		String jpql = "SELECT e FROM Estudiante e WHERE e.dni = :dni";
@@ -112,6 +109,25 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 		this.em.getTransaction().commit();
 		
 		return estudiante;
+	}
+	
+	public List<Estudiante> listaEstudianteByGenre() throws SQLException {
+		this.em.getTransaction().begin();	
+		String jpql = "SELECT e FROM Estudiante e ORDER BY e.genero";
+		TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
+		List<Estudiante> estudiantes = query.getResultList();
+		if(!estudiantes.isEmpty()) {
+			System.out.println("Estudiantes ordenados por genero:");
+			for (Estudiante estudiante : estudiantes) {
+			    System.out.println(estudiante.getApellido() + ", " + estudiante.getNombre() + "," + estudiante.getGenero());
+			}		
+		}
+		else {
+			System.out.println("No se encontraron estudiantes");
+		}
+		this.em.getTransaction().commit();
+		
+		return estudiantes;
 	}
 	
 

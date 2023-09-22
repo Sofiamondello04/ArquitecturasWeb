@@ -4,6 +4,7 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,11 +34,17 @@ public class Estudiante {
 	private String ciudadResidencia;
 	@Column
 	private int numLibretaUniversitaria;
+	
 	/*esto se puede hacer asi o hacer una relacion ManyToMany con carreras directamente.
 	el mappedBy corresponde al atributo estudiante de la clase Inscripción.*/
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estudiante")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estudiante", cascade = CascadeType.ALL)
 	private List<Inscripcion> inscripciones;
+
 	
+	public Estudiante() {
+		super();
+	}
+
 	public Estudiante(int dni, String nombre, String apellido, int edad, String genero, String ciudad, int numLibretaUniversitaria) {
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -48,11 +55,7 @@ public class Estudiante {
 		this.numLibretaUniversitaria = numLibretaUniversitaria;
 		this.inscripciones = new ArrayList<Inscripcion>();
 	}
-	
-	public Estudiante()
-	{}
-	
-	
+
 	public String getNombre() {
 		return nombre;
 	}

@@ -1,7 +1,11 @@
 package repositories;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
+import entities.Inscripcion;
+
 public interface InscripcionRepository {
-	
-	void altaEstudianteCarrera();
+
+	void matricularEstudiante(Inscripcion i);
 
 }

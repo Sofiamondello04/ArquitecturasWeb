@@ -1,4 +1,6 @@
-package entities;
+	package entities;
+
+import java.io.Serializable;
 
 import javax.annotation.processing.Generated;
 import javax.persistence.CascadeType;
@@ -18,7 +20,6 @@ public class Inscripcion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id_inscripcion;
-	
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_estudiante")
