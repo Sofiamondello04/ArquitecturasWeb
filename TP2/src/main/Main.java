@@ -1,6 +1,9 @@
 package main;
 
 import javax.persistence.EntityManager;
+
+import dto.DtoCantidadInscriptosPorCarrera;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -71,9 +74,12 @@ public class Main {
 		InscripcionRepositoryImpl iri = new InscripcionRepositoryImpl(em);
 		System.out.println("--------------------------");
 		// 2.F RECUPERAR LAS CARRERAS CON ESTUDIANTES INSCRIPTOS Y ORDENAR POR CANTIDAD DE INSCRIPTOS
-		List<Carrera> carrerasConInscriptos= iri.carrerasConInscriptos();
-		System.out.println("Carreras con inscriptos ordenados por cantidad de inscriptos");
-		carrerasConInscriptos.forEach( p-> System.out.println(p));
+		List<DtoCantidadInscriptosPorCarrera> carrerasConInscriptos = iri.carrerasConInscriptos();
+		System.out.println(carrerasConInscriptos);
+		
+		
+		// 2.G RECUPERAR LOS ESTUDIANTES DE UNA DETERMINADA CARRERA, FILTRADO POR CIUDAD DE RESIDENCIA
+		
 	}
 
 }

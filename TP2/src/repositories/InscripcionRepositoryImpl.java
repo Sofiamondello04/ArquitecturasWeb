@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
+import dto.DtoCantidadInscriptosPorCarrera;
 import entities.Carrera;
 import entities.Estudiante;
 import entities.Inscripcion;
@@ -39,16 +42,18 @@ public class InscripcionRepositoryImpl implements InscripcionRepository {
 	}
 
 
-	public List<Carrera> carrerasConInscriptos() {
-		//this.em.getTransaction().begin();
-		@SuppressWarnings("unchecked")
-		List<Carrera> carrerasConInscriptosPorCantInsc = em.createQuery("SELECT c.nombre, COUNT(i.id_inscripcion) AS cantidadInscritos\r\n"
-				+ "FROM Carrera c\r\n"
-				+ "LEFT JOIN c.inscripciones i\r\n"
-				+ "GROUP BY c.idCarrera, c.nombre\r\n"
-				+ "ORDER BY cantidadInscritos DESC").getResultList(); 
-		//em.close();
-		return carrerasConInscriptosPorCantInsc;
+	public List<DtoCantidadInscriptosPorCarrera> carrerasConInscriptos() {
+		    this.em.getTransaction().begin();
+		    Query query = em.createQuery("SELECT NEW dto.DtoCantidadInscriptosPorCarrera(c.nombre, COUNT(i))\r\n"
+		            + "FROM Carrera c\r\n"
+		            + "LEFT JOIN c.inscriptos i\r\n"
+		            + "GROUP BY c.nombre\r\n"
+		            + "ORDER BY COUNT(i) DESC", DtoCantidadInscriptosPorCarrera.class);
+
+		    List<DtoCantidadInscriptosPorCarrera> results = query.getResultList();
+		    em.getTransaction().commit();
+		    em.close();
+		    return results;
+		}
 	}
 
-}

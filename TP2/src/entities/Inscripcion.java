@@ -23,12 +23,10 @@ public class Inscripcion {
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_estudiante")
-	// @Column(name= "id_estudiante")
 	private Estudiante estudiante;
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_carrera")
-	// @Column(name= "id_carrera")
 	private Carrera carrera;
 	
 	@Column
