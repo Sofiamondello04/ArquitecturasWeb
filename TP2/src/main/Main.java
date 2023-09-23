@@ -3,6 +3,7 @@ package main;
 import javax.persistence.EntityManager;
 
 import dto.DtoCantidadInscriptosPorCarrera;
+import dto.DtoEstudiante;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -40,7 +41,10 @@ public class Main {
 		*/
 
 		
-		/*
+		
+		
+		
+		
 		System.out.println("--------------------------");
 		//2.A DAR DE ALTA A UN ESTUDIANTE
 		EstudianteRepositoryImpl est = new EstudianteRepositoryImpl(em);
@@ -64,22 +68,23 @@ public class Main {
 		
 		System.out.println("--------------------------");
 		//2.D RECUPERAR UN ESTUDIANTE EN BASE A SU NUMERO DE LIBRETA UNIVERSITARIA.
-		est.estudiantePorLibreta(95000);
+		est.estudiantePorLibreta(250020);
 		
 		System.out.println("--------------------------");
 		//2.E RECUPERAR TODOS LOS ESTUDIANTES EN BASE A SU GENERO.
 		est.listaEstudiantePorGenero("femenino"); //GENERO SOLICITADO
 		est.listaEstudianteByGenre(); //ORDENADOS POR GENERO
-		*/
-		InscripcionRepositoryImpl iri = new InscripcionRepositoryImpl(em);
+	
+
 		System.out.println("--------------------------");
 		// 2.F RECUPERAR LAS CARRERAS CON ESTUDIANTES INSCRIPTOS Y ORDENAR POR CANTIDAD DE INSCRIPTOS
 		List<DtoCantidadInscriptosPorCarrera> carrerasConInscriptos = iri.carrerasConInscriptos();
 		System.out.println(carrerasConInscriptos);
-		
+
 		
 		// 2.G RECUPERAR LOS ESTUDIANTES DE UNA DETERMINADA CARRERA, FILTRADO POR CIUDAD DE RESIDENCIA
-		
+		List<DtoEstudiante> estudiantesPorCarreraYCiudad = est.listaEstudiantePorCarrerayCiudad("Diseño Grafico", "Tandil");
+		System.out.println(estudiantesPorCarreraYCiudad);
 	}
 
 }

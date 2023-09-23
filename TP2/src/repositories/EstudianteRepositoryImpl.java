@@ -8,9 +8,12 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-
+import dto.DtoCantidadInscriptosPorCarrera;
+import dto.DtoEstudiante;
+import entities.Carrera;
 import entities.Estudiante;
 
 public class EstudianteRepositoryImpl implements EstudianteRepository {
@@ -30,12 +33,14 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 			else {
 				em.merge(e);		
 			}
-			this.em.getTransaction().commit();
-			
+			this.em.getTransaction().commit();			
+			System.out.println("El estudiante fue dado de alta con exito");
+
 		}
 		catch (Exception ex) {
 			System.out.println("El estudiante ya existe");
 		}
+
 	}
 
 	@Override
@@ -54,7 +59,6 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 			System.out.println("No se encontraron estudiantes");
 		}
 		this.em.getTransaction().commit();
-		
 		return estudiantes;
 	}
 
@@ -75,6 +79,7 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 		catch (Exception exc) {
 			System.out.println("Estudiante no encontrado para el numero de libreta: " + numLibretaUniversitaria);
 		}
+
 		return null;
 	}
 
@@ -96,7 +101,7 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 		}
 		
 		this.em.getTransaction().commit();
-		
+
 		return estudiantesPorGenero;
 	}
 	
@@ -107,7 +112,8 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 	        query.setParameter("dni", dni);
 	        Estudiante estudiante = query.getSingleResult();
 		this.em.getTransaction().commit();
-		
+	    em.close();
+
 		return estudiante;
 	}
 	
@@ -126,9 +132,27 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 			System.out.println("No se encontraron estudiantes");
 		}
 		this.em.getTransaction().commit();
-		
+
 		return estudiantes;
 	}
 	
+	public List<DtoEstudiante> listaEstudiantePorCarrerayCiudad(String carrera, String ciudad) {
+		 this.em.getTransaction().begin();
+		    Query query = em.createQuery("SELECT NEW dto.DtoEstudiante(e.dni, e.nombre, e.apellido) " +
+		    	    "FROM Estudiante e " +
+		    	    "INNER JOIN e.inscripciones i " +
+		    	    "INNER JOIN i.carrera c " +
+		    	    "WHERE c.nombre = :nombreCarrera " +
+		    	    "AND e.ciudadResidencia = :ciudadResidencia",
+		    	    DtoEstudiante.class);
 
+		    query.setParameter("nombreCarrera", carrera); // Establece el valor del parámetro "nombreCarrera"
+		    query.setParameter("ciudadResidencia", ciudad); // Establece el valor del parámetro "ciudadResidencia"
+
+		    List<DtoEstudiante> estudiantesDTO = query.getResultList();
+		    em.getTransaction().commit();
+		    em.close();
+		    
+			return estudiantesDTO;
+	}
 }

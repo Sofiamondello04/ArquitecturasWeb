@@ -23,7 +23,6 @@ import javax.persistence.Table;
 public class Carrera {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id_carrera;
 	
 	@Column(nullable=false)// indica que el campo no puede ser nulo

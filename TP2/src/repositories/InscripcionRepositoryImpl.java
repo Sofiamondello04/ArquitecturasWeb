@@ -34,6 +34,8 @@ public class InscripcionRepositoryImpl implements InscripcionRepository {
 				em.merge(i);		
 			}
 			this.em.getTransaction().commit();
+			System.out.println("El estudiante fue matriculado con exito en la carrera");
+
 			
 		}
 		catch (Exception ex) {
@@ -52,7 +54,6 @@ public class InscripcionRepositoryImpl implements InscripcionRepository {
 
 		    List<DtoCantidadInscriptosPorCarrera> results = query.getResultList();
 		    em.getTransaction().commit();
-		    em.close();
 		    return results;
 		}
 	}
