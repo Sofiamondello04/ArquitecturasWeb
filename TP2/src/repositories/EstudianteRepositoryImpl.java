@@ -106,15 +106,28 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 	}
 	
 	public Estudiante estudiantePorDNI(int dni) throws SQLException{
-		this.em.getTransaction().begin();	
-		String jpql = "SELECT e FROM Estudiante e WHERE e.dni = :dni";
-		 TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
+		try {
+			if (!em.getTransaction().isActive()) {
+			    em.getTransaction().begin();
+			}
+	        String jpql = "SELECT e FROM Estudiante e WHERE e.dni = :dni";
+	        TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
 	        query.setParameter("dni", dni);
-	        Estudiante estudiante = query.getSingleResult();
-		this.em.getTransaction().commit();
-	    em.close();
+	        
 
-		return estudiante;
+	        Estudiante estudiante = query.getResultList().stream().findFirst().orElse(null);
+	        
+	        this.em.getTransaction().commit();
+
+
+	        return estudiante;
+	    } catch (Exception e) {
+	        if (em.getTransaction().isActive()) {
+	            em.getTransaction().rollback();
+	        }
+	        e.printStackTrace();
+	        return null; // Devuelve null en lugar de arrojar la excepción
+	    } 
 	}
 	
 	public List<Estudiante> listaEstudianteByGenre() throws SQLException {
@@ -148,10 +161,10 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 
 		    query.setParameter("nombreCarrera", carrera); // Establece el valor del parï¿½metro "nombreCarrera"
 		    query.setParameter("ciudadResidencia", ciudad); // Establece el valor del parï¿½metro "ciudadResidencia"
-
+		    System.out.println("Los estudiantes de la carrera " + carrera + " y de la ciudad " + ciudad + " son: ");
 		    List<DtoEstudiante> estudiantesDTO = query.getResultList();
 		    em.getTransaction().commit();
-		    em.close();
+
 		    
 			return estudiantesDTO;
 	}

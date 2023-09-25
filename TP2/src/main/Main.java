@@ -35,11 +35,12 @@ public class Main {
 		
 		 // UTILIZACION DEL HELPER PARA POBLAR LAS TABLAS
 		 
-		// Helper helper = new Helper(em);
-		 //helper.fillTables();
+		Helper helper = new Helper(em);
+		helper.fillTableEstudiante();
+		helper.fillTableCarrera();
+		helper.fillTableInscripcion();
 		 
-		 
-	
+		
 		System.out.println("--------------------------");
 		//2.A DAR DE ALTA A UN ESTUDIANTE
 		EstudianteRepositoryImpl est = new EstudianteRepositoryImpl(em);
@@ -69,6 +70,7 @@ public class Main {
 		System.out.println("--------------------------");
 		//2.E RECUPERAR TODOS LOS ESTUDIANTES EN BASE A SU GENERO.
 		est.listaEstudiantePorGenero("femenino"); //GENERO SOLICITADO
+		System.out.println("--------------------------");
 		est.listaEstudianteByGenre(); //ORDENADOS POR GENERO
 	
 		
@@ -83,12 +85,12 @@ public class Main {
 		System.out.println(estudiantesPorCarreraYCiudad);
 		
 		
-		/*
+	
 		System.out.println("--------------------------");
 		//3. GENERAR UNA REPORTE DE LAS CARRERAS ORDENADAS ALFABETICAMENTE, CON INFO DE LOS INSCRIPTOS Y LOS EGRESADOS POR ANIO.
-		List<DtoReporte> ReporteCarrera = car.Reporte();
+		//CarreraRepositoryImpl car = new CarreraRepositoryImpl(em);
+		List<DtoReporte> ReporteCarrera = car.reporte();
 		System.out.println(ReporteCarrera);
-		*/
 		
 	}
 

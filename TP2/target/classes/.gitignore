@@ -1,7 +1,5 @@
-/main/
-/utils/
-/META-INF/
-/repositories/
 /dto/
-/factory/
-/entities/
+/main/
+/repositories/
+/META-INF/
+/utils/

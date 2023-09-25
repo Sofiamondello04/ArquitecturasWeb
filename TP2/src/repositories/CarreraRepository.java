@@ -11,5 +11,5 @@ import entities.Estudiante;
 @SuppressWarnings("unused")
 public interface CarreraRepository {
 	void insertarCarrera(Carrera c);
-	List<DtoReporte> Reporte();
+	List<DtoReporte> reporte();
 }
