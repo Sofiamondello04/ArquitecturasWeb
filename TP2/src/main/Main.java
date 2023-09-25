@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 
 import dto.DtoCantidadInscriptosPorCarrera;
 import dto.DtoEstudiante;
+import dto.DtoReporte;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -31,20 +32,14 @@ public class Main {
 		
 		EntityManager em = FactoryEntityManager.getInstance();
 		
-		/*
-		 * UTILIZACION DEL HELPER PARA POBLAR LAS TABLAS
-		 * 
-		 *Helper helper = new Helper(em);
-		 *helper.fillTables();
-		 * 
-		 * 
-		*/
-
 		
-		
-		
-		
-		
+		 // UTILIZACION DEL HELPER PARA POBLAR LAS TABLAS
+		 
+		// Helper helper = new Helper(em);
+		 //helper.fillTables();
+		 
+		 
+	
 		System.out.println("--------------------------");
 		//2.A DAR DE ALTA A UN ESTUDIANTE
 		EstudianteRepositoryImpl est = new EstudianteRepositoryImpl(em);
@@ -54,14 +49,15 @@ public class Main {
 		System.out.println("--------------------------");
 		// DAR DE ALTA UNA CARRERA
 		CarreraRepositoryImpl car = new CarreraRepositoryImpl(em);
-		Carrera c = new Carrera(16, "Diseño Grafico", 5);
+		Carrera c = new Carrera(16, "Diseï¿½o Grafico", 5);
 		car.insertarCarrera(c);
+		
 		
 		//2.B MATRICULAR A UN ESTUDIANTE EN UNA CARRERA
 		InscripcionRepositoryImpl iri = new InscripcionRepositoryImpl(em);
 		Inscripcion ins = new Inscripcion(e, c, 2021, 2026, 5);
 		iri.matricularEstudiante(ins);
-
+		
 		System.out.println("--------------------------");
 		//2.C RECUPERAR TODOS LOS ESTUDIANTES CON UN ORDENAMIENTO SIMPLE (POR APELLIDO).
 		est.listaEstudianteOdenadoPorApellido();
@@ -75,7 +71,7 @@ public class Main {
 		est.listaEstudiantePorGenero("femenino"); //GENERO SOLICITADO
 		est.listaEstudianteByGenre(); //ORDENADOS POR GENERO
 	
-
+		
 		System.out.println("--------------------------");
 		// 2.F RECUPERAR LAS CARRERAS CON ESTUDIANTES INSCRIPTOS Y ORDENAR POR CANTIDAD DE INSCRIPTOS
 		List<DtoCantidadInscriptosPorCarrera> carrerasConInscriptos = iri.carrerasConInscriptos();
@@ -83,8 +79,17 @@ public class Main {
 
 		
 		// 2.G RECUPERAR LOS ESTUDIANTES DE UNA DETERMINADA CARRERA, FILTRADO POR CIUDAD DE RESIDENCIA
-		List<DtoEstudiante> estudiantesPorCarreraYCiudad = est.listaEstudiantePorCarrerayCiudad("Diseño Grafico", "Tandil");
+		List<DtoEstudiante> estudiantesPorCarreraYCiudad = est.listaEstudiantePorCarrerayCiudad("Diseï¿½o Grafico", "Tandil");
 		System.out.println(estudiantesPorCarreraYCiudad);
+		
+		
+		/*
+		System.out.println("--------------------------");
+		//3. GENERAR UNA REPORTE DE LAS CARRERAS ORDENADAS ALFABETICAMENTE, CON INFO DE LOS INSCRIPTOS Y LOS EGRESADOS POR ANIO.
+		List<DtoReporte> ReporteCarrera = car.Reporte();
+		System.out.println(ReporteCarrera);
+		*/
+		
 	}
 
 }

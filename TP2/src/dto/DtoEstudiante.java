@@ -6,7 +6,7 @@ public class DtoEstudiante {
     private String nombre;
     private String apellido;
     
-    
+   
 	public DtoEstudiante(int dni, String nombre, String apellido) {
 		super();
 		this.dni = dni;

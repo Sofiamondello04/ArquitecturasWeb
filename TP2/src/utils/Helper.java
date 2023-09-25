@@ -37,10 +37,10 @@ public class Helper {
 	//aca se cargan los csv. Asegurarse que los archivos tengan los mismo nombres
 	
 	public void fillTables() throws SQLException, FileNotFoundException, IOException {
-		//this.em.getTransaction().begin();
+		this.em.getTransaction().begin();
 		//this.fillTableEstudiante();
 		//this.fillTableCarrera();
-		this.fillTableInscripcion();
+		//this.fillTableInscripcion();
 		em.getTransaction().commit();
 		em.close();
 	}

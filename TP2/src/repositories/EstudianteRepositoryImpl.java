@@ -146,8 +146,8 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 		    	    "AND e.ciudadResidencia = :ciudadResidencia",
 		    	    DtoEstudiante.class);
 
-		    query.setParameter("nombreCarrera", carrera); // Establece el valor del parámetro "nombreCarrera"
-		    query.setParameter("ciudadResidencia", ciudad); // Establece el valor del parámetro "ciudadResidencia"
+		    query.setParameter("nombreCarrera", carrera); // Establece el valor del parï¿½metro "nombreCarrera"
+		    query.setParameter("ciudadResidencia", ciudad); // Establece el valor del parï¿½metro "ciudadResidencia"
 
 		    List<DtoEstudiante> estudiantesDTO = query.getResultList();
 		    em.getTransaction().commit();
