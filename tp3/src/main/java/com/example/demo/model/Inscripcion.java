@@ -19,11 +19,11 @@ public class Inscripcion {
 	private int id_inscripcion;
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "fk_estudiante")
-	private Estudiante estudiante;
+	@JoinColumn(name = "dni")
+	private Estudiante dni;
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "fk_carrera")
+	@JoinColumn(name = "id_carrera")
 	private Carrera carrera;
 	
 	@Column
@@ -40,7 +40,7 @@ public class Inscripcion {
 	}
 
 	public Inscripcion(Estudiante estudiante, Carrera carrera, int anioInscripcion, int anioGraduacion,int antiguedad) {	
-		this.estudiante = estudiante;
+		this.dni = estudiante;
 		this.carrera = carrera;
 		this.anioInscripcion = anioInscripcion;
 		this.anioGraduacion = anioGraduacion;
@@ -48,11 +48,11 @@ public class Inscripcion {
 	}
 
 	public Estudiante getEstudiante() {
-		return estudiante;
+		return dni;
 	}
 
 	public void setEstudiante(Estudiante estudiante) {
-		this.estudiante = estudiante;
+		this.dni = estudiante;
 	}
 
 	public Carrera getCarrera() {
@@ -93,7 +93,7 @@ public class Inscripcion {
 
 	@Override
 	public String toString() {
-		return "EstudianteCarrera [id_ec=" + id_inscripcion+ ", estudiante=" + estudiante + ", carrera=" + carrera
+		return "EstudianteCarrera [id_ec=" + id_inscripcion+ ", estudiante=" + dni + ", carrera=" + carrera
 				+ ", anioInscripcion=" + anioInscripcion + ", anioGraduacion=" + anioGraduacion + ", antiguedad="
 				+ antiguedad + "]";
 	}

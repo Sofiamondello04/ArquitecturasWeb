@@ -16,20 +16,31 @@ import org.springframework.context.annotation.Configuration;
 public class LoadDatabase {
 
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
+    
     @Bean
     CommandLineRunner initDatabase(@Qualifier("estudianteRepository") EstudianteRepository repository) {
         return args -> {
-            log.info("Preloading " + repository.save(new Estudiante("Bernardo", "Gonzalez", 32, "Masculino", "Tandil", (int) 35418667, null)));
-            log.info("Preloading " + repository.save(new Estudiante("Sofia", "Mondelo", 28, "Femenino", "Tandil", (int) 38418467, null)));
-            log.info("Preloading " + repository.save(new Estudiante("Mauro", "Valerioti", 29, "NoBinario", "Tandil", (int) 38602821, null)));
+        	Estudiante estudiante1 = new Estudiante("Bernardo", "Gonzalez", 32, "Masculino", "Tandil", (int) 35418667, null);
+        	Estudiante estudiante2 = new Estudiante("Sofia", "Mondelo", 28, "Femenino", "Tandil", (int) 38418467, null);
+        	Estudiante estudiante3 = new Estudiante("Mauro", "Valerioti", 29, "NoBinario", "Tandil", (int) 38602821, null);
+          
+        	log.info("Preloading " + repository.save(estudiante1));
+            log.info("Preloading " + repository.save(estudiante2));
+            log.info("Preloading " + repository.save(estudiante3));
         };
     }
     
     @Bean
     CommandLineRunner initDatabase2(@Qualifier("carreraRepository") CarreraRepository repository) {
         return args -> {
-            log.info("Preloading " + repository.save(new Carrera("tudai", (int) 3)));
-            log.info("Preloading " + repository.save(new Carrera("ing sistemas", (int) 5)));
+        	
+        	Carrera carrera1 = new Carrera("tudai", (int) 3);
+        	Carrera carrera2 =new Carrera("ing sistemas", (int) 5);
+        	
+            log.info("Preloading " + repository.save(carrera1));
+            log.info("Preloading " + repository.save(carrera2));
+            
+           // log.info("Preloading " + carrera1.setInscriptos());
         };
     }
 

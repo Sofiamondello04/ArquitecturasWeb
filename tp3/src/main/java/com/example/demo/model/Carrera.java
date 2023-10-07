@@ -10,6 +10,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 
@@ -27,7 +28,8 @@ public class Carrera {
 	private int duracion;
 	
 	/*La anotacion mappedBy corresponde al atributo carrera de la clase Inscripción.*/
-	@OneToMany (mappedBy = "carrera", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	//@OneToMany (mappedBy = "carrera", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "carrera")
 	private List<Inscripcion> inscriptos;
 
 	

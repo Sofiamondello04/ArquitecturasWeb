@@ -9,7 +9,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import lombok.Data;
 
 @Entity
@@ -33,16 +35,22 @@ public class Estudiante {
 	@Column (name="numLibretaUniversitaria")
 	private int numLibretaUniversitaria;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estudiante", cascade = CascadeType.ALL)
+	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "estudiante", cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JoinTable(
+		    name = "Inscripcion",
+		    joinColumns = @JoinColumn(name = "fk_estudiante", referencedColumnName = "dni"),
+		    inverseJoinColumns = @JoinColumn(name = "fk_carrera", referencedColumnName = "id_carrera")
+		)
+
 	private List<Inscripcion> inscripciones;
 
+	
 	
 	public Estudiante() {
 		super();
 	}
-
 	
-
 	public Estudiante(String nombre, String apellido, int edad, String genero, String ciudadResidencia,
 			int numLibretaUniversitaria, List<Inscripcion> inscripciones) {
 		super();
@@ -54,8 +62,6 @@ public class Estudiante {
 		this.numLibretaUniversitaria = numLibretaUniversitaria;
 		this.inscripciones = inscripciones;
 	}
-
-
 
 	public String getNombre() {
 		return nombre;

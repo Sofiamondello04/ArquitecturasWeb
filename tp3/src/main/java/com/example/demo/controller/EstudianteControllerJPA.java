@@ -19,6 +19,7 @@ import com.example.demo.repository.EstudianteRepository;
 @RestController
 @RequestMapping("estudiantes")
 public class EstudianteControllerJPA {
+	
 	@Qualifier("estudianteRepository")
     @Autowired
     private final EstudianteRepository repository;
