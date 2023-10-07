@@ -6,6 +6,8 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
@@ -15,6 +17,7 @@ import lombok.Data;
 public class Estudiante {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int dni;
 	
 	@Column(nullable=false)
@@ -27,7 +30,7 @@ public class Estudiante {
 	private String genero;
 	@Column (name="ciudad")
 	private String ciudadResidencia;
-	@Column
+	@Column (name="numLibretaUniversitaria")
 	private int numLibretaUniversitaria;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estudiante", cascade = CascadeType.ALL)
@@ -40,10 +43,9 @@ public class Estudiante {
 
 	
 
-	public Estudiante(int dni, String nombre, String apellido, int edad, String genero, String ciudadResidencia,
+	public Estudiante(String nombre, String apellido, int edad, String genero, String ciudadResidencia,
 			int numLibretaUniversitaria, List<Inscripcion> inscripciones) {
 		super();
-		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.edad = edad;

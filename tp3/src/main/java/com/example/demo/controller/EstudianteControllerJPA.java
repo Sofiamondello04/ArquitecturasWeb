@@ -27,9 +27,11 @@ public class EstudianteControllerJPA {
         this.repository = repository;
     }
 
+    
+    //Solucion al inciso 2.c.
     @GetMapping("/")
     public List<Estudiante> getEstudiantes() {
-        return repository.findAll();
+        return repository.findAllAsc();
     }
 
     @GetMapping("/ByApellido/{apellido}")
@@ -40,8 +42,24 @@ public class EstudianteControllerJPA {
     @GetMapping("/ByNombre/{nombre}")
     public List<Estudiante> getPersonsByNombre(@PathVariable String nombre) {
         return repository.findAllByNombre(nombre);
+        
+    }
+    
+  //Solucion la inciso 2.e.
+    @GetMapping("/ByGenero/{genero}")
+    public List<Estudiante> getPersonsByGenero(@PathVariable String genero) {
+        return repository.findAllByGenero(genero);
+        
+    }
+    
+    //Solucion la inciso 2.d.
+    @GetMapping("/ByNumLibretaUniversitaria/{numLibretaUniversitaria}")
+    public List<Estudiante> getPersonsByNroLibreta(@PathVariable int numLibretaUniversitaria) {
+        return repository.findAllByNroLibreta(numLibretaUniversitaria);
+        
     }
 
+    //Solucion al inciso 2.a.
     @PostMapping("/")
     public Estudiante newEstudiante(@RequestBody Estudiante e) {
         return repository.save(e);
@@ -52,6 +70,7 @@ public class EstudianteControllerJPA {
     public Estudiante getEstudiante(@PathVariable(value = "nombre") String nombre) {
         return repository.findAllByNombre(nombre).get(0);
     }
+    
     @GetMapping("/{id}")
     Optional<Estudiante> one(@PathVariable int id) {
         return repository.findById(id);

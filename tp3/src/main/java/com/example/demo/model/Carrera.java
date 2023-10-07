@@ -7,6 +7,8 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
@@ -16,6 +18,7 @@ import lombok.Data;
 public class Carrera {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id_carrera;
 	
 	@Column(nullable=false)// indica que el campo no puede ser nulo
@@ -32,8 +35,7 @@ public class Carrera {
 
 	}
 
-	public Carrera(int id, String nombre, int duracion) {
-		this.id_carrera = id;	
+	public Carrera(String nombre, int duracion) {
 		this.nombre = nombre;
 		this.duracion = duracion;
 		this.inscriptos = new ArrayList<Inscripcion>();

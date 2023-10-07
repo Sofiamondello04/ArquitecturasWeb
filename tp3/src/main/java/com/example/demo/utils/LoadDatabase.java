@@ -19,15 +19,17 @@ public class LoadDatabase {
     @Bean
     CommandLineRunner initDatabase(@Qualifier("estudianteRepository") EstudianteRepository repository) {
         return args -> {
-            log.info("Preloading " + repository.save(new Estudiante((int) 1234,"Bernardo", "Gonzalez", 32, "Masculino", "Tandil", (int) 35418667, null)));
-            log.info("Preloading " + repository.save(new Estudiante((int) 12345,"Sofia", "Mondelo", 28, "Femenino", "Tandil", (int) 38418467, null)));
+            log.info("Preloading " + repository.save(new Estudiante("Bernardo", "Gonzalez", 32, "Masculino", "Tandil", (int) 35418667, null)));
+            log.info("Preloading " + repository.save(new Estudiante("Sofia", "Mondelo", 28, "Femenino", "Tandil", (int) 38418467, null)));
+            log.info("Preloading " + repository.save(new Estudiante("Mauro", "Valerioti", 29, "NoBinario", "Tandil", (int) 38602821, null)));
         };
     }
     
     @Bean
     CommandLineRunner initDatabase2(@Qualifier("carreraRepository") CarreraRepository repository) {
         return args -> {
-            log.info("Preloading " + repository.save(new Carrera((int) 2, "tudai", (int) 5)));
+            log.info("Preloading " + repository.save(new Carrera("tudai", (int) 3)));
+            log.info("Preloading " + repository.save(new Carrera("ing sistemas", (int) 5)));
         };
     }
 
