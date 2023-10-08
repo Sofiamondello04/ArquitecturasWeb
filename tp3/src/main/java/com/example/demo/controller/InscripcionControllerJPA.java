@@ -13,39 +13,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.model.Carrera;
-import com.example.demo.repository.CarreraRepository;
+import com.example.demo.model.Inscripcion;
+import com.example.demo.repository.InscripcionRepository;
+
 
 @RestController
-@RequestMapping("carreras")
-
-public class CarreraControllerJPA {
-	@Qualifier("carreraRepository")
+@RequestMapping("inscripciones")
+public class InscripcionControllerJPA {
+	
+	@Qualifier("inscripcionRepository")
     @Autowired
-    private final CarreraRepository repository;
+    private final InscripcionRepository repository;
 
-    public CarreraControllerJPA(@Qualifier("carreraRepository") CarreraRepository repository) {
+    public InscripcionControllerJPA(@Qualifier("inscripcionRepository") InscripcionRepository repository) {
         this.repository = repository;
     }
 
     @GetMapping("/")
-    public List<Carrera> getCarreras() {
+    public List<Inscripcion> getInscripciones() {
         return repository.findAll();
     }
-
-    @GetMapping("/ByNombre/{nombre}")
-    public List<Carrera> getCarrerasByNombre(@PathVariable String nombre) {
-        return repository.findByNombre(nombre);
-    }
-
    
     @PostMapping("/")
-    public Carrera newCarrera(@RequestBody Carrera c) {
-        return repository.save(c);
+    public Inscripcion newInscripcion(@RequestBody Inscripcion i) {
+        return repository.save(i);
     }
 
     @GetMapping("/{id}")
-    Optional<Carrera> one(@PathVariable int id) {
+    Optional<Inscripcion> one(@PathVariable int id) {
         return repository.findById(id);
     }
 /*

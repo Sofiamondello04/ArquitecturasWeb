@@ -10,6 +10,6 @@ public interface CarreraRepository extends JpaRepository<Carrera, Integer> {
 
 
 	@Query("SELECT c FROM Carrera c where c.nombre = :nombre")
-    public List<Carrera> findAllByNombre(String nombre);
+    public List<Carrera> findByNombre(String nombre);
 
 }

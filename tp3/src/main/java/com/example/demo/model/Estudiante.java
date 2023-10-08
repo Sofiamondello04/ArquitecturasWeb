@@ -9,9 +9,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Entity
@@ -19,7 +17,7 @@ import lombok.Data;
 public class Estudiante {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int dni;
 	
 	@Column(nullable=false)
@@ -35,25 +33,20 @@ public class Estudiante {
 	@Column (name="numLibretaUniversitaria")
 	private int numLibretaUniversitaria;
 	
-	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "estudiante", cascade = CascadeType.ALL)
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-	@JoinTable(
-		    name = "Inscripcion",
-		    joinColumns = @JoinColumn(name = "fk_estudiante", referencedColumnName = "dni"),
-		    inverseJoinColumns = @JoinColumn(name = "fk_carrera", referencedColumnName = "id_carrera")
-		)
-
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estudiante", cascade = CascadeType.ALL)
 	private List<Inscripcion> inscripciones;
 
-	
 	
 	public Estudiante() {
 		super();
 	}
+
 	
-	public Estudiante(String nombre, String apellido, int edad, String genero, String ciudadResidencia,
+
+	public Estudiante(int dni, String nombre, String apellido, int edad, String genero, String ciudadResidencia,
 			int numLibretaUniversitaria, List<Inscripcion> inscripciones) {
 		super();
+		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.edad = edad;
@@ -63,74 +56,112 @@ public class Estudiante {
 		this.inscripciones = inscripciones;
 	}
 
-	public String getNombre() {
-		return nombre;
-	}
 
-	public void setNombre(String nombres) {
-		this.nombre = nombres;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-	public int getEdad() {
-		return edad;
-	}
-
-	public void setEdad(int edad) {
-		this.edad = edad;
-	}
-
-	public String getGenero() {
-		return genero;
-	}
-
-	public void setGenero(String genero) {
-		this.genero = genero;
-	}
 
 	public int getDni() {
 		return dni;
 	}
 
 
+
+	public void setDni(int dni) {
+		this.dni = dni;
+	}
+
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+
+	public String getApellido() {
+		return apellido;
+	}
+
+
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+
+
+	public int getEdad() {
+		return edad;
+	}
+
+
+
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
+
+
+
+	public String getGenero() {
+		return genero;
+	}
+
+
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
+
+
 	public String getCiudadResidencia() {
 		return ciudadResidencia;
 	}
+
+
 
 	public void setCiudadResidencia(String ciudadResidencia) {
 		this.ciudadResidencia = ciudadResidencia;
 	}
 
+
+
 	public int getNumLibretaUniversitaria() {
 		return numLibretaUniversitaria;
 	}
+
+
 
 	public void setNumLibretaUniversitaria(int numLibretaUniversitaria) {
 		this.numLibretaUniversitaria = numLibretaUniversitaria;
 	}
 
+
+
 	public List<Inscripcion> getInscripciones() {
 		return inscripciones;
 	}
+
+
 
 	public void setInscripciones(List<Inscripcion> inscripciones) {
 		this.inscripciones = inscripciones;
 	}
 
 
+
 	@Override
 	public String toString() {
-		return "Estudiante [nombres=" + nombre + ", apellido=" + apellido
-				+ ", edad=" + edad + ", genero=" + genero + ", dni=" + dni + ", ciudadResidencia=" + ciudadResidencia
-				+ ", numLibretaUniversitaria=" + numLibretaUniversitaria + ", carreras=" + inscripciones + "]";
+		return "Estudiante [dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad
+				+ ", genero=" + genero + ", ciudadResidencia=" + ciudadResidencia + ", numLibretaUniversitaria="
+				+ numLibretaUniversitaria + ", inscripciones=" + inscripciones + "]";
 	}
+
+	
 
 	
 	

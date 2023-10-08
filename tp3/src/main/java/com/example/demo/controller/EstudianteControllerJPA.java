@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.model.Carrera;
 import com.example.demo.model.Estudiante;
 import com.example.demo.repository.EstudianteRepository;
 
 @RestController
 @RequestMapping("estudiantes")
 public class EstudianteControllerJPA {
-	
 	@Qualifier("estudianteRepository")
     @Autowired
     private final EstudianteRepository repository;
@@ -28,11 +28,35 @@ public class EstudianteControllerJPA {
         this.repository = repository;
     }
 
+    //Solucion al inciso 2.a.
+    @PostMapping("/")
+    public Estudiante newEstudiante(@RequestBody Estudiante e) {
+        return repository.save(e);
+    }
     
     //Solucion al inciso 2.c.
+    @GetMapping("/ByNombreAsc")
+    public List<Estudiante> getEstudiantesByNombreAsc() {
+        return repository.findAllAsc();
+    }
+    
+    //Solucion la inciso 2.d.
+    @GetMapping("/ByNumLibretaUniversitaria/{numLibretaUniversitaria}")
+    public List<Estudiante> getPersonsByNroLibreta(@PathVariable int numLibretaUniversitaria) {
+        return repository.findAllByNroLibreta(numLibretaUniversitaria);
+        
+    }
+    
+  //Solucion la inciso 2.e.
+    @GetMapping("/ByGenero/{genero}")
+    public List<Estudiante> getPersonsByGenero(@PathVariable String genero) {
+        return repository.findAllByGenero(genero);
+        
+    }
+    
     @GetMapping("/")
     public List<Estudiante> getEstudiantes() {
-        return repository.findAllAsc();
+        return repository.findAll();
     }
 
     @GetMapping("/ByApellido/{apellido}")
@@ -44,28 +68,7 @@ public class EstudianteControllerJPA {
     public List<Estudiante> getPersonsByNombre(@PathVariable String nombre) {
         return repository.findAllByNombre(nombre);
         
-    }
-    
-  //Solucion la inciso 2.e.
-    @GetMapping("/ByGenero/{genero}")
-    public List<Estudiante> getPersonsByGenero(@PathVariable String genero) {
-        return repository.findAllByGenero(genero);
-        
-    }
-    
-    //Solucion la inciso 2.d.
-    @GetMapping("/ByNumLibretaUniversitaria/{numLibretaUniversitaria}")
-    public List<Estudiante> getPersonsByNroLibreta(@PathVariable int numLibretaUniversitaria) {
-        return repository.findAllByNroLibreta(numLibretaUniversitaria);
-        
-    }
-
-    //Solucion al inciso 2.a.
-    @PostMapping("/")
-    public Estudiante newEstudiante(@RequestBody Estudiante e) {
-        return repository.save(e);
-    }
-
+    } 
    
     @RequestMapping(value = "/getEstudiante/{name}")
     public Estudiante getEstudiante(@PathVariable(value = "nombre") String nombre) {
