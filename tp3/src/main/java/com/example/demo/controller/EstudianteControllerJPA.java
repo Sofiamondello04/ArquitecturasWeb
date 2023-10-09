@@ -13,90 +13,86 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.model.Carrera;
 import com.example.demo.model.Estudiante;
 import com.example.demo.repository.EstudianteRepository;
+
+//ACA SE MAPEAN LOS METODOS QUE MAPEAN CON LAS QUERYS PRA CADA CONSULTA REST
 
 @RestController
 @RequestMapping("estudiantes")
 public class EstudianteControllerJPA {
 	@Qualifier("estudianteRepository")
-    @Autowired
-    private final EstudianteRepository repository;
+	@Autowired
+	private final EstudianteRepository repository;
 
-    public EstudianteControllerJPA(@Qualifier("estudianteRepository") EstudianteRepository repository) {
-        this.repository = repository;
-    }
+	public EstudianteControllerJPA(@Qualifier("estudianteRepository") EstudianteRepository repository) {
+		this.repository = repository;
+	}
 
-    //Solucion al inciso 2.a.
-    @PostMapping("/")
-    public Estudiante newEstudiante(@RequestBody Estudiante e) {
-        return repository.save(e);
-    }
-    
-    //Solucion al inciso 2.c.
-    @GetMapping("/ByNombreAsc")
-    public List<Estudiante> getEstudiantesByNombreAsc() {
-        return repository.findAllAsc();
-    }
-    
-    //Solucion la inciso 2.d.
-    @GetMapping("/ByNumLibretaUniversitaria/{numLibretaUniversitaria}")
-    public List<Estudiante> getPersonsByNroLibreta(@PathVariable int numLibretaUniversitaria) {
-        return repository.findAllByNroLibreta(numLibretaUniversitaria);
-        
-    }
-    
-  //Solucion la inciso 2.e.
-    @GetMapping("/ByGenero/{genero}")
-    public List<Estudiante> getPersonsByGenero(@PathVariable String genero) {
-        return repository.findAllByGenero(genero);
-        
-    }
-    
-    @GetMapping("/")
-    public List<Estudiante> getEstudiantes() {
-        return repository.findAll();
-    }
+	// Solucion al inciso 2.a.
+	@PostMapping("/")
+	public Estudiante newEstudiante(@RequestBody Estudiante e) {
+		return repository.save(e);
+	}
 
-    @GetMapping("/ByApellido/{apellido}")
-    public List<Estudiante> getEstudiantesPorApellido(@PathVariable String apellido) {
-        return repository.findAllByApellido(apellido);
-    }
+	// Solucion al inciso 2.c.
+	@GetMapping("/ByNombreAsc")
+	public List<Estudiante> getEstudiantesByNombreAsc() {
+		return repository.findAllAsc();
+	}
 
-    @GetMapping("/ByNombre/{nombre}")
-    public List<Estudiante> getPersonsByNombre(@PathVariable String nombre) {
-        return repository.findAllByNombre(nombre);
-        
-    } 
-   
-    @RequestMapping(value = "/getEstudiante/{name}")
-    public Estudiante getEstudiante(@PathVariable(value = "nombre") String nombre) {
-        return repository.findAllByNombre(nombre).get(0);
-    }
-    
-    @GetMapping("/{id}")
-    Optional<Estudiante> one(@PathVariable int id) {
-        return repository.findById(id);
-    }
-/*
-    @PutMapping("/{id}")
-    Person replacePerson(@RequestBody Person newPerson, @PathVariable Long id) {
+	// Solucion la inciso 2.d.
+	@GetMapping("/ByNumLibretaUniversitaria/{numLibretaUniversitaria}")
+	public List<Estudiante> getPersonsByNroLibreta(@PathVariable int numLibretaUniversitaria) {
+		return repository.findAllByNroLibreta(numLibretaUniversitaria);
 
-        return repository.findById(id)
-                .map(person -> {
-                    person.setName(newPerson.getName());
-                    person.setSurname(newPerson.getSurname());
-                    return repository.save(person);
-                })
-                .orElseGet(() -> {
-                    newPerson.setDni(id);
-                    return repository.save(newPerson);
-                });
-    }
-*/
-    @DeleteMapping("/{id}")
-    void deleteEstudiante(@PathVariable int id) {
-        repository.deleteById(id);
-    }
+	}
+
+	// Solucion la inciso 2.e.
+	@GetMapping("/ByGenero/{genero}")
+	public List<Estudiante> getPersonsByGenero(@PathVariable String genero) {
+		return repository.findAllByGenero(genero);
+
+	}
+
+	@GetMapping("/")
+	public List<Estudiante> getEstudiantes() {
+		return repository.findAll();
+	}
+
+	@GetMapping("/ByApellido/{apellido}")
+	public List<Estudiante> getEstudiantesPorApellido(@PathVariable String apellido) {
+		return repository.findAllByApellido(apellido);
+	}
+
+	@GetMapping("/ByNombre/{nombre}")
+	public List<Estudiante> getPersonsByNombre(@PathVariable String nombre) {
+		return repository.findAllByNombre(nombre);
+
+	}
+
+	@RequestMapping(value = "/getEstudiante/{name}")
+	public Estudiante getEstudiante(@PathVariable(value = "nombre") String nombre) {
+		return repository.findAllByNombre(nombre).get(0);
+	}
+
+	@GetMapping("/{id}")
+	Optional<Estudiante> one(@PathVariable int id) {
+		return repository.findById(id);
+	}
+
+	/*
+	 * @PutMapping("/{id}") Person replacePerson(@RequestBody Person
+	 * newPerson, @PathVariable Long id) {
+	 * 
+	 * return repository.findById(id) .map(person -> {
+	 * person.setName(newPerson.getName());
+	 * person.setSurname(newPerson.getSurname()); return repository.save(person); })
+	 * .orElseGet(() -> { newPerson.setDni(id); return repository.save(newPerson);
+	 * }); }
+	 */
+	@DeleteMapping("/{id}")
+	void deleteEstudiante(@PathVariable int id) {
+		repository.deleteById(id);
+	}
 }

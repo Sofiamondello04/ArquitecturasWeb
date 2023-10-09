@@ -16,56 +16,52 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.model.Carrera;
 import com.example.demo.repository.CarreraRepository;
 
+//ACA SE MAPEAN LOS METODOS QUE MAPEAN CON LAS QUERYS PRA CADA CONSULTA REST
+
 @RestController
 @RequestMapping("carreras")
 
 public class CarreraControllerJPA {
 	@Qualifier("carreraRepository")
-    @Autowired
-    private final CarreraRepository repository;
+	@Autowired
+	private final CarreraRepository repository;
 
-    public CarreraControllerJPA(@Qualifier("carreraRepository") CarreraRepository repository) {
-        this.repository = repository;
-    }
+	public CarreraControllerJPA(@Qualifier("carreraRepository") CarreraRepository repository) {
+		this.repository = repository;
+	}
 
-    @GetMapping("/")
-    public List<Carrera> getCarreras() {
-        return repository.findAll();
-    }
+	@GetMapping("/")
+	public List<Carrera> getCarreras() {
+		return repository.findAll();
+	}
 
-    @GetMapping("/ByNombre/{nombre}")
-    public List<Carrera> getCarrerasByNombre(@PathVariable String nombre) {
-        return repository.findByNombre(nombre);
-    }
+	@GetMapping("/ByNombre/{nombre}")
+	public List<Carrera> getCarrerasByNombre(@PathVariable String nombre) {
+		return repository.findByNombre(nombre);
+	}
 
-   
-    @PostMapping("/")
-    public Carrera newCarrera(@RequestBody Carrera c) {
-        return repository.save(c);
-    }
+	@PostMapping("/")
+	public Carrera newCarrera(@RequestBody Carrera c) {
+		return repository.save(c);
+	}
 
-    @GetMapping("/{id}")
-    Optional<Carrera> one(@PathVariable int id) {
-        return repository.findById(id);
-    }
-/*
-    @PutMapping("/{id}")
-    Person replacePerson(@RequestBody Person newPerson, @PathVariable Long id) {
+	@GetMapping("/{id}")
+	Optional<Carrera> one(@PathVariable int id) {
+		return repository.findById(id);
+	}
 
-        return repository.findById(id)
-                .map(person -> {
-                    person.setName(newPerson.getName());
-                    person.setSurname(newPerson.getSurname());
-                    return repository.save(person);
-                })
-                .orElseGet(() -> {
-                    newPerson.setDni(id);
-                    return repository.save(newPerson);
-                });
-    }
-*/
-    @DeleteMapping("/{id}")
-    void deleteCarrera(@PathVariable int id) {
-        repository.deleteById(id);
-    }
+	/*
+	 * @PutMapping("/{id}") Person replacePerson(@RequestBody Person
+	 * newPerson, @PathVariable Long id) {
+	 * 
+	 * return repository.findById(id) .map(person -> {
+	 * person.setName(newPerson.getName());
+	 * person.setSurname(newPerson.getSurname()); return repository.save(person); })
+	 * .orElseGet(() -> { newPerson.setDni(id); return repository.save(newPerson);
+	 * }); }
+	 */
+	@DeleteMapping("/{id}")
+	void deleteCarrera(@PathVariable int id) {
+		repository.deleteById(id);
+	}
 }

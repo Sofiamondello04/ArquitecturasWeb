@@ -13,34 +13,33 @@ import lombok.Data;
 @Entity
 @Data
 public class Inscripcion {
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id_inscripcion;
-	
+
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_estudiante")
 	private Estudiante estudiante;
-	
+
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_carrera")
 	private Carrera carrera;
-	
+
 	@Column
 	private int anioInscripcion;
-	
+
 	@Column
-	private int anioGraduacion;//ver si la necesitamos, quizas con la fecha actual no haga falta
-	
+	private int anioGraduacion;// ver si la necesitamos, quizas con la fecha actual no haga falta
+
 	@Column
 	private int antiguedad;
 
 	public Inscripcion() {
-		
+
 	}
 
-	public Inscripcion(Estudiante estudiante, Carrera carrera, int anioInscripcion, int anioGraduacion,int antiguedad) {	
+	public Inscripcion(Estudiante estudiante, Carrera carrera, int anioInscripcion, int anioGraduacion, int antiguedad) {
 		this.estudiante = estudiante;
 		this.carrera = carrera;
 		this.anioInscripcion = anioInscripcion;
@@ -94,7 +93,7 @@ public class Inscripcion {
 
 	@Override
 	public String toString() {
-		return "EstudianteCarrera [id_ec=" + id_inscripcion+ ", estudiante=" + estudiante + ", carrera=" + carrera
+		return "EstudianteCarrera [id_ec=" + id_inscripcion + ", estudiante=" + estudiante + ", carrera=" + carrera
 				+ ", anioInscripcion=" + anioInscripcion + ", anioGraduacion=" + anioGraduacion + ", antiguedad="
 				+ antiguedad + "]";
 	}

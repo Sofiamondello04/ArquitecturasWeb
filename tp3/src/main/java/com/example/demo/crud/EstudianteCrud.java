@@ -8,8 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.model.Estudiante;
 
 @Repository
-public
-interface EstudianteCrud extends CrudRepository<Estudiante, Integer> {
+public interface EstudianteCrud extends CrudRepository<Estudiante, Integer> {
 
-    List<Estudiante> findByApellido(String apellido);
+	List<Estudiante> findByApellido(String apellido);
 }
