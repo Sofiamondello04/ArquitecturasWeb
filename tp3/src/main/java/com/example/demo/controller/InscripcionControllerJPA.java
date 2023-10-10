@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,10 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Service.InscripcionService;
 import com.example.demo.model.Inscripcion;
+import com.example.demo.repository.CarreraRepository;
+import com.example.demo.repository.EstudianteRepository;
 import com.example.demo.repository.InscripcionRepository;
 
 //ACA SE MAPEAN LOS METODOS QUE MAPEAN CON LAS QUERYS PRA CADA CONSULTA REST
@@ -65,4 +70,18 @@ public class InscripcionControllerJPA {
 		}
 		
 	}
+	
+	 @PostMapping("/matricular")
+	    public ResponseEntity<?> matricular(@RequestParam int libreta, @RequestParam String carrera){ 
+	        try{
+	            inscripcionService.matricular(libreta, carrera);
+	            return ResponseEntity.status(HttpStatus.OK).body("Se matriculo correctamente el estudiante con dni: " + libreta + " en la carrera: " + carrera);
+	        }catch (Exception ex){
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo matricular el estudiante, revise los campos e intente nuevamente.\"\n\"error\":\""+ex.getMessage()+"\"}");
+	        }
+	 }
+	 
+	 
+	 
+	 
 }

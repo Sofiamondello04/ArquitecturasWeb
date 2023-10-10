@@ -1,19 +1,27 @@
 package com.example.demo.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Carrera;
+import com.example.demo.model.Estudiante;
 import com.example.demo.repository.CarreraRepository;
+import com.example.demo.repository.EstudianteRepository;
+import com.example.demo.repository.InscripcionRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class CarreraService {
 	
 	@Autowired
-	CarreraRepository carreraRepository;
+	private CarreraRepository carreraRepository;
+	@Autowired
+	private EstudianteRepository estudianteRepository;
 	
 	public List<Carrera> getCarreras(){
 		return carreraRepository.findAll();
@@ -42,4 +50,6 @@ public class CarreraService {
 			return false;
 		}
 	}
+
+
 }

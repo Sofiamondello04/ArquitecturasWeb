@@ -23,5 +23,5 @@ public interface EstudianteRepository extends JpaRepository<Estudiante, Integer>
 	public List<Estudiante> findAllByGenero(String genero);
 
 	@Query("SELECT e FROM Estudiante e where e.numLibretaUniversitaria = :numLibretaUniversitaria")
-	public List<Estudiante> findAllByNroLibreta(int numLibretaUniversitaria);
+	public Estudiante findAllByNroLibreta(int numLibretaUniversitaria);
 }

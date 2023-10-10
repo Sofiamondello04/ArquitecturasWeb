@@ -7,14 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Carrera;
+import com.example.demo.model.Estudiante;
 import com.example.demo.model.Inscripcion;
+import com.example.demo.repository.CarreraRepository;
+import com.example.demo.repository.EstudianteRepository;
 import com.example.demo.repository.InscripcionRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class InscripcionService {
 	
 	@Autowired
 	InscripcionRepository inscripcionRepository;
+	@Autowired
+	private CarreraRepository carreraRepository;
+	@Autowired
+	private EstudianteRepository estudianteRepository;
 	
 	public List<Inscripcion> getInscripciones(){
 		return inscripcionRepository.findAll();
@@ -46,5 +55,14 @@ public class InscripcionService {
 		catch (Exception e) {
 			return false;
 		}
+	}
+
+	@Transactional
+	public Inscripcion matricular(int e, String c) {
+		Estudiante estudiante = estudianteRepository.findAllByNroLibreta(e);
+		Carrera carrera = carreraRepository.findByNombre(c);
+		Inscripcion i = new Inscripcion(estudiante, carrera, 2023, 2028, 5);
+		return this.inscripcionRepository.save(i);
+		
 	}
 }

@@ -14,6 +14,6 @@ import java.util.Optional;
 public interface CarreraRepository extends JpaRepository<Carrera, Integer> {
 
 	@Query("SELECT c FROM Carrera c where c.nombre = :nombre")
-	public List<Carrera> findByNombre(String nombre);
+	public Carrera findByNombre(String nombre);
 
 }

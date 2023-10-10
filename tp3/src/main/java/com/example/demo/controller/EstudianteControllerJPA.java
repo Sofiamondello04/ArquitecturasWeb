@@ -75,7 +75,7 @@ public class EstudianteControllerJPA {
 
 	// Solucion la inciso 2.d.
 	@GetMapping("/ByNumLibretaUniversitaria/{numLibretaUniversitaria}")
-	public List<Estudiante> getPersonsByNroLibreta(@PathVariable int numLibretaUniversitaria) {
+	public Estudiante getPersonsByNroLibreta(@PathVariable int numLibretaUniversitaria) {
 		return repository.findAllByNroLibreta(numLibretaUniversitaria);
 
 	}
