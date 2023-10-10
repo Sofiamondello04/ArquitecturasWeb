@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.Service.InscripcionService;
 import com.example.demo.model.Inscripcion;
 import com.example.demo.repository.InscripcionRepository;
 
@@ -22,6 +24,9 @@ import com.example.demo.repository.InscripcionRepository;
 @RequestMapping("inscripciones")
 public class InscripcionControllerJPA {
 
+	@Autowired
+	private InscripcionService inscripcionService;
+	
 	@Qualifier("inscripcionRepository")
 	@Autowired
 	private final InscripcionRepository repository;
@@ -32,31 +37,32 @@ public class InscripcionControllerJPA {
 
 	@GetMapping("/")
 	public List<Inscripcion> getInscripciones() {
-		return repository.findAll();
+		return this.inscripcionService.getInscripciones();
 	}
-
+	
 	@PostMapping("/")
 	public Inscripcion newInscripcion(@RequestBody Inscripcion i) {
-		return repository.save(i);
+		return inscripcionService.saveInscripcion(i);
 	}
-
+	
 	@GetMapping("/{id}")
-	Optional<Inscripcion> one(@PathVariable int id) {
-		return repository.findById(id);
+	Optional<Inscripcion> getCarreraById(@PathVariable int id) {
+		return inscripcionService.getById(id);
 	}
-
-	/*
-	 * @PutMapping("/{id}") Person replacePerson(@RequestBody Person
-	 * newPerson, @PathVariable Long id) {
-	 * 
-	 * return repository.findById(id) .map(person -> {
-	 * person.setName(newPerson.getName());
-	 * person.setSurname(newPerson.getSurname()); return repository.save(person); })
-	 * .orElseGet(() -> { newPerson.setDni(id); return repository.save(newPerson);
-	 * }); }
-	 */
+	
+	@PutMapping("/{id}")
+	public Inscripcion updateCarreraById(@RequestBody Inscripcion request,@PathVariable("id_inscripcion") int id) {
+		return this.inscripcionService.updateById(request, id);
+	}
+	
 	@DeleteMapping("/{id}")
-	void deleteCarrera(@PathVariable int id) {
-		repository.deleteById(id);
+	public String deleteCarreraById(@PathVariable int id) {
+		boolean ok = inscripcionService.deleteInscripcion(id);
+		if(ok) {
+			return "La inscripcion con el id " + id + " a sido borrada"; 
+		}else {
+			return "No existe inscripcion con el id " + id;
+		}
+		
 	}
 }

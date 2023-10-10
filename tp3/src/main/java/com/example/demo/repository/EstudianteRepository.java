@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
-import java.util.Optional;
 
 //ACA VAN LAS QUERYS
 
@@ -25,7 +24,4 @@ public interface EstudianteRepository extends JpaRepository<Estudiante, Integer>
 
 	@Query("SELECT e FROM Estudiante e where e.numLibretaUniversitaria = :numLibretaUniversitaria")
 	public List<Estudiante> findAllByNroLibreta(int numLibretaUniversitaria);
-	
-	@Query("SELECT e FROM Estudiante e where e.dni = :dni")
-    public Optional<Estudiante> findById(int dni);
 }
