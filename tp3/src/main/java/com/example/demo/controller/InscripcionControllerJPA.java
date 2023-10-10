@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Service.InscripcionService;
+import com.example.demo.dto.CarrerasPorInscriptosDTO;
+import com.example.demo.dto.EstudiantesPorCarrerayCiudadDto;
 import com.example.demo.model.Inscripcion;
-import com.example.demo.repository.CarreraRepository;
-import com.example.demo.repository.EstudianteRepository;
 import com.example.demo.repository.InscripcionRepository;
 
 //ACA SE MAPEAN LOS METODOS QUE MAPEAN CON LAS QUERYS PRA CADA CONSULTA REST
@@ -81,7 +81,16 @@ public class InscripcionControllerJPA {
 	        }
 	 }
 	 
+	 @GetMapping("/carrerasOrderByInscriptos")
+	 public List<CarrerasPorInscriptosDTO> getCarrerasOrderByInscriptos() {
+		 return this.inscripcionService.getCarrerasPorCantidadInscriptos();
+	}
 	 
+	@GetMapping("/estudiantesCarrerayPorCiudad/{carrera}/{ciudadResidencia}")
+		public List<EstudiantesPorCarrerayCiudadDto> estudiantesPorCarrerayCiudad(@PathVariable String ciudadResidencia,@PathVariable String carrera){
+			return this.inscripcionService.estudiantesPorCarrerayCiudad(ciudadResidencia, carrera);
+	    		  
+		}
 	 
 	 
 }

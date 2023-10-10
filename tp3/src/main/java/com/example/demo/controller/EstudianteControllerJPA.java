@@ -68,7 +68,7 @@ public class EstudianteControllerJPA {
 	}
 
 	// Solucion al inciso 2.c.
-	@GetMapping("/")
+	@GetMapping("/ByNombreAsc")
 	public List<Estudiante> getEstudiantesByNombreAsc() {
 		return repository.findAllAsc();
 	}

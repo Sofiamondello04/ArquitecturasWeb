@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.CarrerasPorInscriptosDTO;
+import com.example.demo.dto.EstudiantesPorCarrerayCiudadDto;
 import com.example.demo.model.Carrera;
 import com.example.demo.model.Estudiante;
 import com.example.demo.model.Inscripcion;
@@ -64,5 +66,15 @@ public class InscripcionService {
 		Inscripcion i = new Inscripcion(estudiante, carrera, 2023, 2028, 5);
 		return this.inscripcionRepository.save(i);
 		
+	}
+
+	@Transactional
+	public List<CarrerasPorInscriptosDTO> getCarrerasPorCantidadInscriptos() {
+		return this.inscripcionRepository.getCarrerasPorInscriptos();
+	}
+
+	@Transactional
+	public List<EstudiantesPorCarrerayCiudadDto> estudiantesPorCarrerayCiudad(String ciudadResidencia, String carrera) {
+		return this.inscripcionRepository.estudiantesPorCarrerayCiudad(ciudadResidencia, carrera);
 	}
 }
