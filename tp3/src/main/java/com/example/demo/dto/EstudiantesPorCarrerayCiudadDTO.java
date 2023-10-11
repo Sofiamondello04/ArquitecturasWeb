@@ -10,17 +10,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class EstudiantesPorCarrerayCiudadDto {
+public class EstudiantesPorCarrerayCiudadDTO {
 	private int dni;
 	private String nombre;
 	private String apellido;
-	public EstudiantesPorCarrerayCiudadDto(int dni, String nombre, String apellido) {
+	public EstudiantesPorCarrerayCiudadDTO(int dni, String nombre, String apellido) {
 		super();
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
 	}
-	public EstudiantesPorCarrerayCiudadDto() {
+	public EstudiantesPorCarrerayCiudadDTO() {
 		super();
 	}
 	public int getDni() {

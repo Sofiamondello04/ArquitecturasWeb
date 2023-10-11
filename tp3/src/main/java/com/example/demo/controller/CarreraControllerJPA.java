@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Service.CarreraService;
+import com.example.demo.dto.ReporteCarrerasDTO;
 import com.example.demo.model.Carrera;
 import com.example.demo.repository.CarreraRepository;
 
