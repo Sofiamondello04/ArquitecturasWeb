@@ -40,7 +40,7 @@ public class EstudianteControllerJPA {
 		return this.estudianteService.getEstudiantes();
 	}
 	
-	// Solucion al inciso 2.a.
+	
 	@PostMapping("/")
 	public Estudiante newEstudiante(@RequestBody Estudiante e) {
 		return estudianteService.saveEstudiante(e);
@@ -67,22 +67,22 @@ public class EstudianteControllerJPA {
 		
 	}
 
-	// Solucion al inciso 2.c.
+	
 	@GetMapping("/ByNombreAsc")
 	public List<Estudiante> getEstudiantesByNombreAsc() {
 		return repository.findAllAsc();
 	}
 
-	// Solucion la inciso 2.d.
+	
 	@GetMapping("/ByNumLibretaUniversitaria/{numLibretaUniversitaria}")
-	public Estudiante getPersonsByNroLibreta(@PathVariable int numLibretaUniversitaria) {
+	public Estudiante getEstudianteByNroLibreta(@PathVariable int numLibretaUniversitaria) {
 		return repository.findAllByNroLibreta(numLibretaUniversitaria);
 
 	}
 
 	// Solucion la inciso 2.e.
 	@GetMapping("/ByGenero/{genero}")
-	public List<Estudiante> getPersonsByGenero(@PathVariable String genero) {
+	public List<Estudiante> getEstudianteByGenero(@PathVariable String genero) {
 		return repository.findAllByGenero(genero);
 
 	}
@@ -93,12 +93,12 @@ public class EstudianteControllerJPA {
 	}
 
 	@GetMapping("/ByNombre/{nombre}")
-	public List<Estudiante> getPersonsByNombre(@PathVariable String nombre) {
+	public List<Estudiante> getEstudianteByNombre(@PathVariable String nombre) {
 		return repository.findAllByNombre(nombre);
 
 	}
 	
-	@GetMapping("/estudiantes/carrera/{carrera}/ciudad/{ciudadResidencia}")
+	@GetMapping("/carrera/{carrera}/ciudad/{ciudadResidencia}")
 	public List<EstudiantesPorCarrerayCiudadDTO> estudiantesPorCarrerayCiudad(@PathVariable String ciudadResidencia,@PathVariable String carrera){
 		return this.inscripcionService.estudiantesPorCarrerayCiudad(ciudadResidencia, carrera);
     		  
