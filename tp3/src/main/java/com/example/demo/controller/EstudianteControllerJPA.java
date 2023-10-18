@@ -97,5 +97,11 @@ public class EstudianteControllerJPA {
 		return repository.findAllByNombre(nombre);
 
 	}
+	
+	@GetMapping("/estudiantes/carrera/{carrera}/ciudad/{ciudadResidencia}")
+	public List<EstudiantesPorCarrerayCiudadDTO> estudiantesPorCarrerayCiudad(@PathVariable String ciudadResidencia,@PathVariable String carrera){
+		return this.inscripcionService.estudiantesPorCarrerayCiudad(ciudadResidencia, carrera);
+    		  
+}
 
 }
