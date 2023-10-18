@@ -60,10 +60,19 @@ public class InscripcionService {
 		}
 	}
 
-	@Transactional
+	/*@Transactional
 	public Inscripcion matricular(int e, String c) {
 		Estudiante estudiante = estudianteRepository.findAllByNroLibreta(e);
 		Carrera carrera = carreraRepository.findByNombre(c);
+		Inscripcion i = new Inscripcion(estudiante, carrera, 2023, 2028, 5);
+		return this.inscripcionRepository.save(i);
+		
+	}*/
+	
+	@Transactional
+	public Inscripcion matricular(int e, int c) {
+		Estudiante estudiante = estudianteRepository.findAllByNroLibreta(e);
+		Carrera carrera = carreraRepository.findById(c);
 		Inscripcion i = new Inscripcion(estudiante, carrera, 2023, 2028, 5);
 		return this.inscripcionRepository.save(i);
 		

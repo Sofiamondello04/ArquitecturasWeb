@@ -45,7 +45,7 @@ public class CarreraControllerJPA {
 		return this.carreraService.getCarreras();
 	}
 	
-	@PostMapping(" /")
+	@PostMapping("/")
 	public Carrera newCarrera(@RequestBody Carrera c) {
 		return carreraService.saveCarrera(c);
 	}

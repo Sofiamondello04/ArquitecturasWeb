@@ -68,6 +68,7 @@ public class InscripcionControllerJPA {
 		
 	}
 	
+	/*
 	 @PostMapping("/matricular")
 	    public ResponseEntity<?> matricular(@RequestParam int libreta, @RequestParam String carrera){ 
 	        try{
@@ -76,7 +77,18 @@ public class InscripcionControllerJPA {
 	        }catch (Exception ex){
 	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo matricular el estudiante, revise los campos e intente nuevamente.\"\n\"error\":\""+ex.getMessage()+"\"}");
 	        }
+	 }*/
+	
+	@PostMapping("/matricular")
+	    public ResponseEntity<?> matricular(@RequestBody MatricularEstudianteDTO request){ 
+	        try{
+	            inscripcionService.matricular(request.getIdEstudiante(), request.getIdCarrera());
+	            return ResponseEntity.status(HttpStatus.OK).body("Se matriculo correctamente el estudiante con dni: " + libreta + " en la carrera: " + carrera);
+	        }catch (Exception ex){
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo matricular el estudiante, revise los campos e intente nuevamente.\"\n\"error\":\""+ex.getMessage()+"\"}");
+	        }
 	 }
+	
 	 
 	 @GetMapping("/carrerasOrderByInscriptos")
 	 public List<CarrerasPorInscriptosDTO> getCarrerasOrderByInscriptos() {

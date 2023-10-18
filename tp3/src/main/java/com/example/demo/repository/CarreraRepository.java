@@ -16,5 +16,8 @@ public interface CarreraRepository extends JpaRepository<Carrera, Integer> {
 
 	@Query("SELECT c FROM Carrera c where c.nombre = :nombre")
 	public Carrera findByNombre(String nombre);
+	
+	@Query("SELECT c FROM Carrera c where c.id_carrera = :id_carrera")
+	public Carrera findById(int id_carrera);
 
 }
