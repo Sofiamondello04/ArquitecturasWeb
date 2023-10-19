@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import java.util.Optional;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,7 +38,7 @@ public class Inscripcion {
 	@Column
 	private int antiguedad;
 
-	public Inscripcion() {
+	public Inscripcion(Estudiante estudiante2, Optional<Carrera> carrera2, int i, int j, int k) {
 
 	}
 

@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
-@NoArgsConstructor
+
+
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class EstudiantesPorCarrerayCiudadDTO {
 	private int dni;
@@ -20,9 +20,7 @@ public class EstudiantesPorCarrerayCiudadDTO {
 		this.nombre = nombre;
 		this.apellido = apellido;
 	}
-	public EstudiantesPorCarrerayCiudadDTO() {
-		super();
-	}
+	
 	public int getDni() {
 		return dni;
 	}

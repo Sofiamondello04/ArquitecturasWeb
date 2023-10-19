@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Service.InscripcionService;
 import com.example.demo.dto.CarrerasPorInscriptosDTO;
 import com.example.demo.dto.EstudiantesPorCarrerayCiudadDTO;
+import com.example.demo.dto.MatricularEstudianteDTO;
 import com.example.demo.dto.ReporteCarrerasDTO;
 import com.example.demo.model.Inscripcion;
 import com.example.demo.repository.InscripcionRepository;
@@ -83,7 +84,7 @@ public class InscripcionControllerJPA {
 	    public ResponseEntity<?> matricular(@RequestBody MatricularEstudianteDTO request){ 
 	        try{
 	            inscripcionService.matricular(request.getIdEstudiante(), request.getIdCarrera());
-	            return ResponseEntity.status(HttpStatus.OK).body("Se matriculo correctamente el estudiante con dni: " + libreta + " en la carrera: " + carrera);
+	            return ResponseEntity.status(HttpStatus.OK).body("Se matriculo correctamente el estudiante con dni: " + request.getIdEstudiante()+ " en la carrera: " + request.getIdCarrera());
 	        }catch (Exception ex){
 	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo matricular el estudiante, revise los campos e intente nuevamente.\"\n\"error\":\""+ex.getMessage()+"\"}");
 	        }

@@ -72,7 +72,7 @@ public class InscripcionService {
 	@Transactional
 	public Inscripcion matricular(int e, int c) {
 		Estudiante estudiante = estudianteRepository.findAllByNroLibreta(e);
-		Carrera carrera = carreraRepository.findById(c);
+		Optional<Carrera> carrera = carreraRepository.findById(c);
 		Inscripcion i = new Inscripcion(estudiante, carrera, 2023, 2028, 5);
 		return this.inscripcionRepository.save(i);
 		

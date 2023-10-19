@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Service.EstudianteService;
+import com.example.demo.Service.InscripcionService;
+import com.example.demo.dto.EstudiantesPorCarrerayCiudadDTO;
 import com.example.demo.model.Estudiante;
 import com.example.demo.repository.EstudianteRepository;
 
@@ -26,6 +28,9 @@ public class EstudianteControllerJPA {
 	
 	@Autowired
 	private EstudianteService estudianteService;
+	
+	@Autowired
+	private InscripcionService inscripcionService;
 	
 	@Qualifier("estudianteRepository")
 	@Autowired
