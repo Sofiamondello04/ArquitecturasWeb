@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import com.example.demo.dto.EstudiantesPorCarrerayCiudadDTO;
 import com.example.demo.model.Estudiante;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -24,4 +25,9 @@ public interface EstudianteRepository extends JpaRepository<Estudiante, Integer>
 
 	@Query("SELECT e FROM Estudiante e where e.numLibretaUniversitaria = :numLibretaUniversitaria")
 	public Estudiante findAllByNroLibreta(int numLibretaUniversitaria);
+	
+	@Query("SELECT new com.example.demo.dto.EstudiantesPorCarrerayCiudadDTO(e.dni, e.nombre, e.apellido) FROM Estudiante e " +
+		       "JOIN e.inscripciones i " +
+		       "WHERE i.carrera.nombre = :carrera AND e.ciudadResidencia = :ciudadResidencia")
+	public List<EstudiantesPorCarrerayCiudadDTO> estudiantesPorCarrerayCiudad(String ciudadResidencia, String carrera);
 }

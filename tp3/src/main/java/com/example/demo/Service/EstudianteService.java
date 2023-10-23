@@ -6,8 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.EstudiantesPorCarrerayCiudadDTO;
 import com.example.demo.model.Estudiante;
 import com.example.demo.repository.EstudianteRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class EstudianteService {
@@ -47,5 +50,10 @@ public class EstudianteService {
 		catch (Exception e) {
 			return false;
 		}
+	}
+	
+	@Transactional
+	public List<EstudiantesPorCarrerayCiudadDTO> estudiantesPorCarrerayCiudad(String ciudadResidencia, String carrera) {
+		return this.estudianteRepository.estudiantesPorCarrerayCiudad(ciudadResidencia, carrera);
 	}
 }

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.CarrerasPorInscriptosDTO;
-import com.example.demo.dto.EstudiantesPorCarrerayCiudadDTO;
+
 import com.example.demo.dto.ReporteCarrerasDTO;
 import com.example.demo.model.Carrera;
 import com.example.demo.model.Estudiante;
@@ -60,22 +60,18 @@ public class InscripcionService {
 		}
 	}
 
-	/*@Transactional
-	public Inscripcion matricular(int e, String c) {
-		Estudiante estudiante = estudianteRepository.findAllByNroLibreta(e);
-		Carrera carrera = carreraRepository.findByNombre(c);
-		Inscripcion i = new Inscripcion(estudiante, carrera, 2023, 2028, 5);
-		return this.inscripcionRepository.save(i);
-		
-	}*/
-	
 	@Transactional
 	public Inscripcion matricular(int e, int c) {
-		Estudiante estudiante = estudianteRepository.findAllByNroLibreta(e);
-		Carrera carrera = carreraRepository.findById(c);
-		Inscripcion i = new Inscripcion(estudiante, carrera, 2023, 2028, 5);
+		Optional<Estudiante> estudianteOptional = estudianteRepository.findById(e);
+		Optional<Carrera> carreraOptional = carreraRepository.findById(c);
+		if (carreraOptional.isEmpty() || estudianteOptional.isEmpty() ) {
+	        System.out.println("No se encontró la carrera con el ID especificado.");
+	    }
+		Estudiante estudiante = estudianteOptional.get();
+		Carrera carrera = carreraOptional.get();
+		Inscripcion i = new Inscripcion(estudiante, carrera);
+
 		return this.inscripcionRepository.save(i);
-		
 	}
 
 	@Transactional
@@ -83,10 +79,7 @@ public class InscripcionService {
 		return this.inscripcionRepository.getCarrerasPorInscriptos();
 	}
 
-	@Transactional
-	public List<EstudiantesPorCarrerayCiudadDTO> estudiantesPorCarrerayCiudad(String ciudadResidencia, String carrera) {
-		return this.inscripcionRepository.estudiantesPorCarrerayCiudad(ciudadResidencia, carrera);
-	}
+	
 
 	public List<ReporteCarrerasDTO> reporteCarrerasInscriptosyAntiguedad() {
 		return this.inscripcionRepository.reporteCarrerasInsyAnt();

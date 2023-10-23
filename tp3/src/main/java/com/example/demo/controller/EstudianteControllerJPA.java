@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Service.EstudianteService;
+import com.example.demo.dto.EstudiantesPorCarrerayCiudadDTO;
 import com.example.demo.model.Estudiante;
 import com.example.demo.repository.EstudianteRepository;
 
@@ -35,12 +36,12 @@ public class EstudianteControllerJPA {
 		this.repository = repository;
 	}
 	
-	@GetMapping("/")
+	@GetMapping("")
 	public List<Estudiante> getEstudiantes() {
 		return this.estudianteService.getEstudiantes();
 	}
 	
-	
+	// Solucion al inciso 2.a.
 	@PostMapping("/")
 	public Estudiante newEstudiante(@RequestBody Estudiante e) {
 		return estudianteService.saveEstudiante(e);
@@ -67,22 +68,22 @@ public class EstudianteControllerJPA {
 		
 	}
 
-	
+	// Solucion al inciso 2.c.
 	@GetMapping("/ByNombreAsc")
 	public List<Estudiante> getEstudiantesByNombreAsc() {
 		return repository.findAllAsc();
 	}
 
-	
+	// Solucion la inciso 2.d.
 	@GetMapping("/ByNumLibretaUniversitaria/{numLibretaUniversitaria}")
-	public Estudiante getEstudianteByNroLibreta(@PathVariable int numLibretaUniversitaria) {
+	public Estudiante getPersonsByNroLibreta(@PathVariable int numLibretaUniversitaria) {
 		return repository.findAllByNroLibreta(numLibretaUniversitaria);
 
 	}
 
 	// Solucion la inciso 2.e.
 	@GetMapping("/ByGenero/{genero}")
-	public List<Estudiante> getEstudianteByGenero(@PathVariable String genero) {
+	public List<Estudiante> getPersonsByGenero(@PathVariable String genero) {
 		return repository.findAllByGenero(genero);
 
 	}
@@ -93,14 +94,14 @@ public class EstudianteControllerJPA {
 	}
 
 	@GetMapping("/ByNombre/{nombre}")
-	public List<Estudiante> getEstudianteByNombre(@PathVariable String nombre) {
+	public List<Estudiante> getPersonsByNombre(@PathVariable String nombre) {
 		return repository.findAllByNombre(nombre);
 
 	}
 	
 	@GetMapping("/carrera/{carrera}/ciudad/{ciudadResidencia}")
 	public List<EstudiantesPorCarrerayCiudadDTO> estudiantesPorCarrerayCiudad(@PathVariable String ciudadResidencia,@PathVariable String carrera){
-		return this.inscripcionService.estudiantesPorCarrerayCiudad(ciudadResidencia, carrera);
+		return this.estudianteService.estudiantesPorCarrerayCiudad(ciudadResidencia, carrera);
     		  
 }
 

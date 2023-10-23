@@ -1,7 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.dto.CarrerasPorInscriptosDTO;
-import com.example.demo.dto.EstudiantesPorCarrerayCiudadDTO;
+
 import com.example.demo.dto.ReporteCarrerasDTO;
 import com.example.demo.model.Inscripcion;
 
@@ -21,10 +21,7 @@ public interface InscripcionRepository extends JpaRepository<Inscripcion, Intege
 	@Query("SELECT new com.example.demo.dto.CarrerasPorInscriptosDTO (c.nombre, COUNT(c	.id_carrera)) FROM Carrera c JOIN Inscripcion i ON i.carrera.id_carrera = c.id_carrera GROUP BY c.id_carrera ORDER BY COUNT(c.id_carrera) DESC")
 	public List<CarrerasPorInscriptosDTO> getCarrerasPorInscriptos();
 
-	@Query("SELECT new com.example.demo.dto.EstudiantesPorCarrerayCiudadDTO(e.dni, e.nombre, e.apellido) FROM Estudiante e " +
-		       "JOIN e.inscripciones i " +
-		       "WHERE i.carrera.nombre = :carrera AND e.ciudadResidencia = :ciudadResidencia")
-	public List<EstudiantesPorCarrerayCiudadDTO> estudiantesPorCarrerayCiudad(String ciudadResidencia, String carrera);
+
 
 	
 	@Query("SELECT new com.example.demo.dto.ReporteCarrerasDTO(c.nombre, " +

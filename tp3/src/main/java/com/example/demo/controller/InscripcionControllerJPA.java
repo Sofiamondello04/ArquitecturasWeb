@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Service.InscripcionService;
 import com.example.demo.dto.CarrerasPorInscriptosDTO;
-import com.example.demo.dto.EstudiantesPorCarrerayCiudadDTO;
+import com.example.demo.dto.MatricularEstudianteDTO;
 import com.example.demo.dto.ReporteCarrerasDTO;
 import com.example.demo.model.Inscripcion;
 import com.example.demo.repository.InscripcionRepository;
@@ -41,10 +41,11 @@ public class InscripcionControllerJPA {
 		this.repository = repository;
 	}
 
-	@GetMapping("/")
+	@GetMapping("")
 	public List<Inscripcion> getInscripciones() {
 		return this.inscripcionService.getInscripciones();
 	}
+	
 	
 	
 	@GetMapping("/{id}")
@@ -68,27 +69,15 @@ public class InscripcionControllerJPA {
 		
 	}
 	
-	/*
-	 @PostMapping("/matricular")
-	    public ResponseEntity<?> matricular(@RequestParam int libreta, @RequestParam String carrera){ 
-	        try{
-	            inscripcionService.matricular(libreta, carrera);
-	            return ResponseEntity.status(HttpStatus.OK).body("Se matriculo correctamente el estudiante con dni: " + libreta + " en la carrera: " + carrera);
-	        }catch (Exception ex){
-	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo matricular el estudiante, revise los campos e intente nuevamente.\"\n\"error\":\""+ex.getMessage()+"\"}");
-	        }
-	 }*/
-	
 	@PostMapping("/matricular")
-	    public ResponseEntity<?> matricular(@RequestBody MatricularEstudianteDTO request){ 
-	        try{
-	            inscripcionService.matricular(request.getIdEstudiante(), request.getIdCarrera());
-	            return ResponseEntity.status(HttpStatus.OK).body("Se matriculo correctamente el estudiante con dni: " + libreta + " en la carrera: " + carrera);
-	        }catch (Exception ex){
-	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo matricular el estudiante, revise los campos e intente nuevamente.\"\n\"error\":\""+ex.getMessage()+"\"}");
-	        }
-	 }
-	
+    public ResponseEntity<?> matricular(@RequestBody MatricularEstudianteDTO request){ 
+        try{
+            inscripcionService.matricular(request.getIdEstudiante(), request.getIdCarrera());
+            return ResponseEntity.status(HttpStatus.OK).body("Se matriculo correctamente el estudiante con dni: " +request.getIdEstudiante()+ " en la carrera: " + request.getIdCarrera());
+        }catch (Exception ex){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo matricular el estudiante, revise los campos e intente nuevamente.\"\n\"error\":\""+ex.getMessage()+"\"}");
+        }
+ }
 	 
 	 @GetMapping("/carrerasOrderByInscriptos")
 	 public List<CarrerasPorInscriptosDTO> getCarrerasOrderByInscriptos() {

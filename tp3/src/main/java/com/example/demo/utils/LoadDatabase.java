@@ -121,7 +121,6 @@ public class LoadDatabase {
 	  								continue; // Salta la primera fila (encabezados)
 	  								 } // Leer datos del CSV y crear objetos Estudiante, Carrera e Inscripcion 
 	  							
-	  							//int id = Integer.parseInt(csvRecord.get(0)); 
 	  							int id_estudiante = Integer.parseInt(csvRecord.get(1)); 
 	  							int id_carrera = Integer.parseInt(csvRecord.get(2)); 
 	  							int inscripcion = Integer.parseInt(csvRecord.get(3)); 
@@ -131,27 +130,11 @@ public class LoadDatabase {
 	  							Optional<Estudiante> e = estudianteRepository.findById(id_estudiante);
 	  							
 	  							Optional<Carrera> c = carreraRepository.findById(id_carrera);
-	  							
-//
-//		  							System.out.println(id_estudiante);
-//		  							//System.out.println(e.get());
-//		  							System.out.println(id_carrera);
-//		  							//System.out.println(c.get());
-//		  							System.out.println(inscripcion);
-//		  							System.out.println(graduacion);
-//		  							System.out.println(antiguedad);
-//	  							 
+	  														 
 	  							if(e.isPresent() && c.isPresent()) {
 	  								Inscripcion i = new Inscripcion(e.get(), c.get(), inscripcion, graduacion, antiguedad);
   									inscripcionRepository.save(i);
   									
-  		  							//System.out.println(id_estudiante);
-  		  							//System.out.println(e.get().toString());
-  		  							//System.out.println(id_carrera);
-  		  							//System.out.println(c.get().toString());
-  		  							//System.out.println(inscripcion);
-  		  							//System.out.println(graduacion);
-  		  						//	System.out.println(antiguedad);
 	  							}
 	  }
 	  
@@ -160,23 +143,6 @@ public class LoadDatabase {
 }
 	  
 	 
-	  
-//	  @Bean CommandLineRunner initDatabase(@Qualifier("estudianteRepository")
-//	  EstudianteRepository repository) { return args -> { log.info("Preloading " +
-//	 repository.save(new Estudiante("Bernardo", "Gonzalez", 32, "Masculino",
-//	  "Tandil", (int) 35418667, null))); log.info("Preloading " +
-//	  repository.save(new Estudiante("Sofia", "Mondelo", 28, "Femenino", "Tandil",
-//	  (int) 38418467, null))); log.info("Preloading " + repository.save(new
-//	  Estudiante("Mauro", "Valerioti", 29, "NoBinario", "Tandil", (int) 38602821,
-//	  null))); }; }
-	  
-//	  @Bean CommandLineRunner initDatabase2(@Qualifier("carreraRepository")
-//	  CarreraRepository repository) { return args -> { log.info("Preloading " +
-//	  repository.save(new Carrera("tudai", (int) 3))); log.info("Preloading " +
-//	  repository.save(new Carrera("ing sistemas", (int) 5))); }; }
-//	  
-//	  @Bean CommandLineRunner initDatabase3(@Qualifier("inscripcionRepository")
-//	  InscripcionRepository repository) { return args -> { log.info("Preloading " +
-//	  repository.save(new Inscripcion())); }; }
+
 //	 
 }
