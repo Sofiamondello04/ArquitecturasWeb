@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 
 @Entity
 @EqualsAndHashCode
-public class Inscripcion {
+public class Monopatin {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +22,11 @@ public class Inscripcion {
 
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_estudiante")
-	private Estudiante estudiante;
+	private Viaje estudiante;
 
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fk_carrera")
-	private Carrera carrera;
+	private Parada carrera;
 
 	@Column
 	private int anioInscripcion;
@@ -37,11 +37,11 @@ public class Inscripcion {
 	@Column
 	private int antiguedad;
 
-	public Inscripcion() {
+	public Monopatin() {
 
 	}
 
-	public Inscripcion(Estudiante estudiante, Carrera carrera, int anioInscripcion, int anioGraduacion, int antiguedad) {
+	public Monopatin(Viaje estudiante, Parada carrera, int anioInscripcion, int anioGraduacion, int antiguedad) {
 		this.estudiante = estudiante;
 		this.carrera = carrera;
 		this.anioInscripcion = anioInscripcion;
@@ -51,26 +51,26 @@ public class Inscripcion {
 	
 	
 	
-	public Inscripcion(Estudiante estudiante, Carrera carrera) {
+	public Monopatin(Viaje estudiante, Parada carrera) {
 		this.estudiante = estudiante;
 		this.carrera = carrera;
 		this.anioInscripcion = LocalDate.now().getYear();	
 	
 	}
 
-	public Estudiante getEstudiante() {
+	public Viaje getEstudiante() {
 		return estudiante;
 	}
 
-	public void setEstudiante(Estudiante estudiante) {
+	public void setEstudiante(Viaje estudiante) {
 		this.estudiante = estudiante;
 	}
 
-	public Carrera getCarrera() {
+	public Parada getCarrera() {
 		return carrera;
 	}
 
-	public void setCarrera(Carrera carrera) {
+	public void setCarrera(Parada carrera) {
 		this.carrera = carrera;
 	}
 

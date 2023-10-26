@@ -14,46 +14,46 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.Service.EstudianteService;
+import com.example.demo.Service.ViajeService;
 import com.example.demo.dto.EstudiantesPorCarrerayCiudadDTO;
-import com.example.demo.model.Estudiante;
-import com.example.demo.repository.EstudianteRepository;
+import com.example.demo.model.Viaje;
+import com.example.demo.repository.ViajeRepository;
 
 //ACA SE MAPEAN LOS METODOS QUE MAPEAN CON LAS QUERYS PRA CADA CONSULTA REST
 
 @RestController
 @RequestMapping("estudiantes")
-public class EstudianteControllerJPA {
+public class ViajeControllerJPA {
 	
 	@Autowired
-	private EstudianteService estudianteService;
+	private ViajeService estudianteService;
 	
 	@Qualifier("estudianteRepository")
 	@Autowired
-	private final EstudianteRepository repository;
+	private final ViajeRepository repository;
 
-	public EstudianteControllerJPA(@Qualifier("estudianteRepository") EstudianteRepository repository) {
+	public ViajeControllerJPA(@Qualifier("estudianteRepository") ViajeRepository repository) {
 		this.repository = repository;
 	}
 	
 	@GetMapping("")
-	public List<Estudiante> getEstudiantes() {
+	public List<Viaje> getEstudiantes() {
 		return this.estudianteService.getEstudiantes();
 	}
 	
 	// Solucion al inciso 2.a.
 	@PostMapping("/")
-	public Estudiante newEstudiante(@RequestBody Estudiante e) {
+	public Viaje newEstudiante(@RequestBody Viaje e) {
 		return estudianteService.saveEstudiante(e);
 	}
 	
 	@GetMapping("/{id}")
-	public Optional<Estudiante> getEstudianteById(@PathVariable int id) {
+	public Optional<Viaje> getEstudianteById(@PathVariable int id) {
 		return estudianteService.getById(id);
 	}
 	
 	@PutMapping("/{id}")
-	public Estudiante updateEstudianteById(@RequestBody Estudiante request,@PathVariable("dni") int id) {
+	public Viaje updateEstudianteById(@RequestBody Viaje request,@PathVariable("dni") int id) {
 		return this.estudianteService.updateById(request, id);
 	}
 	
@@ -70,31 +70,31 @@ public class EstudianteControllerJPA {
 
 	// Solucion al inciso 2.c.
 	@GetMapping("/ByNombreAsc")
-	public List<Estudiante> getEstudiantesByNombreAsc() {
+	public List<Viaje> getEstudiantesByNombreAsc() {
 		return repository.findAllAsc();
 	}
 
 	// Solucion la inciso 2.d.
 	@GetMapping("/ByNumLibretaUniversitaria/{numLibretaUniversitaria}")
-	public Estudiante getPersonsByNroLibreta(@PathVariable int numLibretaUniversitaria) {
+	public Viaje getPersonsByNroLibreta(@PathVariable int numLibretaUniversitaria) {
 		return repository.findAllByNroLibreta(numLibretaUniversitaria);
 
 	}
 
 	// Solucion la inciso 2.e.
 	@GetMapping("/ByGenero/{genero}")
-	public List<Estudiante> getPersonsByGenero(@PathVariable String genero) {
+	public List<Viaje> getPersonsByGenero(@PathVariable String genero) {
 		return repository.findAllByGenero(genero);
 
 	}
 
 	@GetMapping("/ByApellido/{apellido}")
-	public List<Estudiante> getEstudiantesPorApellido(@PathVariable String apellido) {
+	public List<Viaje> getEstudiantesPorApellido(@PathVariable String apellido) {
 		return repository.findAllByApellido(apellido);
 	}
 
 	@GetMapping("/ByNombre/{nombre}")
-	public List<Estudiante> getPersonsByNombre(@PathVariable String nombre) {
+	public List<Viaje> getPersonsByNombre(@PathVariable String nombre) {
 		return repository.findAllByNombre(nombre);
 
 	}

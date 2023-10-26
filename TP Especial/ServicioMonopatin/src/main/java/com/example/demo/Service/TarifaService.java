@@ -8,34 +8,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import com.example.demo.model.Carrera;
+import com.example.demo.model.Parada;
 
-import com.example.demo.repository.CarreraRepository;
+import com.example.demo.repository.ParadaRepository;
 
 
 
 @Service
-public class CarreraService {
+public class TarifaService {
 	
 	@Autowired
-	private CarreraRepository carreraRepository;
+	private ParadaRepository carreraRepository;
 	@Autowired
 
 	
-	public List<Carrera> getCarreras(){
+	public List<Parada> getCarreras(){
 		return carreraRepository.findAll();
 	}
 	
-	public Carrera saveCarrera(Carrera c) {
+	public Parada saveCarrera(Parada c) {
 		return this.carreraRepository.save(c);
 	}
 	
-	public Optional<Carrera> getById(int id){
+	public Optional<Parada> getById(int id){
 		return carreraRepository.findById(id);
 	}
 	
-	public Carrera updateById(Carrera request, int id){
-		Carrera carrera = carreraRepository.findById(id).get();
+	public Parada updateById(Parada request, int id){
+		Parada carrera = carreraRepository.findById(id).get();
 		carrera.setNombre(request.getNombre());
 		return carrera;
 	}

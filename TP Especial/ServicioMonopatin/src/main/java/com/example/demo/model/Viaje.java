@@ -15,7 +15,7 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 
-public class Estudiante {
+public class Viaje {
 
 	@Id
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,14 +37,14 @@ public class Estudiante {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estudiante", cascade = CascadeType.ALL)
 	@JsonManagedReference
 	@JsonIgnore
-	private List<Inscripcion> inscripciones;
+	private List<Monopatin> inscripciones;
 
-	public Estudiante() {
+	public Viaje() {
 		super();
 	}
 
-	public Estudiante(int dni, String nombre, String apellido, int edad, String genero, String ciudadResidencia,
-			int numLibretaUniversitaria, List<Inscripcion> inscripciones) {
+	public Viaje(int dni, String nombre, String apellido, int edad, String genero, String ciudadResidencia,
+			int numLibretaUniversitaria, List<Monopatin> inscripciones) {
 		super();
 		this.dni = dni;
 		this.nombre = nombre;
@@ -112,11 +112,11 @@ public class Estudiante {
 		this.numLibretaUniversitaria = numLibretaUniversitaria;
 	}
 
-	public List<Inscripcion> getInscripciones() {
+	public List<Monopatin> getInscripciones() {
 		return inscripciones;
 	}
 
-	public void setInscripciones(List<Inscripcion> inscripciones) {
+	public void setInscripciones(List<Monopatin> inscripciones) {
 		this.inscripciones = inscripciones;
 	}
 
@@ -127,7 +127,7 @@ public class Estudiante {
 				+ numLibretaUniversitaria + ", inscripciones=" + inscripciones + "]";
 	}
 
-	public Estudiante findById(int id_estudiante) {
+	public Viaje findById(int id_estudiante) {
 		// TODO Auto-generated method stub
 		return null;
 	}

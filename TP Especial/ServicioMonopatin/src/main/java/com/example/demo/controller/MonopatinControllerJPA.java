@@ -17,44 +17,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.Service.InscripcionService;
+import com.example.demo.Service.MonopatinService;
 import com.example.demo.dto.CarrerasPorInscriptosDTO;
 import com.example.demo.dto.MatricularEstudianteDTO;
 import com.example.demo.dto.ReporteCarrerasDTO;
-import com.example.demo.model.Inscripcion;
-import com.example.demo.repository.InscripcionRepository;
+import com.example.demo.model.Monopatin;
+import com.example.demo.repository.MonopatinRepository;
 
 //ACA SE MAPEAN LOS METODOS QUE MAPEAN CON LAS QUERYS PRA CADA CONSULTA REST
 
 @RestController
 @RequestMapping("inscripciones")
-public class InscripcionControllerJPA {
+public class MonopatinControllerJPA {
 
 	@Autowired
-	private InscripcionService inscripcionService;
+	private MonopatinService inscripcionService;
 	
 	@Qualifier("inscripcionRepository")
 	@Autowired
-	private final InscripcionRepository repository;
+	private final MonopatinRepository repository;
 
-	public InscripcionControllerJPA(@Qualifier("inscripcionRepository") InscripcionRepository repository) {
+	public MonopatinControllerJPA(@Qualifier("inscripcionRepository") MonopatinRepository repository) {
 		this.repository = repository;
 	}
 
 	@GetMapping("")
-	public List<Inscripcion> getInscripciones() {
+	public List<Monopatin> getInscripciones() {
 		return this.inscripcionService.getInscripciones();
 	}
 	
 	
 	
 	@GetMapping("/{id}")
-	Optional<Inscripcion> getCarreraById(@PathVariable int id) {
+	Optional<Monopatin> getCarreraById(@PathVariable int id) {
 		return inscripcionService.getById(id);
 	}
 	
 	@PutMapping("/{id}")
-	public Inscripcion updateCarreraById(@RequestBody Inscripcion request,@PathVariable("id_inscripcion") int id) {
+	public Monopatin updateCarreraById(@RequestBody Monopatin request,@PathVariable("id_inscripcion") int id) {
 		return this.inscripcionService.updateById(request, id);
 	}
 	

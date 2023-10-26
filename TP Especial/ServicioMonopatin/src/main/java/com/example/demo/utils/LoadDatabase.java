@@ -12,12 +12,12 @@ import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.example.demo.model.Carrera;
-import com.example.demo.model.Estudiante;
-import com.example.demo.model.Inscripcion;
-import com.example.demo.repository.CarreraRepository;
-import com.example.demo.repository.EstudianteRepository;
-import com.example.demo.repository.InscripcionRepository;
+import com.example.demo.model.Parada;
+import com.example.demo.model.Viaje;
+import com.example.demo.model.Monopatin;
+import com.example.demo.repository.ParadaRepository;
+import com.example.demo.repository.ViajeRepository;
+import com.example.demo.repository.MonopatinRepository;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
@@ -30,7 +30,7 @@ public class LoadDatabase {
 	private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
 	@Bean
-	CommandLineRunner initDatabaseFromCSVCarreras(@Qualifier("carreraRepository") CarreraRepository carreraRepository) {
+	CommandLineRunner initDatabaseFromCSVCarreras(@Qualifier("carreraRepository") ParadaRepository carreraRepository) {
 		return args -> {
 			String packageName = LoadDatabase.class.getPackage().getName(); // Obtiene el nombre del paquete actual
 			String csvFileName = "carreras.csv";
@@ -52,7 +52,7 @@ public class LoadDatabase {
 					int duracion = Integer.parseInt(csvRecord.get(2));
 
 					// Crear Carreras
-					Carrera c = new Carrera(id_carrera, carrera, duracion);
+					Parada c = new Parada(id_carrera, carrera, duracion);
 					carreraRepository.save(c);
 
 				}
@@ -65,7 +65,7 @@ public class LoadDatabase {
 
 	@Bean
 	CommandLineRunner initDatabaseFromCSVEstudiantes(
-			@Qualifier("estudianteRepository") EstudianteRepository estudianteRepository) {
+			@Qualifier("estudianteRepository") ViajeRepository estudianteRepository) {
 		return args -> {
 			String packageName = LoadDatabase.class.getPackage().getName(); // Obtiene el nombre del paquete actual
 			String csvFileName = "estudiantes.csv";
@@ -91,7 +91,7 @@ public class LoadDatabase {
 					int numLibretaUniversitaria = Integer.parseInt(csvRecord.get(6));
 
 					// Crear Estudiante
-					Estudiante estudiante = new Estudiante(dni, nombre, apellido, edad, genero, ciudad,
+					Viaje estudiante = new Viaje(dni, nombre, apellido, edad, genero, ciudad,
 							numLibretaUniversitaria, null);
 					estudianteRepository.save(estudiante);
 
@@ -104,9 +104,9 @@ public class LoadDatabase {
 	}
 	
 	  @Bean CommandLineRunner initDatabaseFromCSVInscripciones(
-			  @Qualifier("inscripcionRepository") InscripcionRepository inscripcionRepository , 
-			  @Qualifier("estudianteRepository") EstudianteRepository estudianteRepository,
-			  @Qualifier("carreraRepository") CarreraRepository carreraRepository) 
+			  @Qualifier("inscripcionRepository") MonopatinRepository inscripcionRepository , 
+			  @Qualifier("estudianteRepository") ViajeRepository estudianteRepository,
+			  @Qualifier("carreraRepository") ParadaRepository carreraRepository) 
 	  			{ return args -> { 
 	  				String packageName = LoadDatabase.class.getPackage().getName(); // Obtiene el nombre del paquete actual 
 	  				String csvFileName = "inscripcion.csv"; 
@@ -127,12 +127,12 @@ public class LoadDatabase {
 	  							int graduacion = Integer.parseInt(csvRecord.get(4)); 
 	  							int antiguedad = Integer.parseInt(csvRecord.get(5));
 
-	  							Optional<Estudiante> e = estudianteRepository.findById(id_estudiante);
+	  							Optional<Viaje> e = estudianteRepository.findById(id_estudiante);
 	  							
-	  							Optional<Carrera> c = carreraRepository.findById(id_carrera);
+	  							Optional<Parada> c = carreraRepository.findById(id_carrera);
 	  														 
 	  							if(e.isPresent() && c.isPresent()) {
-	  								Inscripcion i = new Inscripcion(e.get(), c.get(), inscripcion, graduacion, antiguedad);
+	  								Monopatin i = new Monopatin(e.get(), c.get(), inscripcion, graduacion, antiguedad);
   									inscripcionRepository.save(i);
   									
 	  							}

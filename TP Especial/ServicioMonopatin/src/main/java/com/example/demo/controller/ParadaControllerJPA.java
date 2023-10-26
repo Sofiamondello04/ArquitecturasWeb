@@ -14,50 +14,50 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.Service.CarreraService;
-import com.example.demo.model.Carrera;
-import com.example.demo.repository.CarreraRepository;
+import com.example.demo.Service.ParadaService;
+import com.example.demo.model.Parada;
+import com.example.demo.repository.ParadaRepository;
 
 //ACA SE MAPEAN LOS METODOS QUE MAPEAN CON LAS QUERYS PRA CADA CONSULTA REST
 
 @RestController
 @RequestMapping("carreras")
 
-public class CarreraControllerJPA {
+public class ParadaControllerJPA {
 	
 	@Autowired
-	private CarreraService carreraService;
+	private ParadaService carreraService;
 	
 	@Qualifier("carreraRepository")
 	@Autowired
-	private final CarreraRepository repository;
+	private final ParadaRepository repository;
 
-	public CarreraControllerJPA(@Qualifier("carreraRepository") CarreraRepository repository) {
+	public ParadaControllerJPA(@Qualifier("carreraRepository") ParadaRepository repository) {
 		this.repository = repository;
 	}
 
 	@GetMapping("")
-	public List<Carrera> getCarreras() {
+	public List<Parada> getCarreras() {
 		return this.carreraService.getCarreras();
 	}
 	
 	@PostMapping(" /")
-	public Carrera newCarrera(@RequestBody Carrera c) {
+	public Parada newCarrera(@RequestBody Parada c) {
 		return carreraService.saveCarrera(c);
 	}
 	
 	@GetMapping("/{id}")
-	Optional<Carrera> getCarreraById(@PathVariable int id) {
+	Optional<Parada> getCarreraById(@PathVariable int id) {
 		return carreraService.getById(id);
 	}
 	
 	@GetMapping("/ByNombre/{nombre}")
-	public Carrera getCarrerasByNombre(@PathVariable String nombre) {
+	public Parada getCarrerasByNombre(@PathVariable String nombre) {
 		return repository.findByNombre(nombre);
 	}
 
 	@PutMapping("/{id}")
-	public Carrera updateCarreraById(@RequestBody Carrera request,@PathVariable("id_carrera") int id) {
+	public Parada updateCarreraById(@RequestBody Parada request,@PathVariable("id_carrera") int id) {
 		return this.carreraService.updateById(request, id);
 	}
 	

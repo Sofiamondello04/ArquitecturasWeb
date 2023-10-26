@@ -9,39 +9,39 @@ import org.springframework.stereotype.Service;
 import com.example.demo.dto.CarrerasPorInscriptosDTO;
 
 import com.example.demo.dto.ReporteCarrerasDTO;
-import com.example.demo.model.Carrera;
-import com.example.demo.model.Estudiante;
-import com.example.demo.model.Inscripcion;
-import com.example.demo.repository.CarreraRepository;
-import com.example.demo.repository.EstudianteRepository;
-import com.example.demo.repository.InscripcionRepository;
+import com.example.demo.model.Parada;
+import com.example.demo.model.Viaje;
+import com.example.demo.model.Monopatin;
+import com.example.demo.repository.ParadaRepository;
+import com.example.demo.repository.ViajeRepository;
+import com.example.demo.repository.MonopatinRepository;
 
 import jakarta.transaction.Transactional;
 
 @Service
-public class InscripcionService {
+public class MonopatinService {
 	
 	@Autowired
-	InscripcionRepository inscripcionRepository;
+	MonopatinRepository inscripcionRepository;
 	@Autowired
-	private CarreraRepository carreraRepository;
+	private ParadaRepository carreraRepository;
 	@Autowired
-	private EstudianteRepository estudianteRepository;
+	private ViajeRepository estudianteRepository;
 	
-	public List<Inscripcion> getInscripciones(){
+	public List<Monopatin> getInscripciones(){
 		return inscripcionRepository.findAll();
 	}
 	
-	public Inscripcion saveInscripcion(Inscripcion i) {
+	public Monopatin saveInscripcion(Monopatin i) {
 		return this.inscripcionRepository.save(i);
 	}
 	
-	public Optional<Inscripcion> getById(int id){
+	public Optional<Monopatin> getById(int id){
 		return inscripcionRepository.findById(id);
 	}
 	
-	public Inscripcion updateById(Inscripcion request, int id){
-		Inscripcion inscripcion = inscripcionRepository.findById(id).get();
+	public Monopatin updateById(Monopatin request, int id){
+		Monopatin inscripcion = inscripcionRepository.findById(id).get();
 		inscripcion.setCarrera(request.getCarrera());
 		inscripcion.setAnioGraduacion(request.getAnioGraduacion());
 		inscripcion.setAnioInscripcion(request.getAnioInscripcion());
@@ -61,15 +61,15 @@ public class InscripcionService {
 	}
 
 	@Transactional
-	public Inscripcion matricular(int e, int c) {
-		Optional<Estudiante> estudianteOptional = estudianteRepository.findById(e);
-		Optional<Carrera> carreraOptional = carreraRepository.findById(c);
+	public Monopatin matricular(int e, int c) {
+		Optional<Viaje> estudianteOptional = estudianteRepository.findById(e);
+		Optional<Parada> carreraOptional = carreraRepository.findById(c);
 		if (carreraOptional.isEmpty() || estudianteOptional.isEmpty() ) {
 	        System.out.println("No se encontró la carrera con el ID especificado.");
 	    }
-		Estudiante estudiante = estudianteOptional.get();
-		Carrera carrera = carreraOptional.get();
-		Inscripcion i = new Inscripcion(estudiante, carrera);
+		Viaje estudiante = estudianteOptional.get();
+		Parada carrera = carreraOptional.get();
+		Monopatin i = new Monopatin(estudiante, carrera);
 
 		return this.inscripcionRepository.save(i);
 	}

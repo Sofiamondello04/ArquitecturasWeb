@@ -7,31 +7,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.EstudiantesPorCarrerayCiudadDTO;
-import com.example.demo.model.Estudiante;
-import com.example.demo.repository.EstudianteRepository;
+import com.example.demo.model.Viaje;
+import com.example.demo.repository.ViajeRepository;
 
 import jakarta.transaction.Transactional;
 
 @Service
-public class EstudianteService {
+public class ViajeService {
 	
 	@Autowired
-	EstudianteRepository estudianteRepository;
+	ViajeRepository estudianteRepository;
 	
-	public List<Estudiante> getEstudiantes(){
+	public List<Viaje> getEstudiantes(){
 		return estudianteRepository.findAll();
 	}
 	
-	public Estudiante saveEstudiante(Estudiante e) {
+	public Viaje saveEstudiante(Viaje e) {
 		return this.estudianteRepository.save(e);
 	}
 	
-	public Optional<Estudiante> getById(int id){
+	public Optional<Viaje> getById(int id){
 		return estudianteRepository.findById(id);
 	}
 	
-	public Estudiante updateById(Estudiante request, int id){
-		Estudiante estudiante = estudianteRepository.findById(id).get();
+	public Viaje updateById(Viaje request, int id){
+		Viaje estudiante = estudianteRepository.findById(id).get();
 		estudiante.setDni(request.getDni());
 		estudiante.setNombre(request.getNombre());
 		estudiante.setApellido(request.getApellido());

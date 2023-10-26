@@ -18,7 +18,7 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 
-public class Carrera {
+public class Tarifa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,24 +36,24 @@ public class Carrera {
 	@OneToMany(mappedBy = "carrera", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonManagedReference
 	@JsonIgnore
-	private List<Inscripcion> inscriptos;
+	private List<Monopatin> inscriptos;
 
-	public Carrera() {
+	public Tarifa() {
 
 	}
 
-	public Carrera(int id_carrera, String nombre, int duracion) {
+	public Tarifa(int id_carrera, String nombre, int duracion) {
 		super();
 		this.id_carrera = id_carrera;
 		this.nombre = nombre;
 		this.duracion = duracion;
-		this.inscriptos = new ArrayList<Inscripcion>();
+		this.inscriptos = new ArrayList<Monopatin>();
 	}
 
-	public Carrera(String nombre, int duracion) {
+	public Tarifa(String nombre, int duracion) {
 		this.nombre = nombre;
 		this.duracion = duracion;
-		this.inscriptos = new ArrayList<Inscripcion>();
+		this.inscriptos = new ArrayList<Monopatin>();
 	}
 
 	public String getNombre() {
@@ -64,11 +64,11 @@ public class Carrera {
 		this.nombre = nombre;
 	}
 
-	public List<Inscripcion> getInscriptos() {
+	public List<Monopatin> getInscriptos() {
 		return inscriptos;
 	}
 
-	public void setInscriptos(List<Inscripcion> inscriptos) {
+	public void setInscriptos(List<Monopatin> inscriptos) {
 		this.inscriptos = inscriptos;
 	}
 
