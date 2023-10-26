@@ -1,4 +1,4 @@
-package com.example.demo.utils;
+/*package com.example.demo.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -145,4 +145,4 @@ public class LoadDatabase {
 	 
 
 //	 
-}
+}*/
