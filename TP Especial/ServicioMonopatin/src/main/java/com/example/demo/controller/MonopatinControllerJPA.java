@@ -32,7 +32,7 @@ public class MonopatinControllerJPA {
 		
 	}
 		
-	@GetMapping("/monopatines/{id}")
+	@GetMapping("/monopatin/{id}")
 	public ResponseEntity<MonopatinResponseRest> getMonopatinById(@PathVariable Long id) {	
 		ResponseEntity<MonopatinResponseRest> response = monopatinService.getById(id);
 		return response;
