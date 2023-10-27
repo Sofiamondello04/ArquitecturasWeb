@@ -48,9 +48,9 @@ public class ParadaService {
 		ParadaResponseRest response = new ParadaResponseRest();
 		List <Parada> list = new ArrayList<>();
 		try {
-			Optional<Parada> monopatin = paradaRepository.findById(id);
-			if (monopatin.isPresent()) {
-				list.add(monopatin.get());
+			Optional<Parada> parada = paradaRepository.findById(id);
+			if (parada.isPresent()) {
+				list.add(parada.get());
 				response.getParadaResponse().setParada(list);
 				response.setMetadaData("ok", "00", "Parada encontrada");
 			}
