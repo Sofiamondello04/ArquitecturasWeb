@@ -12,21 +12,23 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
 @EqualsAndHashCode
 @Data
+@Table(name= "monopatin")
 public class Monopatin {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idMonopatin;
+	private Long idMonopatin;
 
-	@OneToMany(cascade = CascadeType.MERGE)
+	/*@OneToMany(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "idViaje")
-	private List<Viaje> viajes;
+	private List<Viaje> viajes;*/
 
 
 	@Column

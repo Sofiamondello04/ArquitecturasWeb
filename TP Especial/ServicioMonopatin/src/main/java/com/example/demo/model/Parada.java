@@ -15,7 +15,7 @@ public class Parada {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idParada;
+	private Long idParada;
 
 	@Column
 	private Long ubicacion;

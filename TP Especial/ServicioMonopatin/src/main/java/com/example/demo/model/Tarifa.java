@@ -15,7 +15,7 @@ public class Tarifa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idTarifa;
+	private Long idTarifa;
 
 	@Column
 	private double tarifaNormal;

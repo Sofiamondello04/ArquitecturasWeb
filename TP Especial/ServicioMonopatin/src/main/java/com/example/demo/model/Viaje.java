@@ -17,7 +17,7 @@ public class Viaje {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idViaje;
+	private Long idViaje;
 	
 	@Column
 	private LocalDate fechaYHoraInicio;

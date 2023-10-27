@@ -1,94 +1,60 @@
 package com.example.demo.controller;
 
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.demo.Service.MonopatinService;
-import com.example.demo.dto.CarrerasPorInscriptosDTO;
 
-import com.example.demo.dto.ReporteCarrerasDTO;
 import com.example.demo.model.Monopatin;
-import com.example.demo.repository.MonopatinRepository;
+import com.example.demo.response.MonopatinResponseRest;
 
-//ACA SE MAPEAN LOS METODOS QUE MAPEAN CON LAS QUERYS PRA CADA CONSULTA REST
+//ACA SE MAPEAN LOS METODOS DEL SERVICE CON REST
 
 @RestController
-@RequestMapping("inscripciones")
+@RequestMapping("api/v1") //URL general
 public class MonopatinControllerJPA {
 
-	@Autowired
-	private MonopatinService inscripcionService;
-	
-	@Qualifier("inscripcionRepository")
-	@Autowired
-	private final MonopatinRepository repository;
+	@Autowired //Se utiliza para realizar la inyección de dependencias automáticamente
+	private MonopatinService monopatinService;
 
-	public MonopatinControllerJPA(@Qualifier("inscripcionRepository") MonopatinRepository repository) {
-		this.repository = repository;
-	}
-
-	@GetMapping("")
-	public List<Monopatin> getInscripciones() {
-		return this.inscripcionService.getInscripciones();
-	}
-	
-	
-	
-	@GetMapping("/{id}")
-	Optional<Monopatin> getCarreraById(@PathVariable int id) {
-		return inscripcionService.getById(id);
-	}
-	
-	@PutMapping("/{id}")
-	public Monopatin updateCarreraById(@RequestBody Monopatin request,@PathVariable("id_inscripcion") int id) {
-		return this.inscripcionService.updateById(request, id);
-	}
-	
-	@DeleteMapping("/{id}")
-	public String deleteCarreraById(@PathVariable int id) {
-		boolean ok = inscripcionService.deleteInscripcion(id);
-		if(ok) {
-			return "La inscripcion con el id " + id + " a sido borrada"; 
-		}else {
-			return "No existe inscripcion con el id " + id;
-		}
+	@GetMapping("/monopatines")
+	public ResponseEntity<MonopatinResponseRest> getMonopatines() {		
+		ResponseEntity<MonopatinResponseRest> response = monopatinService.getAll();
+		return response;
 		
 	}
-	
-	/*@PostMapping("/matricular")
-    public ResponseEntity<?> matricular(@RequestBody MatricularEstudianteDTO request){ 
-        try{
-            inscripcionService.matricular(request.getIdEstudiante(), request.getIdCarrera());
-            return ResponseEntity.status(HttpStatus.OK).body("Se matriculo correctamente el estudiante con dni: " +request.getIdEstudiante()+ " en la carrera: " + request.getIdCarrera());
-        }catch (Exception ex){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error. No se pudo matricular el estudiante, revise los campos e intente nuevamente.\"\n\"error\":\""+ex.getMessage()+"\"}");
-        }
- }*/
-	 
-	 @GetMapping("/carrerasOrderByInscriptos")
-	 public List<CarrerasPorInscriptosDTO> getCarrerasOrderByInscriptos() {
-		 return this.inscripcionService.getCarrerasPorCantidadInscriptos();
+		
+	@GetMapping("/monopatines/{id}")
+	public ResponseEntity<MonopatinResponseRest> getMonopatinById(@PathVariable Long id) {	
+		ResponseEntity<MonopatinResponseRest> response = monopatinService.getById(id);
+		return response;
 	}
-	 
 	
+	@PostMapping("/monopatin")
+	public ResponseEntity<MonopatinResponseRest> save(@RequestBody Monopatin monopatin) {
+		
+		ResponseEntity<MonopatinResponseRest> response = monopatinService.save(monopatin);
+		return response;
+	}
 	
-	@GetMapping("/reporteCarreras")
-	public List<ReporteCarrerasDTO> getReporteCarreras(){
-		return this.inscripcionService.reporteCarrerasInscriptosyAntiguedad();
-    		  
-}
+	@PutMapping("/monopatin/{id}")
+	public ResponseEntity<MonopatinResponseRest> update(@RequestBody Monopatin monopatin, @PathVariable Long id) {
+		ResponseEntity<MonopatinResponseRest> response = monopatinService.updateById(monopatin, id);
+		return response;
+	}
+	
+	@DeleteMapping("/monopatin/{id}")
+	public ResponseEntity<MonopatinResponseRest> delete(@PathVariable Long id) {
+		ResponseEntity<MonopatinResponseRest> response = monopatinService.deleteById(id);
+		return response;
+	}
 	 
 }
