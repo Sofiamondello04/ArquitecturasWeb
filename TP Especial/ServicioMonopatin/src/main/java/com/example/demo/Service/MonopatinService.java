@@ -22,37 +22,33 @@ import jakarta.transaction.Transactional;
 public class MonopatinService {
 	
 	@Autowired
-	MonopatinRepository inscripcionRepository;
-	@Autowired
-	private ParadaRepository carreraRepository;
-	@Autowired
-	private ViajeRepository estudianteRepository;
+	MonopatinRepository monopatinRepository;
 	
-	public List<Monopatin> getInscripciones(){
-		return inscripcionRepository.findAll();
+	
+	public List<Monopatin> getMonopatines(){
+		return monopatinRepository.findAll();
 	}
-	
-	public Monopatin saveInscripcion(Monopatin i) {
-		return this.inscripcionRepository.save(i);
+	@Transactional
+	public Monopatin saveInscripcion(Monopatin m) {
+		return this.monopatinRepository.save(m);
 	}
 	
 	public Optional<Monopatin> getById(int id){
-		return inscripcionRepository.findById(id);
+		return monopatinRepository.findById(id);
+	}
+	@Transactional
+	public Monopatin updateById(Monopatin request, int id){
+		Monopatin monopatin = monopatinRepository.findById(id).get();
+		monopatin.setViajes(request.getViajes());
+		monopatin.setUbicacion(request.getUbicacion());
+		monopatin.setEstado(request.getEstado());
+		return monopatin;
 	}
 	
-	public Monopatin updateById(Monopatin request, int id){
-		Monopatin inscripcion = inscripcionRepository.findById(id).get();
-		inscripcion.setCarrera(request.getCarrera());
-		inscripcion.setAnioGraduacion(request.getAnioGraduacion());
-		inscripcion.setAnioInscripcion(request.getAnioInscripcion());
-		inscripcion.setAntiguedad(request.getAntiguedad());
-		inscripcion.setEstudiante(request.getEstudiante());
-		return inscripcion;
-	}
 	
 	public Boolean deleteInscripcion(int id) {
 		try {
-			inscripcionRepository.deleteById(id);
+			monopatinRepository.deleteById(id);
 			return true;
 		}
 		catch (Exception e) {
@@ -60,7 +56,7 @@ public class MonopatinService {
 		}
 	}
 
-	@Transactional
+	/*@Transactional
 	public Monopatin matricular(int e, int c) {
 		Optional<Viaje> estudianteOptional = estudianteRepository.findById(e);
 		Optional<Parada> carreraOptional = carreraRepository.findById(c);
@@ -72,16 +68,7 @@ public class MonopatinService {
 		Monopatin i = new Monopatin(estudiante, carrera);
 
 		return this.inscripcionRepository.save(i);
-	}
+	}*/
 
-	@Transactional
-	public List<CarrerasPorInscriptosDTO> getCarrerasPorCantidadInscriptos() {
-		return this.inscripcionRepository.getCarrerasPorInscriptos();
-	}
 
-	
-
-	public List<ReporteCarrerasDTO> reporteCarrerasInscriptosyAntiguedad() {
-		return this.inscripcionRepository.reporteCarrerasInsyAnt();
-	}
 }

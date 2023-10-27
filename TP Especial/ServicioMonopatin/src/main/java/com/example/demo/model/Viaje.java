@@ -31,11 +31,11 @@ public class Viaje {
 	@Column
 	private LocalDate fechaYHoraFinPausa;
 
-	@Column
+	
 	@OneToOne
 	private Tarifa tarifaNormal;
 	
-	@Column
+	
 	@OneToOne
 	private Tarifa tarifaDiferencial;
 }
