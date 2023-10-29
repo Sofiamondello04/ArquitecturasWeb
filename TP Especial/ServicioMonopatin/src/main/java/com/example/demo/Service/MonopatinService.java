@@ -146,7 +146,7 @@ public class MonopatinService {
 	
 
 	public double getMonopatinPorKilometrosDTO(Long idMonopatin) {
-		
+		 
 		return 0;
 	}
 
