@@ -34,5 +34,5 @@ public class Usuario {
 
 	@ManyToMany(mappedBy = "usuarios")
 	private List<Cuenta> cuentas;
-*/
+
 }
