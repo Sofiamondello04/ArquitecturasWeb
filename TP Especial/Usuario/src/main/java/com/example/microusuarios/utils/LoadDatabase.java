@@ -1,4 +1,4 @@
-package com.example.demo.utils;
+package com.example.microusuarios.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,22 +11,21 @@ import org.apache.commons.csv.CSVRecord;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.example.demo.model.Carrera;
-import com.example.demo.model.Estudiante;
-import com.example.demo.model.Inscripcion;
-import com.example.demo.repository.CarreraRepository;
-import com.example.demo.repository.EstudianteRepository;
-import com.example.demo.repository.InscripcionRepository;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.example.microusuarios.model.Carrera;
+import com.example.microusuarios.model.Estudiante;
+import com.example.microusuarios.model.Inscripcion;
+import com.example.microusuarios.repository.CarreraRepository;
+import com.example.microusuarios.repository.EstudianteRepository;
+import com.example.microusuarios.repository.InscripcionRepository;
+
 @Configuration
 public class LoadDatabase {
-
+/*
 	private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
 	@Bean
@@ -144,5 +143,5 @@ public class LoadDatabase {
 	  
 	 
 
-//	 
+*/
 }
