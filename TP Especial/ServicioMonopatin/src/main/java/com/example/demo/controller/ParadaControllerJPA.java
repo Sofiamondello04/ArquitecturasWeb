@@ -11,11 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.demo.Service.MonopatinService;
 import com.example.demo.Service.ParadaService;
-import com.example.demo.model.Monopatin;
 import com.example.demo.model.Parada;
-import com.example.demo.response.MonopatinResponseRest;
 import com.example.demo.response.ParadaResponseRest;
 
 //ACA SE MAPEAN LOS METODOS DEL SERVICE CON REST

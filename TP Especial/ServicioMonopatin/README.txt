@@ -1,41 +1,17 @@
 Link Github: https://github.com/Sofiamondello04/ArquitecturasWeb
 
-Resolucion Ejercicio Integrador
+Link Collection Postman: https://crimson-space-35607.postman.co/workspace/New-Team-Workspace~6fef3d4a-5094-40a6-ba02-382b8e162da2/collection/24393112-7dedea31-0ffa-402d-933c-686f6ea57d95?action=share&creator=24393112
 
-a) dar de alta un estudiante: POST http://localhost:8080/estudiantes/
-
-Request ejemplo:
-
-{
-"dni": 38531711,
-"nombre": "Sofia",
-"apellido": "Mondello",
-"ciudadResidencia": "tandil",
-"edad": 28,
-"genero": "Female",
-"numLibretaUniversitaria": 540540
-}
-
-b) matricular un estudiante en una carrera: POST http://localhost:8080/inscripciones/matricular
-
-Request ejemplo:
-
-
-{
-"idEstudiante": 38531711,
-"idCarrera" : 15
-}
-
-c) recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple: GET http://localhost:8080/estudiantes/ByNombreAsc
-
-d) recuperar un estudiante, en base a su número de libreta universitaria: GET http://localhost:8080/estudiantes/ByNumLibretaUniversitaria/{numLibretaUniversitaria}
-
-e) recuperar todos los estudiantes, en base a su género:  GET http://localhost:8080/estudiantes/ByGenero/{genero}
-
-f) recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos. GET http://localhost:8080/inscripciones/carrerasOrderByInscriptos
-
-g) recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia. GET http://localhost:8080/inscripciones/estudiantesCarrerayPorCiudad/{carrera}/{ciudadResidencia}
-
-h) generar un reporte de las carreras, que para cada carrera incluya información de los
-inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y
-presentar los años de manera cronológica.  GET http://localhost:8080/inscripciones/reporteCarreras
+• Registrar monopatín en mantenimiento (debe marcarse como no disponible para su uso: Metodo POST: http://localhost:8081/api/v1/monopatin con estado "Mantenimiento" OK
+• Registrar fin de mantenimiento de monopatín: Metodo PUT: http://localhost:8081/api/v1/monopatin/{id} OK
+• Ubicar monopatín en parada (opcional)
+• Agregar monopatín: Metodo POST: http://localhost:8081/api/v1/monopatin OK
+• Quitar monopatín: Metodo DELETE: http://localhost:8081/api/v1/monopatin/{id} OK
+• Registrar parada: Metodo POST: http://localhost:8081/api/v1/parada OK
+• Quitar parada: Metodo DELETE: http://localhost:8081/api/v1/parada/{id} OK
+• Definir precio: Metodo POST: http://localhost:8081/api/v1/tarifa OK
+• Definir tarifa extra para reinicio por pausa extensa Metodo POST: http://localhost:8081/api/v1/tarifa OK
+• Anular cuenta: BER/MAURO
+• Generar reporte de uso de monopatines por kilómetros
+• Generar reporte de uso de monopatines por tiempo con pausas
+• Generar reporte de uso de monopatines por tiempo sin pausas

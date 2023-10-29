@@ -5,13 +5,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.transaction.annotation.Transactional;
 
-
+import com.example.demo.dto.MonopatinPorKilometrosDTO;
 import com.example.demo.model.Monopatin;
 import com.example.demo.response.MonopatinResponseRest;
 import com.example.demo.repository.MonopatinRepository;
@@ -144,7 +145,10 @@ public class MonopatinService {
 	}
 	
 
-
+	public double getMonopatinPorKilometrosDTO(Long idMonopatin) {
+		 
+		return 0;
+	}
 
 
 

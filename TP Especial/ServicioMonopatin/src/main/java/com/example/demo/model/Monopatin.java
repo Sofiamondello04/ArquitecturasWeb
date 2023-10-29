@@ -6,11 +6,10 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -26,9 +25,8 @@ public class Monopatin {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idMonopatin;
 
-	/*@OneToMany(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "idViaje")
-	private List<Viaje> viajes;*/
+	/*@OneToMany(mappedBy = "monopatin", cascade = CascadeType.ALL)*/
+    /*private List<Viaje> viajes;*/
 
 
 	@Column

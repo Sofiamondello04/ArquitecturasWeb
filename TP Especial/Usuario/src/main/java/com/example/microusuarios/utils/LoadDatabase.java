@@ -1,4 +1,4 @@
-package com.example.microusuarios.utils;
+/*package com.example.microusuarios.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class LoadDatabase {
-/*
+
 	private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
 	@Bean
@@ -136,5 +136,5 @@ public class LoadDatabase {
 	  
 	 
 
-*/
-}
+
+}*/
