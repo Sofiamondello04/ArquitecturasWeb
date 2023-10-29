@@ -16,13 +16,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.example.microusuarios.model.Carrera;
-import com.example.microusuarios.model.Estudiante;
-import com.example.microusuarios.model.Inscripcion;
-import com.example.microusuarios.repository.CarreraRepository;
-import com.example.microusuarios.repository.EstudianteRepository;
-import com.example.microusuarios.repository.InscripcionRepository;
-
 @Configuration
 public class LoadDatabase {
 /*
