@@ -32,9 +32,7 @@ public class Cuenta {
 	@Column
 	private boolean activa;
 	
-	@Column(name ="fechaAlta")
-	private LocalDate fecha_alta;
-	
+
 	@ManyToMany
 	private List<Usuario> usuarios;
 }

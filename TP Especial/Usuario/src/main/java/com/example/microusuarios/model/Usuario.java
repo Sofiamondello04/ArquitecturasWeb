@@ -1,5 +1,6 @@
 package com.example.microusuarios.model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -31,6 +32,10 @@ public class Usuario {
 	private int nroCelular;
 	@Column
 	private String email;
+	
+	@Column
+	private LocalDate fechaAlta;
+	
 
 	@ManyToMany(mappedBy = "usuarios")
 	private List<Cuenta> cuentas;
