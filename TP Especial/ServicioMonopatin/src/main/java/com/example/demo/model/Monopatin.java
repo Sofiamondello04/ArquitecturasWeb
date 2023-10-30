@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -19,14 +21,13 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 @Data
 @Table(name= "monopatin")
-public class Monopatin {
+public class Monopatin implements Serializable {
+	
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idMonopatin;
-
-	/*@OneToMany(mappedBy = "monopatin", cascade = CascadeType.ALL)*/
-    /*private List<Viaje> viajes;*/
 
 
 	@Column
@@ -34,8 +35,16 @@ public class Monopatin {
 
 	@Column
 	private String estado;
-
-
 	
+
+	public Monopatin () {} //Constructor por defecto para que STS no tenga prob de instanciacion
+
+	public Monopatin (Long ubicacion, String estado) {
+		
+		this.ubicacion = ubicacion;
+		this.estado = estado;
+		
+		
+	}
 
 }

@@ -13,13 +13,13 @@ import org.springframework.data.repository.query.Param;
 
 public interface MonopatinRepository extends CrudRepository<Monopatin, Long> {
 	
-	@Query("SELECT new com.example.demo.dto.MonopatinPorKilometrosDTO(m.idMonopatin, SUM(v.kilometros) as totalKilometros) FROM Monopatin m "
+	/*@Query("SELECT new com.example.demo.dto.MonopatinPorKilometrosDTO(m.idMonopatin, SUM(v.kilometros) as totalKilometros) FROM Monopatin m "
 			+ "JOIN m.viajes v "
 			+ "WHERE m.idMonopatin = :idMonopatin")
 		  
 	public List<MonopatinPorKilometrosDTO> getMonopatinPorKilometrosDTO(@Param("idMonopatin") Long idMonopatin);
 	
-	
+	*/
 	
 
 	/*

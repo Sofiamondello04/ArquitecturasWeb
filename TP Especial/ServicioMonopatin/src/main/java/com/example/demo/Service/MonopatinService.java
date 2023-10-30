@@ -144,12 +144,12 @@ public class MonopatinService {
 		return new ResponseEntity<MonopatinResponseRest>(response, HttpStatus.OK);
 	}
 	
-
+/*
 	public double getMonopatinPorKilometrosDTO(Long idMonopatin) {
 		 
 		return 0;
 	}
-
+*/
 
 
 }
