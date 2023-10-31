@@ -1,5 +1,5 @@
 package com.example.microusuarios.controller;
-/*
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.Service.CuentaService;
-import com.example.demo.model.Cuenta;
-import com.example.demo.response.CuentaResponseRest;
+import com.example.microusuarios.Service.CuentaService;
+import com.example.microusuarios.model.Cuenta;
+import com.example.microusuarios.response.CuentaResponseRest;
 
 @RestController
 @RequestMapping("api/v1") //URL general
@@ -53,4 +53,4 @@ public class CuentaControllerJPA {
 		return response;
 	}
 	 
-}*/
+}

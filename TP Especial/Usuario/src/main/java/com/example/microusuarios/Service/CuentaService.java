@@ -95,7 +95,6 @@ public class CuentaService {
 		try {
 			Optional<Cuenta> CuentaSearch = cuentaRepository.findById(id);
 			if (CuentaSearch.isPresent()) {
-				CuentaSearch.get().setFechaAlta(Cuenta.getFechaAlta());
 				CuentaSearch.get().setSaldo(Cuenta.getSaldo());
 				CuentaSearch.get().setActiva(Cuenta.isActiva());
 				Cuenta CuentaToUpdate = cuentaRepository.save(CuentaSearch.get());

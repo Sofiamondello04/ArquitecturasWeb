@@ -1,6 +1,9 @@
 package com.example.microusuarios.controller;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +23,7 @@ import com.example.microusuarios.response.UsuarioResponseRest;
 public class UsuarioControllerJPA {
 	@Autowired //Se utiliza para realizar la inyección de dependencias automáticamente
 	private UsuarioService usuarioService;
-
+	
 	@GetMapping("/usuarios")
 	public ResponseEntity<UsuarioResponseRest> getUsuarios() {		
 		ResponseEntity<UsuarioResponseRest> response = usuarioService.getAll();
@@ -52,5 +55,23 @@ public class UsuarioControllerJPA {
 		ResponseEntity<UsuarioResponseRest> response = usuarioService.deleteById(id);
 		return response;
 	}
-	 
+	
+	@PostMapping("/usuario/{idUsuario}/vincularCuenta/{idCuenta}")
+	public ResponseEntity<UsuarioResponseRest> vincularCuentaAUsuario(
+	    @PathVariable("idUsuario") Long idUsuario,
+	    @PathVariable("idCuenta") Long idCuenta
+	) {
+	    ResponseEntity<UsuarioResponseRest> response = usuarioService.vincularCuentaUsuario(idUsuario, idCuenta);
+	    return response;
+	}
+	
+	@PostMapping("/usuario/{idUsuario}/desvincularCuenta/{idCuenta}")
+	public ResponseEntity<UsuarioResponseRest> desVincularCuentaAUsuario(
+	    @PathVariable("idUsuario") Long idUsuario,
+	    @PathVariable("idCuenta") Long idCuenta
+	) {
+	    ResponseEntity<UsuarioResponseRest> response = usuarioService.desVincularCuentaUsuario(idUsuario, idCuenta);
+	    return response;
+	}
+	
 }

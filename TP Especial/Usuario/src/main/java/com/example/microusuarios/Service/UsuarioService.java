@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.microusuarios.model.Cuenta;
 import com.example.microusuarios.model.Usuario;
+import com.example.microusuarios.repository.CuentaRepository;
 import com.example.microusuarios.repository.UsuarioRepository;
 import com.example.microusuarios.response.UsuarioResponseRest;
 
@@ -18,6 +21,8 @@ import com.example.microusuarios.response.UsuarioResponseRest;
 public class UsuarioService {
 	@Autowired
 	UsuarioRepository usuarioRepository;
+	@Autowired
+	CuentaRepository cuentaRepository;
 	
 	@Transactional(readOnly=true)
 	public ResponseEntity<UsuarioResponseRest> getAll() {
@@ -138,9 +143,77 @@ public class UsuarioService {
 		
 		return new ResponseEntity<UsuarioResponseRest>(response, HttpStatus.OK);
 	}
+
+	@Transactional
+	public ResponseEntity<UsuarioResponseRest> vincularCuentaUsuario(Long idUsuario, Long idCuenta) {
+		 UsuarioResponseRest responseU = new UsuarioResponseRest();
+
+		    try {
+		        Optional<Usuario> usuarioSearch = usuarioRepository.findById(idUsuario);
+		        Optional<Cuenta> cuentaSearch = cuentaRepository.findById(idCuenta);
+
+		        if (usuarioSearch.isPresent() && cuentaSearch.isPresent()) {
+		            Usuario usuario = usuarioSearch.get();
+		            Cuenta cuenta = cuentaSearch.get();
+		            if(!usuario.getCuentas().contains(cuenta)) {
+		            	usuario.getCuentas().add(cuenta); // Agregar la cuenta al usuario
+		            	cuenta.getUsuarios().add(usuario); // Agregar el usuario a la cuenta
+		            	usuarioRepository.save(usuario);
+			            cuentaRepository.save(cuenta);
+
+			            responseU.setMetadaData("ok", "00", "Cuenta vinculada al usuario correctamente");
+		            }
+		            else {
+		            	responseU.setMetadaData("nok", "-1", "La cuenta ya se encuentra vinculada al usuario");
+		            }
+
+		            
+		        } else {
+		            responseU.setMetadaData("nok", "-1", "Usuario o cuenta no encontrada");
+		            return new ResponseEntity<UsuarioResponseRest>(responseU, HttpStatus.BAD_REQUEST);
+		        }
+		    } catch (Exception e) {
+		        responseU.setMetadaData("Respuesta error", "-1", "Error al vincular la cuenta al usuario");
+		        e.printStackTrace();
+		    }
+
+		    return new ResponseEntity<UsuarioResponseRest>(responseU, HttpStatus.OK);
+	}
+
+	public ResponseEntity<UsuarioResponseRest> desVincularCuentaUsuario(Long idUsuario, Long idCuenta) {
+		UsuarioResponseRest responseU = new UsuarioResponseRest();
+
+	    try {
+	        Optional<Usuario> usuarioSearch = usuarioRepository.findById(idUsuario);
+	        Optional<Cuenta> cuentaSearch = cuentaRepository.findById(idCuenta);
+
+	        if (usuarioSearch.isPresent() && cuentaSearch.isPresent()) {
+	            Usuario usuario = usuarioSearch.get();
+	            Cuenta cuenta = cuentaSearch.get();
+	            if(usuario.getCuentas().contains(cuenta)) {
+	            	usuario.getCuentas().remove(cuenta);
+	            	cuenta.getUsuarios().remove(usuario);
+	            	usuarioRepository.save(usuario);
+		            cuentaRepository.save(cuenta);
+		            
+
+		            responseU.setMetadaData("ok", "00", "Cuenta desvinculada al usuario correctamente");
+	            }
+	            else {
+	            	responseU.setMetadaData("nok", "-1", "La cuenta no se encuentra vinculada al usuario");
+	            }
+
+	            
+	        } else {
+	            responseU.setMetadaData("nok", "-1", "Usuario o cuenta no encontrada");
+	            return new ResponseEntity<UsuarioResponseRest>(responseU, HttpStatus.BAD_REQUEST);
+	        }
+	    } catch (Exception e) {
+	        responseU.setMetadaData("Respuesta error", "-1", "Error al desvincular la cuenta al usuario");
+	        e.printStackTrace();
+	    }
+
+	    return new ResponseEntity<UsuarioResponseRest>(responseU, HttpStatus.OK);
+	}
 	
-
-
-
-
 }

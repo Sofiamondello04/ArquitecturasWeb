@@ -1,10 +1,17 @@
 package com.example.microusuarios.model;
 
+
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,7 +26,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 @Data
 @Table(name= "usuario")
-public class Usuario {
+public class Usuario implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +36,7 @@ public class Usuario {
 	@Column
 	private String apellido;
 	@Column
-	private int nroCelular;
+	private Long nroCelular;
 	@Column
 	private String email;
 	
@@ -37,7 +44,25 @@ public class Usuario {
 	private LocalDate fechaAlta;
 	
 
-	@ManyToMany(mappedBy = "usuarios")
+	@ManyToMany(mappedBy = "usuarios", fetch = FetchType.LAZY)
+	@JsonManagedReference
+	@JsonIgnoreProperties("usuarios") // Ignora la propiedad "cuentas" al serializar
 	private List<Cuenta> cuentas;
+
+	public Usuario() {
+		this.fechaAlta = LocalDate.now();
+		this.cuentas = new ArrayList<>();
+	}
+	
+	public Usuario(String nombre, String apellido, Long nroCelular, String email) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.nroCelular = nroCelular;
+		this.email = email;
+		this.fechaAlta = LocalDate.now();
+		this.cuentas = new ArrayList<>();
+		
+	}
 
 }

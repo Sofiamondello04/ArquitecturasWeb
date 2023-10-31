@@ -1,10 +1,17 @@
 package com.example.microusuarios.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,7 +24,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 @Data
 @Table(name= "cuenta")
-public class Cuenta {
+public class Cuenta implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,9 +37,28 @@ public class Cuenta {
 	private double saldo;
 	
 	@Column
+	@JsonIgnore
 	private boolean activa;
 	
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JsonManagedReference
+	@JsonIgnoreProperties("cuentas") // Ignora la propiedad "cuentas" al serializar
 	private List<Usuario> usuarios;
+	
+	public Cuenta() {
+		this.fechaAlta = LocalDate.now();
+		this.activa = true;
+		this.usuarios = new ArrayList<>();	
+	}
+
+	public Cuenta(double saldo) {
+		super();
+		this.saldo = saldo;
+		this.fechaAlta = LocalDate.now();
+		this.activa = true;
+		this.usuarios = new ArrayList<>();
+	}
+
+
 }
