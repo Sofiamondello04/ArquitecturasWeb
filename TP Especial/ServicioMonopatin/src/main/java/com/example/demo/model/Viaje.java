@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import jakarta.persistence.CascadeType;
@@ -18,7 +19,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name= "viaje")
-public class Viaje {
+public class Viaje implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,14 +46,16 @@ public class Viaje {
     @JoinColumn(name = "idTarifaDiferencial") // Nombre de la columna en la tabla Viaje y en la tabla Tarifa
     private Tarifa tarifaDiferencial;
 	*/
-	@ManyToOne
+	/*@ManyToOne
 	@JoinColumn(name = "idMonopatin")
-    private Monopatin monopatin;
+    private Monopatin monopatin;*/
+	
+	@Column
+	private Long idMonopatin;
 	
 	@Column
 	private double kilometros;
 	
-
 	
 }
 	

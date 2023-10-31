@@ -104,7 +104,7 @@ public class ViajeService {
 				viajeSearch.get().setFechaYHoraFinPausa(viaje.getFechaYHoraFinPausa());
 				/*viajeSearch.get().setTarifaNormal(viaje.getTarifaNormal());
 				viajeSearch.get().setTarifaDiferencial(viaje.getTarifaDiferencial());*/
-				viajeSearch.get().setMonopatin(viaje.getMonopatin());
+				/*viajeSearch.get().setMonopatin(viaje.getMonopatin());*/
 				viajeSearch.get().setKilometros(viaje.getKilometros());
 				Viaje viajeToUpdate = viajeRepository.save(viajeSearch.get());
 				if (viajeToUpdate != null) {
