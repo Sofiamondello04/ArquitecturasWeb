@@ -100,7 +100,7 @@ public class MonopatinService {
 		try {
 			Optional<Monopatin> monopatinSearch = monopatinRepository.findById(id);
 			if (monopatinSearch.isPresent()) {
-				/*monopatinSearch.get().setViajes(monopatin.getViajes());*/
+				monopatinSearch.get().setViajes(monopatin.getViajes());
 				monopatinSearch.get().setUbicacion(monopatin.getUbicacion());
 				monopatinSearch.get().setEstado(monopatin.getEstado());
 				Monopatin monopatinToUpdate = monopatinRepository.save(monopatinSearch.get());

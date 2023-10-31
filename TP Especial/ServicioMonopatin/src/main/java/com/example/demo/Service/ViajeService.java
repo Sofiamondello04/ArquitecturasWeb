@@ -11,8 +11,10 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.model.Monopatin;
 import com.example.demo.model.Viaje;
 import com.example.demo.response.ViajeResponseRest;
+import com.example.demo.repository.MonopatinRepository;
 import com.example.demo.repository.ViajeRepository;
 
 @Service
@@ -20,7 +22,8 @@ public class ViajeService {
 	
 	@Autowired
 	ViajeRepository viajeRepository;
-	
+	@Autowired
+	MonopatinRepository monopatinRepository;
 	
 	
 	@Transactional(readOnly=true)
@@ -70,18 +73,22 @@ public class ViajeService {
 		List <Viaje> list = new ArrayList<>();
 		
 		try {
-			Viaje viajeSaved = viajeRepository.save(viaje);
-			if (viajeSaved != null) {
-				list.add(viajeSaved);
-				response.getViajeResponse().setViaje(list);
-				response.setMetadaData("ok", "00", "Viaje guardado");
-			}
-			else {
-				response.setMetadaData("nok", "-1", "Viaje no guardado");
-				return new ResponseEntity<ViajeResponseRest>(response, HttpStatus.BAD_REQUEST);
-			}
+			Optional <Monopatin> monopatinSearch = monopatinRepository.findById(viaje.getIdMonopatin());
+			if (monopatinSearch.isPresent()) {
+				Viaje viajeSaved = viajeRepository.save(viaje);
+				Monopatin monopatin = monopatinSearch.get();
+				monopatin.getViajes().add(viajeSaved);
+				if (viajeSaved != null) {
+					list.add(viajeSaved);
+					response.getViajeResponse().setViaje(list);
+					response.setMetadaData("ok", "00", "Viaje guardado");
+				}
+				else {
+					response.setMetadaData("nok", "-1", "Viaje no guardado");
+					return new ResponseEntity<ViajeResponseRest>(response, HttpStatus.BAD_REQUEST);
+				}
 		}
-		
+		}
 		catch (Exception e) {
 			response.setMetadaData("Respuesta error", "-1", "Error al grabar viaje");
 			e.getStackTrace();
