@@ -1,7 +1,8 @@
-package com.example.demo.controller;
+package com.example.microAdministracion.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.Service.AdministradorService;
-import com.example.demo.model.Administrador;
-import com.example.demo.response.AdministradorResponseRest;
+import com.example.microAdministracion.Service.AdministradorService;
+import com.example.microAdministracion.model.Administrador;
+import com.example.microAdministracion.response.AdministradorResponseRest;
+import com.example.microusuarios.model.Usuario;
 
 
 //ACA SE MAPEAN LOS METODOS DEL SERVICE CON REST
@@ -57,5 +59,11 @@ public class AdministradorControllerJPA {
 		ResponseEntity<AdministradorResponseRest> response = administradorService.deleteById(id);
 		return response;
 	}
+	
+    @PostMapping("/crearUsuario")
+    public ResponseEntity<String> crearUsuario(@RequestBody Usuario usuario) {
+        ResponseEntity<String> response = administradorService.crearUsuario(usuario);
+        return response;
+    }
 	 
 }

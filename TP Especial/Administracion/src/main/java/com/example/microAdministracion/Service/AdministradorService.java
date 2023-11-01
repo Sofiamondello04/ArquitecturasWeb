@@ -1,4 +1,4 @@
-package com.example.demo.Service;
+package com.example.microAdministracion.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,17 +10,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
-
-import com.example.demo.model.Administrador;
-import com.example.demo.response.AdministradorResponseRest;
-import com.example.demo.repository.AdministradorRepository;
+import com.example.microAdministracion.model.Administrador;
+import com.example.microAdministracion.repository.AdministradorRepository;
+import com.example.microAdministracion.response.AdministradorResponseRest;
+import com.example.microusuarios.model.Usuario;
 
 @Service
 public class AdministradorService {
 	
 	@Autowired
 	AdministradorRepository administradorRepository;
+	
+	 @Autowired
+	 private RestTemplate restTemplate;
 	
 	
 	
@@ -143,9 +147,8 @@ public class AdministradorService {
 		return new ResponseEntity<AdministradorResponseRest>(response, HttpStatus.OK);
 	}
 	
-
-
-
-
-
+    public ResponseEntity<String> crearUsuario(Usuario usuario) {
+        String url = "http://localhost:8082/api/v1/usuario"; // Cambia la URL según tu configuración
+        return restTemplate.postForEntity(url, usuario, String.class);
+    }
 }

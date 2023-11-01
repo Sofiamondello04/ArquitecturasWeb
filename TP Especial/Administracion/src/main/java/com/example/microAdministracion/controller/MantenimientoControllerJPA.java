@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.microAdministracion.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 //import com.example.demo.response.MonopatinResponseRest;
 //import com.example.demo.response.ParadaResponseRest;
 
-import com.example.demo.Service.MantenimientoService;
-import com.example.demo.model.Mantenimiento;
-import com.example.demo.response.MantenimientoResponseRest;
+import com.example.microAdministracion.Service.MantenimientoService;
+import com.example.microAdministracion.model.Mantenimiento;
+import com.example.microAdministracion.response.MantenimientoResponseRest;
 
 //ACA SE MAPEAN LOS METODOS DEL SERVICE CON REST
 

@@ -1,5 +1,6 @@
-package com.example.demo.model;
+package com.example.microAdministracion.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +18,7 @@ public class Mantenimiento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idMantenimiento;
 
-
+	@Column
+	private String nombre;
 	
 }

@@ -1,8 +1,8 @@
-package com.example.demo.response;
+package com.example.microAdministracion.response;
 
 import java.util.List;
 
-import com.example.demo.model.Mantenimiento;
+import com.example.microAdministracion.model.Mantenimiento;
 
 import lombok.Data;
 

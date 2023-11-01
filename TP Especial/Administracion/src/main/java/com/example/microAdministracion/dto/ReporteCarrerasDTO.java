@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.microAdministracion.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;

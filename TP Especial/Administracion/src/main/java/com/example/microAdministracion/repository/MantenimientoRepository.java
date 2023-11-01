@@ -1,10 +1,10 @@
-package com.example.demo.repository;
+package com.example.microAdministracion.repository;
 
 
-
-import com.example.demo.model.Mantenimiento;
 
 import org.springframework.data.repository.CrudRepository;
+
+import com.example.microAdministracion.model.Mantenimiento;
 
 
 

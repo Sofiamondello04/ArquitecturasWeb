@@ -1,4 +1,4 @@
-package com.example.demo.Service;
+package com.example.microAdministracion.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +11,9 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.transaction.annotation.Transactional;
 
-
-import com.example.demo.model.Mantenimiento;
-import com.example.demo.response.MantenimientoResponseRest;
-import com.example.demo.repository.MantenimientoRepository;
+import com.example.microAdministracion.model.Mantenimiento;
+import com.example.microAdministracion.repository.MantenimientoRepository;
+import com.example.microAdministracion.response.MantenimientoResponseRest;
 
 @Service
 public class MantenimientoService {

@@ -1,4 +1,4 @@
-package com.example.demo.response;
+package com.example.microAdministracion.response;
 
 import lombok.Getter;
 import lombok.Setter;

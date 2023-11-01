@@ -1,9 +1,9 @@
-package com.example.demo.repository;
+package com.example.microAdministracion.repository;
 
-
-import com.example.demo.model.Administrador;
 
 import org.springframework.data.repository.CrudRepository;
+
+import com.example.microAdministracion.model.Administrador;
 
 
 //ACA VAN LAS QUERYS ESPECIFICAS- extends JpaRepository<Administrador, Integer>. Lo cambie para poder usar optional
