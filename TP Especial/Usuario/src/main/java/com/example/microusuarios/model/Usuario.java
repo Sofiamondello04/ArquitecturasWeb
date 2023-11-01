@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -45,7 +46,7 @@ public class Usuario implements Serializable {
 	
 
 	@ManyToMany(mappedBy = "usuarios", fetch = FetchType.LAZY)
-	@JsonManagedReference
+	/*@JsonBackReference*/
 	@JsonIgnoreProperties("usuarios") // Ignora la propiedad "cuentas" al serializar
 	private List<Cuenta> cuentas;
 

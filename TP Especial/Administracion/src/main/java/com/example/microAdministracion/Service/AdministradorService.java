@@ -5,8 +5,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +21,7 @@ import com.example.microAdministracion.model.Administrador;
 import com.example.microAdministracion.repository.AdministradorRepository;
 import com.example.microAdministracion.response.AdministradorResponseRest;
 import com.example.microusuarios.model.Usuario;
+import com.example.microusuarios.response.UsuarioResponseRest;
 
 @Service
 public class AdministradorService {
@@ -147,8 +153,47 @@ public class AdministradorService {
 		return new ResponseEntity<AdministradorResponseRest>(response, HttpStatus.OK);
 	}
 	
-    public ResponseEntity<String> crearUsuario(Usuario usuario) {
+   /* public ResponseEntity<String> crearUsuario(Usuario usuario) {
         String url = "http://localhost:8082/api/v1/usuario"; // Cambia la URL según tu configuración
         return restTemplate.postForEntity(url, usuario, String.class);
-    }
+    }*/
+
+
+	
+	public ResponseEntity<UsuarioResponseRest> anularCuenta(Long idUsuario, Long idCuenta) {
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
+
+	    // Puedes crear un objeto para enviar en el cuerpo de la solicitud si es necesario
+	    // Ejemplo: RequestBody requestBody = new RequestBody(idUsuario, idCuenta);
+	    
+	    HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+	    ResponseEntity<UsuarioResponseRest> response = restTemplate.postForEntity(
+	            "http://localhost:8080/api/v1/usuario/{idUsuario}/desvincularCuenta/{idCuenta}",
+	            requestEntity, UsuarioResponseRest.class, idUsuario, idCuenta);
+
+	    return response;
+	}
+	
+	public ResponseEntity<UsuarioResponseRest> desactivarCuenta(Long idCuenta) {
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
+
+	    // Puedes crear un objeto para enviar en el cuerpo de la solicitud si es necesario
+	    // Ejemplo: RequestBody requestBody = new RequestBody(idUsuario, idCuenta);
+	    
+	    HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+	    ResponseEntity<UsuarioResponseRest> response = restTemplate.exchange(
+	    		"http://localhost:8080/api/v1/desactivarCuenta/{idCuenta}",
+	            HttpMethod.PUT,
+	            requestEntity,
+	            UsuarioResponseRest.class,
+	            idCuenta);
+
+	    return response;
+	}
+
+
 }

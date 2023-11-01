@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -37,12 +38,12 @@ public class Cuenta implements Serializable{
 	private double saldo;
 	
 	@Column
-	@JsonIgnore
+	
 	private boolean activa;
 	
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JsonManagedReference
+	/*@JsonBackReference*/
 	@JsonIgnoreProperties("cuentas") // Ignora la propiedad "cuentas" al serializar
 	private List<Usuario> usuarios;
 	

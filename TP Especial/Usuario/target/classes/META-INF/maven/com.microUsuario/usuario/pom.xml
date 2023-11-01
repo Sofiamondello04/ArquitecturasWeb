@@ -60,16 +60,11 @@
     		<artifactId>commons-csv</artifactId>
     		<version>1.8</version> <!-- Utiliza la última versión disponible -->
 		</dependency>
-
-<!--
-	ESTA LINEA SE COMENTO XQ NO ANDA.
 		<dependency>
-			<groupId>integrador_3</groupId>
-			<artifactId>ejercicio_integrador_3</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
 		</dependency>
-		 
--->
+
 		<dependency>
 			<groupId>com.tudai</groupId>
 			<artifactId>spring2</artifactId>

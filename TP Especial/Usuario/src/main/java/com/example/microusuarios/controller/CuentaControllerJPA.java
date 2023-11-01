@@ -52,5 +52,11 @@ public class CuentaControllerJPA {
 		ResponseEntity<CuentaResponseRest> response = cuentaService.deleteById(id);
 		return response;
 	}
+	
+	@PutMapping("/desactivarCuenta/{id}")
+	public ResponseEntity<CuentaResponseRest> desactivarCuenta(@PathVariable Long id) {
+		ResponseEntity<CuentaResponseRest> response = cuentaService.desactivarCuenta(id);
+		return response;
+	}
 	 
 }

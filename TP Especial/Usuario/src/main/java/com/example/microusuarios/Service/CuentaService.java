@@ -137,8 +137,35 @@ public class CuentaService {
 		
 		return new ResponseEntity<CuentaResponseRest>(response, HttpStatus.OK);
 	}
-	
 
+	public ResponseEntity<CuentaResponseRest> desactivarCuenta(Long id) {
+		CuentaResponseRest response = new CuentaResponseRest();
+		List <Cuenta> list = new ArrayList<>();
+		try {
+			Optional<Cuenta> CuentaSearch = cuentaRepository.findById(id);
+			if (CuentaSearch.isPresent()) {
+				CuentaSearch.get().setActiva(false);
+				Cuenta CuentaToUpdate = cuentaRepository.save(CuentaSearch.get());
+				if (CuentaToUpdate != null) {
+					list.add(CuentaToUpdate);
+					response.getCuentaResponse().setCuenta(list);
+					response.setMetadaData("ok", "00", "Cuenta desactivada");		
+				}				
+				else {
+					response.setMetadaData("nok", "-1", "Cuenta no desactivada");
+					return new ResponseEntity<CuentaResponseRest>(response, HttpStatus.BAD_REQUEST);
+				}
+			}
+		}
+		catch (Exception e) {
+			response.setMetadaData("Respuesta error", "-1", "Error");
+			e.getStackTrace();
+			return new ResponseEntity<CuentaResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		
+		return new ResponseEntity<CuentaResponseRest>(response, HttpStatus.OK);
+	
+	}
 
 
 

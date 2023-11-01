@@ -17,6 +17,7 @@ import com.example.microAdministracion.Service.AdministradorService;
 import com.example.microAdministracion.model.Administrador;
 import com.example.microAdministracion.response.AdministradorResponseRest;
 import com.example.microusuarios.model.Usuario;
+import com.example.microusuarios.response.UsuarioResponseRest;
 
 
 //ACA SE MAPEAN LOS METODOS DEL SERVICE CON REST
@@ -60,10 +61,17 @@ public class AdministradorControllerJPA {
 		return response;
 	}
 	
-    @PostMapping("/crearUsuario")
-    public ResponseEntity<String> crearUsuario(@RequestBody Usuario usuario) {
-        ResponseEntity<String> response = administradorService.crearUsuario(usuario);
+    @PostMapping("/anularCuenta/{idUsuario}/{idCuenta}")
+    public ResponseEntity<UsuarioResponseRest> anularCuenta(@PathVariable Long idUsuario, @PathVariable Long idCuenta ) {
+        ResponseEntity<UsuarioResponseRest> response = administradorService.anularCuenta(idUsuario, idCuenta);
         return response;
     }
 	 
+    @PutMapping("/desactivarCuenta/{idCuenta}")
+    public ResponseEntity<UsuarioResponseRest> desactivarCuenta(@PathVariable Long idCuenta ) {
+        ResponseEntity<UsuarioResponseRest> response = administradorService.desactivarCuenta(idCuenta);
+        return response;
+    }
+    
+    
 }
