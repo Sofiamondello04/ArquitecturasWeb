@@ -22,8 +22,6 @@ public class ParadaService {
 	@Autowired
 	ParadaRepository paradaRepository;
 	
-	
-	
 	@Transactional(readOnly=true)
 	public ResponseEntity<ParadaResponseRest> getAll() {
 		
