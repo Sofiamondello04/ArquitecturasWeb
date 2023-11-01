@@ -144,7 +144,7 @@ public class MonopatinService {
 		
 		return new ResponseEntity<MonopatinResponseRest>(response, HttpStatus.OK);
 	}
-
+/*
 	@Transactional
 	public double getKilometrosById(Long id) {
 		MonopatinResponseRest response = new MonopatinResponseRest();
@@ -153,13 +153,13 @@ public class MonopatinService {
 		try {
 			Optional<Monopatin> monopatinSearch = monopatinRepository.findById(id);			
 			if (monopatinSearch.isPresent()) {
-				/*Monopatin monopatin = (Monopatin) monopatinSearch.get().getViajes();*/
+				/*Monopatin monopatin = (Monopatin) monopatinSearch.get().getViajes();
 				
 				  for (Viaje viaje : viajes) {
 			            totalKilometros += viaje.getKilometros();
 			      }
 
-				/*response.getMonopatinResponse().setMonopatin(list);*/
+				/*response.getMonopatinResponse().setMonopatin(list);
 				response.setMetadaData("ok", "00", "Kilometros sumados");
 			}
 		}
@@ -167,14 +167,62 @@ public class MonopatinService {
 			response.setMetadaData("Respuesta error", "-1", "Error");
 			e.getStackTrace();
 		/*	return new ResponseEntity<MonopatinResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);*/
+
+	/*@Transactional
+	public ResponseEntity<MonopatinResponseRest> getEstadoMonopatines() {
+		MonopatinResponseRest response = new MonopatinResponseRest();
+		try {
+			List<Monopatin> monopatines = (List<Monopatin>)monopatinRepository.findAll();
+			
+			for (Monopatin monopatin : monopatines) {
+				double kilometrosTotales=0;
+				List<Viaje> viajes = monopatin.getViajes();
+				for (Viaje viaje: viajes) {
+					kilometrosTotales = kilometrosTotales + viaje.getKilometros();
+					
+				}
+				if (kilometrosTotales>5000) {
+					monopatin.setRequiereMantenimiento(true);
+					
+				}
+				
+			}
+			monopatinRepository.saveAll(monopatines);
+			response.setMetadaData("Respuesta ok", "00", "Respuesta exitosa");
+			
+		}
+		catch (Exception e) {
+			response.setMetadaData("Respuesta error", "-1", "Error");
+			e.getStackTrace();
+			return new ResponseEntity<MonopatinResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		
-		/*return new ResponseEntity<MonopatinResponseRest>(response, HttpStatus.OK);*/
+		return new ResponseEntity<MonopatinResponseRest>(response, HttpStatus.OK);
+		
+	}*/
+	@Transactional
+	public ResponseEntity<MonopatinResponseRest> getEstadoMonopatines() {
+	MonopatinResponseRest response = new MonopatinResponseRest();
+	List<Monopatin> monopatines = (List<Monopatin>) monopatinRepository.findAll();
+
+	for (Monopatin monopatin : monopatines) {
+	    double kilometrosTotales = monopatin.getViajes().stream().mapToDouble(Viaje::getKilometros).sum();
+
+	    if (kilometrosTotales > 5000) {
+	        monopatin.setRequiereMantenimiento(true);
+	    }
+	}
+
+	monopatinRepository.saveAll(monopatines); // Guarda todos los monopatines en una sola operación
+	return new ResponseEntity<MonopatinResponseRest>(response, HttpStatus.OK);
+	}	
+		
+		/*return new ResponseEntity<MonopatinResponseRest>(response, HttpStatus.OK);
 		
 		return totalKilometros;
 	}
 	
-
-
+*/
 
 }
+

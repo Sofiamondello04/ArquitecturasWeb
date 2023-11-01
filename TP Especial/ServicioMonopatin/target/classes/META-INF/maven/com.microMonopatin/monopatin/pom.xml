@@ -10,10 +10,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	
-	<groupId>com.tudai</groupId>
-	<artifactId>spring2</artifactId>
+	<groupId>com.microMonopatin</groupId>
+	<artifactId>monopatin</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring2</name>
+	<name>monopatin</name>
 	<description>Demo project for Spring Boot</description>
 	
 	<properties>
@@ -59,16 +59,7 @@
     		<artifactId>commons-csv</artifactId>
     		<version>1.8</version> <!-- Utiliza la última versión disponible -->
 		</dependency>
-
-<!--
-	ESTA LINEA SE COMENTO XQ NO ANDA.
-		<dependency>
-			<groupId>integrador_3</groupId>
-			<artifactId>ejercicio_integrador_3</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		 
--->		
+	
 
 	</dependencies>
 

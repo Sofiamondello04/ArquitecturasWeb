@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.example.microAdministracion.Service.AdministradorService;
 import com.example.microAdministracion.model.Administrador;
 import com.example.microAdministracion.response.AdministradorResponseRest;
@@ -73,5 +74,10 @@ public class AdministradorControllerJPA {
         return response;
     }
     
+    /*@GetMapping("/monopatines")
+    public ResponseEntity<MonopatinResponseRest> getEstadoMonopatines() {
+        ResponseEntity<MonopatinResponseRest> response = administradorService.requiereMantenimiento();
+        return response;
+    }*/
     
 }

@@ -39,6 +39,9 @@ public class Monopatin implements Serializable {
 	@Column
 	private String estado;
 	
+	@Column
+	private boolean requiereMantenimiento;
+	
 	@OneToMany
 	@JsonIgnoreProperties("idMonopatin")
 	private List <Viaje> viajes;
@@ -50,9 +53,24 @@ public class Monopatin implements Serializable {
 		
 		this.ubicacion = ubicacion;
 		this.estado = estado;
+		this.requiereMantenimiento= false;
 		this.viajes = new ArrayList <>();
 		
 		
 	}
-
+	
+	public void requiereMantenimiento() {
+		double kilometrosTotales=0;
+		for (Viaje viaje: viajes) {
+			kilometrosTotales = kilometrosTotales + viaje.getKilometros();
+			
+		}
+		if (kilometrosTotales>5000) {
+			this.requiereMantenimiento=true;
+			
+		}
+	
+	}
+	
+	
 }

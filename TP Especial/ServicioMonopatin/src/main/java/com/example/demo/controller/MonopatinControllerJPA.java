@@ -62,5 +62,12 @@ public class MonopatinControllerJPA {
 		ResponseEntity<MonopatinResponseRest> response = monopatinService.getKilometrosById(id);
 		return response;
 	}*/
+	
+	@GetMapping("/mantenimientoMonopatines")
+	public ResponseEntity<MonopatinResponseRest> mantenimientoMonopatines() {	
+		ResponseEntity<MonopatinResponseRest> response = monopatinService.getEstadoMonopatines();
+		return response;
+	}
+	
 	 
 }

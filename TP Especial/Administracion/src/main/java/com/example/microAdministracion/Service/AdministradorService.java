@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+
 import com.example.microAdministracion.model.Administrador;
 import com.example.microAdministracion.repository.AdministradorRepository;
 import com.example.microAdministracion.response.AdministradorResponseRest;
@@ -159,7 +160,7 @@ public class AdministradorService {
     }*/
 
 
-	
+	@Transactional
 	public ResponseEntity<UsuarioResponseRest> anularCuenta(Long idUsuario, Long idCuenta) {
 	    HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_JSON);
@@ -176,6 +177,7 @@ public class AdministradorService {
 	    return response;
 	}
 	
+	@Transactional
 	public ResponseEntity<UsuarioResponseRest> desactivarCuenta(Long idCuenta) {
 	    HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_JSON);
@@ -194,6 +196,25 @@ public class AdministradorService {
 
 	    return response;
 	}
+
+	/*@Transactional
+	public ResponseEntity<MonopatinResponseRest> requiereMantenimiento() {
+		 HttpHeaders headers = new HttpHeaders();
+		    headers.setContentType(MediaType.APPLICATION_JSON);
+
+		    // Puedes crear un objeto para enviar en el cuerpo de la solicitud si es necesario
+		    // Ejemplo: RequestBody requestBody = new RequestBody(idUsuario, idCuenta);
+		    
+		    HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+		    ResponseEntity<MonopatinResponseRest> response = restTemplate.exchange(
+		    		"http://localhost:8081/api/v1/mantenimientoMonopatines",
+		            HttpMethod.GET,
+		            requestEntity,
+		            MonopatinResponseRest.class);
+		     
+		    return response;
+	}*/
 
 
 }
