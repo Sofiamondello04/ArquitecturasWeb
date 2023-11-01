@@ -3,6 +3,8 @@ package com.example.demo.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,6 +21,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name= "viaje")
+
 public class Viaje implements Serializable {
 
 	@Id
@@ -36,23 +39,13 @@ public class Viaje implements Serializable {
 	
 	@Column
 	private LocalDate fechaYHoraFinPausa;
-
-/*
-	@OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "idTarifaNormal") // Nombre de la columna en la tabla Viaje y en la tabla Tarifa
-    private Tarifa tarifaNormal;
-	
-	@OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "idTarifaDiferencial") // Nombre de la columna en la tabla Viaje y en la tabla Tarifa
-    private Tarifa tarifaDiferencial;
-	*/
-	/*@ManyToOne
-	@JoinColumn(name = "idMonopatin")
-    private Monopatin monopatin;*/
 	
 	@Column
 	private Long idMonopatin;
 	
+	@Column
+	private double precio;
+
 	@Column
 	private double kilometros;
 	
