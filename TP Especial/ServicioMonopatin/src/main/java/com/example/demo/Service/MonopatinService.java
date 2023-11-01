@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dto.MonopatinPorKilometrosDTO;
 import com.example.demo.model.Monopatin;
+import com.example.demo.model.Viaje;
 import com.example.demo.response.MonopatinResponseRest;
 import com.example.demo.repository.MonopatinRepository;
 
@@ -143,13 +144,37 @@ public class MonopatinService {
 		
 		return new ResponseEntity<MonopatinResponseRest>(response, HttpStatus.OK);
 	}
-	
-/*
-	public double getMonopatinPorKilometrosDTO(Long idMonopatin) {
-		 
-		return 0;
+
+	@Transactional
+	public double getKilometrosById(Long id) {
+		MonopatinResponseRest response = new MonopatinResponseRest();
+		List <Viaje> viajes = new ArrayList<>();
+		double totalKilometros = 0;
+		try {
+			Optional<Monopatin> monopatinSearch = monopatinRepository.findById(id);			
+			if (monopatinSearch.isPresent()) {
+				/*Monopatin monopatin = (Monopatin) monopatinSearch.get().getViajes();*/
+				
+				  for (Viaje viaje : viajes) {
+			            totalKilometros += viaje.getKilometros();
+			      }
+
+				/*response.getMonopatinResponse().setMonopatin(list);*/
+				response.setMetadaData("ok", "00", "Kilometros sumados");
+			}
+		}
+		catch (Exception e) {
+			response.setMetadaData("Respuesta error", "-1", "Error");
+			e.getStackTrace();
+		/*	return new ResponseEntity<MonopatinResponseRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);*/
+			}
+		
+		/*return new ResponseEntity<MonopatinResponseRest>(response, HttpStatus.OK);*/
+		
+		return totalKilometros;
 	}
-*/
+	
+
 
 
 }

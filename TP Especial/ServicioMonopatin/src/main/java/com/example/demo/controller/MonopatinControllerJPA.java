@@ -56,5 +56,11 @@ public class MonopatinControllerJPA {
 		ResponseEntity<MonopatinResponseRest> response = monopatinService.deleteById(id);
 		return response;
 	}
+	
+	/*@GetMapping("/monopatin/{id}")
+	public ResponseEntity<MonopatinResponseRest> reporteKilometrosMonopatin(@PathVariable Long id) {	
+		ResponseEntity<MonopatinResponseRest> response = monopatinService.getKilometrosById(id);
+		return response;
+	}*/
 	 
 }
