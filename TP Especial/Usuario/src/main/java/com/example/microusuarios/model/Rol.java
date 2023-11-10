@@ -27,10 +27,7 @@ public class Rol implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idRol;
-    
+    @Id 
     @Column(length = 50)
     private String nombre;
     

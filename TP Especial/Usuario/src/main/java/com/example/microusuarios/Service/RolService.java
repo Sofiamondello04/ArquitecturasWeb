@@ -45,12 +45,12 @@ public class RolService {
 	}
 	
 	@Transactional(readOnly=true)
-	public ResponseEntity<RolResponseRest> getById(Long id) {
+	public ResponseEntity<RolResponseRest> getById(String nombre) {
 		
 		RolResponseRest response = new RolResponseRest();
 		List <Rol> list = new ArrayList<>();
 		try {
-			Optional<Rol> rol = rolRepository.findById(id);
+			Optional<Rol> rol = rolRepository.findById(nombre);
 			if (rol.isPresent()) {
 				list.add(rol.get());
 				response.getRolResponse().setRol(list);
@@ -95,43 +95,10 @@ public class RolService {
 	}
 	
 	@Transactional
-	public ResponseEntity<RolResponseRest> updateById(Rol rol, Long id) {
-		RolResponseRest response = new RolResponseRest();
-		List <Rol> list = new ArrayList<>();
-		try {
-			Optional<Rol> rolSearch = rolRepository.findById(id);
-			if (rolSearch.isPresent()) {
-				rolSearch.get().setNombre(rol.getNombre());
-				Rol rolToUpdate = rolRepository.save(rolSearch.get());
-				if (rolToUpdate != null) {
-					list.add(rolToUpdate);
-					response.getRolResponse().setRol(list);
-					response.setMetadaData("ok", "00", "Rol actualizado");		
-				}				
-				else {
-					response.setMetadaData("nok", "-1", "Rol no actualizado");
-					return new ResponseEntity<RolResponseRest>(response, HttpStatus.BAD_REQUEST);
-				}
-			}
-			else {
-				response.setMetadaData("nok", "-1", "Rol no encontrado");
-				return new ResponseEntity<RolResponseRest>(response, HttpStatus.NOT_FOUND);
-			}			
-		}		
-		catch (Exception e) {
-			response.setMetadaData("Respuesta error", "-1", "Error al actualizar rol");
-			e.getStackTrace();
-			
-			}		
-		return new ResponseEntity<RolResponseRest>(response, HttpStatus.OK);
-	}
-
-
-	@Transactional
-	public ResponseEntity<RolResponseRest> deleteById(Long id) {
+	public ResponseEntity<RolResponseRest> deleteById(String nombre) {
 		RolResponseRest response = new RolResponseRest();
 		try {
-			rolRepository.deleteById(id);
+			rolRepository.deleteById(nombre);
 			response.setMetadaData("Respuesta ok", "00", "Registro eliminado");
 		}
 		catch (Exception e) {
@@ -144,11 +111,11 @@ public class RolService {
 	}
 
 	@Transactional
-	public ResponseEntity<RolResponseRest> vincularUsuarioRol(Long idRol, Long idUsuario) {
+	public ResponseEntity<RolResponseRest> vincularUsuarioRol(String nombre, Long idUsuario) {
 		 RolResponseRest responseR = new RolResponseRest();
 
 		    try {
-		        Optional<Rol> rolSearch = rolRepository.findById(idRol);
+		        Optional<Rol> rolSearch = rolRepository.findById(nombre);
 		        Optional<Usuario> usuarioSearch = usuarioRepository.findById(idUsuario);
 
 		        if (rolSearch.isPresent() && usuarioSearch.isPresent()) {
@@ -181,11 +148,11 @@ public class RolService {
 		    return new ResponseEntity<RolResponseRest>(responseR, HttpStatus.OK);
 	}
 
-	public ResponseEntity<RolResponseRest> desVincularUsuarioRol(Long idRol, Long idUsuario) {
+	public ResponseEntity<RolResponseRest> desVincularUsuarioRol(String nombre, Long idUsuario) {
 		RolResponseRest responseR = new RolResponseRest();
 
 	    try {
-	        Optional<Rol> rolSearch = rolRepository.findById(idRol);
+	        Optional<Rol> rolSearch = rolRepository.findById(nombre);
 	        Optional<Usuario> usuarioSearch = usuarioRepository.findById(idUsuario);
 
 	        if (rolSearch.isPresent() && usuarioSearch.isPresent()) {

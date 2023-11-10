@@ -34,9 +34,9 @@ public class RolControllerJPA {
 		
 	}
 		
-	@GetMapping("/rol/{id}")
-	public ResponseEntity<RolResponseRest> getRolById(@PathVariable Long id) {	
-		ResponseEntity<RolResponseRest> response = rolService.getById(id);
+	@GetMapping("/rol/{nombre}")
+	public ResponseEntity<RolResponseRest> getRolById(@PathVariable String nombre) {	
+		ResponseEntity<RolResponseRest> response = rolService.getById(nombre);
 		return response;
 	}
 	
@@ -47,33 +47,29 @@ public class RolControllerJPA {
 		return response;
 	}
 	
-	@PutMapping("/rol/{id}")
-	public ResponseEntity<RolResponseRest> update(@RequestBody Rol rol, @PathVariable Long id) {
-		ResponseEntity<RolResponseRest> response = rolService.updateById(rol, id);
+	
+	
+	@DeleteMapping("/rol/{nombre}")
+	public ResponseEntity<RolResponseRest> delete(@PathVariable String nombre) {
+		ResponseEntity<RolResponseRest> response = rolService.deleteById(nombre);
 		return response;
 	}
 	
-	@DeleteMapping("/rol/{id}")
-	public ResponseEntity<RolResponseRest> delete(@PathVariable Long id) {
-		ResponseEntity<RolResponseRest> response = rolService.deleteById(id);
-		return response;
-	}
-	
-	@PostMapping("/rol/{idRol}/vincularUsuario/{idUsuario}")
+	@PostMapping("/rol/{nombre}/vincularUsuario/{idUsuario}")
 	public ResponseEntity<RolResponseRest> vincularUsuarioARol(
-	    @PathVariable("idRol") Long idRol,
+	    @PathVariable("nombre") String nombre,
 	    @PathVariable("idUsuario") Long idUsuario
 	) {
-	    ResponseEntity<RolResponseRest> response = rolService.vincularUsuarioRol(idRol, idUsuario);
+	    ResponseEntity<RolResponseRest> response = rolService.vincularUsuarioRol(nombre, idUsuario);
 	    return response;
 	}
 	
-	@PostMapping("/rol/{idRol}/desvincularUsuario/{idUsuario}")
+	@PostMapping("/rol/{nombre}/desvincularUsuario/{idUsuario}")
 	public ResponseEntity<RolResponseRest> desVincularUsuarioARol(
-			@PathVariable("idRol") Long idRol,
+			@PathVariable("nombre") String nombre,
 	    @PathVariable("idUsuario") Long idUsuario
 	) {
-	    ResponseEntity<RolResponseRest> response = rolService.desVincularUsuarioRol(idRol, idUsuario);
+	    ResponseEntity<RolResponseRest> response = rolService.desVincularUsuarioRol(nombre, idUsuario);
 	    return response;
 	}
 	
