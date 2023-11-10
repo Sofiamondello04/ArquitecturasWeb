@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.microAdministracion.Service.AdministradorService;
 import com.example.microAdministracion.model.Administrador;
 import com.example.microAdministracion.response.AdministradorResponseRest;
-import com.example.microusuarios.model.Usuario;
 import com.example.microusuarios.response.UsuarioResponseRest;
+
 
 
 //ACA SE MAPEAN LOS METODOS DEL SERVICE CON REST
