@@ -99,10 +99,15 @@ public class AutenticacionControllerJPA {
 	        logger.info("Autenticación exitosa para el usuario {}", usuario.getEmail());
 
 	        final UserDetails userDetails = usuarioDetailsService.loadUserByUsername(usuario.getEmail());
+	        
+	        logger.info("UserDetails correcto para {}", usuario.getEmail());
 
 	        final String jwt = jwtUtilService.generateToken(userDetails);
+	        
+	        logger.info("generando token para {}", usuario.getEmail());
 
 	        return ResponseEntity.ok(new TokenInfo(jwt));
+	        
 	    } catch (AuthenticationException e) {
 	        logger.error("Error de autenticación para el usuario {}", usuario.getEmail(), e);
 	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
