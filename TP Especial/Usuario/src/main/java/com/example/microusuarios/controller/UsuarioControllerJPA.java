@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.microusuarios.Service.UsuarioService;
 import com.example.microusuarios.model.Usuario;
 import com.example.microusuarios.response.UsuarioResponseRest;
+import com.example.microusuarios.service.UsuarioService;
 
 @RestController
 @RequestMapping("api/v1") //URL general

@@ -3,17 +3,17 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
-		<parent>
+	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.1.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	
-	<groupId>com.microUsuario</groupId>
-	<artifactId>usuario</artifactId>
+	<groupId>com.microMonopatin</groupId>
+	<artifactId>monopatin</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>usuario</name>
+	<name>monopatin</name>
 	<description>Demo project for Spring Boot</description>
 	
 	<properties>
@@ -53,69 +53,38 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	
-        <dependency>
-            <groupId>io.projectreactor</groupId>
-            <artifactId>reactor-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
 		
 		<dependency>
     		<groupId>org.apache.commons</groupId>
     		<artifactId>commons-csv</artifactId>
     		<version>1.8</version> <!-- Utiliza la última versión disponible -->
 		</dependency>
+		
+		
+		
 		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-databind</artifactId>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-		
-		
 		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api -->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-            <version>0.11.5</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-            <version>0.11.5</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
-            <version>0.11.5</version>
-            <scope>runtime</scope>
-        </dependency>
-     
-     <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.9.1</version>       
-        </dependency>
-        
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>2.3.1</version>       
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
-        </dependency>
+    		<groupId>io.jsonwebtoken</groupId>
+    		<artifactId>jjwt-api</artifactId>
+    		<version>0.11.5</version> 
+    		
+		</dependency>
+		<dependency>
+    		<groupId>io.jsonwebtoken</groupId>
+    		<artifactId>jjwt-impl</artifactId>
+    		<version>0.11.5</version> 
+    		<scope>runtime</scope>
+		</dependency>
+		<dependency>
+    		<groupId>io.jsonwebtoken</groupId>
+    		<artifactId>jjwt-jackson</artifactId>
+    		<version>0.11.5</version> 
+    		<scope>runtime</scope> 
+		</dependency>
 
-		
 	</dependencies>
 
 	<build>

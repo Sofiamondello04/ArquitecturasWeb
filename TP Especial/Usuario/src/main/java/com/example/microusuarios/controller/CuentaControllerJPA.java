@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.microusuarios.Service.CuentaService;
 import com.example.microusuarios.model.Cuenta;
 import com.example.microusuarios.response.CuentaResponseRest;
+import com.example.microusuarios.service.CuentaService;
 
 @RestController
 @RequestMapping("api/v1") //URL general
