@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,8 @@ public class UsuarioService {
 	UsuarioRepository usuarioRepository;
 	@Autowired
 	CuentaRepository cuentaRepository;
+	 @Autowired
+	   private PasswordEncoder passwordEncoder;
 	
 	@Transactional(readOnly=true)
 	public ResponseEntity<UsuarioResponseRest> getAll() {
@@ -71,6 +74,10 @@ public class UsuarioService {
 		List <Usuario> list = new ArrayList<>();
 		
 		try {
+			// Codificar la contraseña antes de guardarla en la base de datos
+            String rawPassword = usuario.getPassword(); // Obtener la contraseña sin codificar
+            String encodedPassword = passwordEncoder.encode(rawPassword);
+            usuario.setPassword(encodedPassword); // Establecer la contraseña codificada en el objeto Usuari
 			Usuario usuarioSaved = usuarioRepository.save(usuario);
 			if (usuarioSaved != null) {
 				list.add(usuarioSaved);

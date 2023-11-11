@@ -5,21 +5,23 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.microusuarios.model.AuthenticationReq;
 import com.example.microusuarios.model.TokenInfo;
+import com.example.microusuarios.model.Usuario;
 import com.example.microusuarios.service.JwtUtilService;
 
 
 @RestController
-@RequestMapping("") //URL general
+@RequestMapping("api/v1") //URL general
 public class AutenticacionControllerJPA {
 	
 
@@ -77,19 +79,34 @@ public class AutenticacionControllerJPA {
 
 
 	  @PostMapping("/publico/authenticate")
-	  public ResponseEntity<TokenInfo> authenticate(@RequestBody AuthenticationReq authenticationReq) {
-	    logger.info("Autenticando al usuario {}", authenticationReq.getUsuario());
+	  public ResponseEntity<TokenInfo> authenticate(@RequestBody Usuario usuario) {
+	    logger.info("Autenticando al usuario {}", usuario.getEmail());
 
-	    authenticationManager.authenticate(
-	        new UsernamePasswordAuthenticationToken(authenticationReq.getUsuario(),
-	            authenticationReq.getClave()));
+	    /*authenticationManager.authenticate(
+	        new UsernamePasswordAuthenticationToken(usuario.getEmail(),
+	        		usuario.getPassword()));
+	    logger.info("Autenticando al usuario con password {}", usuario.getPassword());
 
 	    final UserDetails userDetails = usuarioDetailsService.loadUserByUsername(
-	        authenticationReq.getUsuario());
+	    		usuario.getEmail());
 
 	    final String jwt = jwtUtilService.generateToken(userDetails);
 
-	    return ResponseEntity.ok(new TokenInfo(jwt));
+	    return ResponseEntity.ok(new TokenInfo(jwt));*/
+	    try {
+	        authenticationManager.authenticate(
+	            new UsernamePasswordAuthenticationToken(usuario.getEmail(), usuario.getPassword()));
+	        logger.info("Autenticación exitosa para el usuario {}", usuario.getEmail());
+
+	        final UserDetails userDetails = usuarioDetailsService.loadUserByUsername(usuario.getEmail());
+
+	        final String jwt = jwtUtilService.generateToken(userDetails);
+
+	        return ResponseEntity.ok(new TokenInfo(jwt));
+	    } catch (AuthenticationException e) {
+	        logger.error("Error de autenticación para el usuario {}", usuario.getEmail(), e);
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+	    }
 	  }
 
 	}

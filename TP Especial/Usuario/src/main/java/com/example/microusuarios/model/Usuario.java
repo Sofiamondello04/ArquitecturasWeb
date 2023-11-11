@@ -41,6 +41,7 @@ public class Usuario implements Serializable {
 	@Column ( nullable = false )
 	private String email;
 	
+	
 	@Column( nullable = false )
     private String password;
 	
@@ -63,17 +64,20 @@ public class Usuario implements Serializable {
 		this.roles = new ArrayList<>();
 	}
 	
-	public Usuario(String nombre, String apellido, Long nroCelular, String email) {
+	public Usuario(String nombre, String apellido, Long nroCelular, String email, String password) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.nroCelular = nroCelular;
 		this.email = email;
+		this.password = password;
 		this.fechaAlta = LocalDate.now();
 		this.cuentas = new ArrayList<>();
 		this.roles = new ArrayList<>();
 		
 	}
+	
+	
 /*
     public User(UserRequestDTO request) {
         this.nombre = request.getNombre();
