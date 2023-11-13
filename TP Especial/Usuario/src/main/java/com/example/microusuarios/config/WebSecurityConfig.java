@@ -35,10 +35,16 @@ public class WebSecurityConfig {
     	.csrf( AbstractHttpConfigurer::disable )
         
         .authorizeHttpRequests((authorize) -> authorize
+            
+            .requestMatchers("/api/v1/usuario/{idUsuario}/vincularCuenta/{idCuenta}").hasAuthority("admin")
+            .requestMatchers("/api/v1/cuentas").hasAuthority("user")
+            //.requestMatchers("/api/v1/rol/{nombre}/vincularUsuario/{idUsuario}").hasAuthority("user")
             .requestMatchers("/api/v1/**").permitAll()
+            
+            ).anonymous().disable()
+        
             /*.requestMatchers("/admin/**").hasRole("ADMIN")*/
-            .anyRequest().authenticated()
-        )
+           // .anyRequest().authenticated() )
         .cors(withDefaults())
         .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
         .sessionManagement((session) -> session

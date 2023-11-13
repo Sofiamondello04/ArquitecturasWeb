@@ -23,6 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
 	private  UsuarioRepository usuarioRepository;
 
+	
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
             return usuarioRepository

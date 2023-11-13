@@ -1,4 +1,4 @@
-package com.example.microusuarios.repository;
+package com.example.autenticacion.repository;
 
 import java.util.Optional;
 
@@ -17,8 +17,7 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
 	
 	Optional<Usuario> findUserByEmailIgnoreCase(@Param("email") String email);*/
 	
-	@Query("SELECT u From Usuario u JOIN FETCH u.roles WHERE u.email = :email ")
-	Optional<Usuario> findUserByEmailIgnoreCase( String email );
+	Optional<Usuario> findUserByEmailIgnoreCase(String email);
     boolean existsUsersByEmailIgnoreCase(String email );
 
 }

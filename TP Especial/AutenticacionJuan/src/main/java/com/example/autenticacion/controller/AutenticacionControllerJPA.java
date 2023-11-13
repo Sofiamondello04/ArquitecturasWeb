@@ -1,4 +1,4 @@
-package com.example.microusuarios.controller;
+/*package com.example.autenticacion.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -80,19 +80,7 @@ public class AutenticacionControllerJPA {
 
 	  @PostMapping("/publico/authenticate")
 	  public ResponseEntity<TokenInfo> authenticate(@RequestBody Usuario usuario) {
-	    logger.info("Autenticando al usuario {}", usuario.getEmail());
-
-	    /*authenticationManager.authenticate(
-	        new UsernamePasswordAuthenticationToken(usuario.getEmail(),
-	        		usuario.getPassword()));
-	    logger.info("Autenticando al usuario con password {}", usuario.getPassword());
-
-	    final UserDetails userDetails = usuarioDetailsService.loadUserByUsername(
-	    		usuario.getEmail());
-
-	    final String jwt = jwtUtilService.generateToken(userDetails);
-
-	    return ResponseEntity.ok(new TokenInfo(jwt));*/
+	  
 	    try {
 	        authenticationManager.authenticate(
 	            new UsernamePasswordAuthenticationToken(usuario.getEmail(), usuario.getPassword()));
@@ -105,8 +93,7 @@ public class AutenticacionControllerJPA {
 	        final String jwt = jwtUtilService.generateToken(userDetails);
 	        
 	        logger.info("generando token para {}", usuario.getEmail());
-	        
-	        logger.info("rol {}", usuario.getRoles());
+
 	        return ResponseEntity.ok(new TokenInfo(jwt));
 	        
 	    } catch (AuthenticationException e) {
@@ -115,4 +102,4 @@ public class AutenticacionControllerJPA {
 	    }
 	  }
 
-	}
+	}*/
