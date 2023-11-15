@@ -64,6 +64,7 @@ public class Usuario implements Serializable {
 		this.roles = new ArrayList<>();
 	}
 	
+	/*Usuarios monopatines*/
 	public Usuario(String nombre, String apellido, Long nroCelular, String email, String password) {
 		super();
 		this.nombre = nombre;
@@ -78,12 +79,4 @@ public class Usuario implements Serializable {
 	}
 	
 	
-/*
-    public User(UserRequestDTO request) {
-        this.nombre = request.getNombre();
-        this.apellido = request.getApellido();
-        this.email = request.getEmail();
-    }
-
-*/
 }

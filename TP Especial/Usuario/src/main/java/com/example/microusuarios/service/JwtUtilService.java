@@ -91,7 +91,7 @@ public class JwtUtilService {
  // private static final String JWT_SECRET_KEY = "TExBVkVfTVVZX1NFQ1JFVEE=";
   private static final byte[] SECRET_KEY_BYTES = Base64.getDecoder().decode(secret);
 
-  public static final long JWT_TOKEN_VALIDITY = 1000 * 60 * 60 * 60; // 8 Horas
+  public static final long JWT_TOKEN_VALIDITY = 1000 * 60 * 60 * 8; // 8 Horas
 
   public String extractUsername(String token) {
     return extractClaim(token, Claims::getSubject);
