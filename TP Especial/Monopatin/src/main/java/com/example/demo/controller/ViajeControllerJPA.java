@@ -18,39 +18,39 @@ import com.example.demo.response.ViajeResponseRest;
 //ACA SE MAPEAN LOS METODOS DEL SERVICE CON REST
 
 @RestController
-@RequestMapping("api/v1") //URL general
+@RequestMapping("api/v1/viajes") //URL general
 public class ViajeControllerJPA {
 
 	@Autowired //Se utiliza para realizar la inyección de dependencias automáticamente
 	private ViajeService viajeService;
 
-	@GetMapping("/viajes")
+	@GetMapping("")
 	public ResponseEntity<ViajeResponseRest> getMonopatines() {		
 		ResponseEntity<ViajeResponseRest> response = viajeService.getAll();
 		return response;
 		
 	}
 		
-	@GetMapping("/viaje/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<ViajeResponseRest> getMonopatinById(@PathVariable Long id) {	
 		ResponseEntity<ViajeResponseRest> response = viajeService.getById(id);
 		return response;
 	}
 	
-	@PostMapping("/viaje")
+	@PostMapping("")
 	public ResponseEntity<ViajeResponseRest> save(@RequestBody Viaje viaje) {
 		
 		ResponseEntity<ViajeResponseRest> response = viajeService.save(viaje);
 		return response;
 	}
 	
-	@PutMapping("/viaje/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<ViajeResponseRest> update(@RequestBody Viaje viaje, @PathVariable Long id) {
 		ResponseEntity<ViajeResponseRest> response = viajeService.updateById(viaje, id);
 		return response;
 	}
 	
-	@DeleteMapping("/viaje/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<ViajeResponseRest> delete(@PathVariable Long id) {
 		ResponseEntity<ViajeResponseRest> response = viajeService.deleteById(id);
 		return response;

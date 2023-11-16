@@ -18,38 +18,38 @@ import com.example.demo.response.TarifaResponseRest;
 //ACA SE MAPEAN LOS METODOS DEL SERVICE CON REST
 
 @RestController
-@RequestMapping("api/v1") //URL general
+@RequestMapping("api/v1/tarifas") //URL general
 public class TarifaControllerJPA {
 
 	@Autowired //Se utiliza para realizar la inyección de dependencias automáticamente
 	private TarifaService tarifaService;
 
-	@GetMapping("/tarifas")
+	@GetMapping("")
 	public ResponseEntity<TarifaResponseRest> getTarifas() {		
 		ResponseEntity<TarifaResponseRest> response = tarifaService.getAll();
 		return response;
 		
 	}
 		
-	@GetMapping("/tarifa/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<TarifaResponseRest> getTarifaById(@PathVariable Long id) {	
 		ResponseEntity<TarifaResponseRest> response = tarifaService.getById(id);
 		return response;
 	}
 	
-	@PostMapping("/tarifa")
+	@PostMapping("")
 	public ResponseEntity<TarifaResponseRest> save(@RequestBody Tarifa tarifa) {		
 		ResponseEntity<TarifaResponseRest> response = tarifaService.save(tarifa);
 		return response;
 	}
 	
-	@PutMapping("/tarifa/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<TarifaResponseRest> update(@RequestBody Tarifa tarifa, @PathVariable Long id) {
 		ResponseEntity<TarifaResponseRest> response = tarifaService.updateById(tarifa, id);
 		return response;
 	}
 	
-	@DeleteMapping("/tarifa/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<TarifaResponseRest> delete(@PathVariable Long id) {
 		ResponseEntity<TarifaResponseRest> response = tarifaService.deleteById(id);
 		return response;

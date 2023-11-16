@@ -34,13 +34,13 @@ public class RolControllerJPA {
 		
 	}
 		
-	@GetMapping("/rol/{nombre}")
+	@GetMapping("/roles/{nombre}")
 	public ResponseEntity<RolResponseRest> getRolById(@PathVariable String nombre) {	
 		ResponseEntity<RolResponseRest> response = rolService.getById(nombre);
 		return response;
 	}
 	
-	@PostMapping("/rol")
+	@PostMapping("/roles")
 	public ResponseEntity<RolResponseRest> save(@RequestBody Rol rol) {
 		
 		ResponseEntity<RolResponseRest> response = rolService.save(rol);
@@ -49,13 +49,13 @@ public class RolControllerJPA {
 	
 	
 	
-	@DeleteMapping("/rol/{nombre}")
+	@DeleteMapping("/roles/{nombre}")
 	public ResponseEntity<RolResponseRest> delete(@PathVariable String nombre) {
 		ResponseEntity<RolResponseRest> response = rolService.deleteById(nombre);
 		return response;
 	}
 	
-	@PostMapping("/rol/{nombre}/vincularUsuario/{idUsuario}")
+	@PostMapping("/roles/{nombre}/vincularUsuario/{idUsuario}")
 	public ResponseEntity<RolResponseRest> vincularUsuarioARol(
 	    @PathVariable("nombre") String nombre,
 	    @PathVariable("idUsuario") Long idUsuario
@@ -64,7 +64,7 @@ public class RolControllerJPA {
 	    return response;
 	}
 	
-	@PostMapping("/rol/{nombre}/desvincularUsuario/{idUsuario}")
+	@PostMapping("/roles/{nombre}/desvincularUsuario/{idUsuario}")
 	public ResponseEntity<RolResponseRest> desVincularUsuarioARol(
 			@PathVariable("nombre") String nombre,
 	    @PathVariable("idUsuario") Long idUsuario

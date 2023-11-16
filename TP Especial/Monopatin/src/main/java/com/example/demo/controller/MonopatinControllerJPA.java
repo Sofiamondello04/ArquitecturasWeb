@@ -19,39 +19,39 @@ import com.example.demo.response.MonopatinResponseRest;
 //ACA SE MAPEAN LOS METODOS DEL SERVICE CON REST
 
 @RestController
-@RequestMapping("api/v1") //URL general
+@RequestMapping("api/v1/monopatines") //URL general
 public class MonopatinControllerJPA {
 
 	@Autowired //Se utiliza para realizar la inyección de dependencias automáticamente
 	private MonopatinService monopatinService;
 
-	@GetMapping("/monopatines")
+	@GetMapping("")
 	public ResponseEntity<MonopatinResponseRest> getMonopatines() {		
 		ResponseEntity<MonopatinResponseRest> response = monopatinService.getAll();
 		return response;
 		
 	}
 		
-	@GetMapping("/monopatin/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<MonopatinResponseRest> getMonopatinById(@PathVariable Long id) {	
 		ResponseEntity<MonopatinResponseRest> response = monopatinService.getById(id);
 		return response;
 	}
 	
-	@PostMapping("/monopatin")
+	@PostMapping("")
 	public ResponseEntity<MonopatinResponseRest> save(@RequestBody Monopatin monopatin) {
 		
 		ResponseEntity<MonopatinResponseRest> response = monopatinService.save(monopatin);
 		return response;
 	}
 	
-	@PutMapping("/monopatin/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<MonopatinResponseRest> update(@RequestBody Monopatin monopatin, @PathVariable Long id) {
 		ResponseEntity<MonopatinResponseRest> response = monopatinService.updateById(monopatin, id);
 		return response;
 	}
 	
-	@DeleteMapping("/monopatin/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<MonopatinResponseRest> delete(@PathVariable Long id) {
 		ResponseEntity<MonopatinResponseRest> response = monopatinService.deleteById(id);
 		return response;

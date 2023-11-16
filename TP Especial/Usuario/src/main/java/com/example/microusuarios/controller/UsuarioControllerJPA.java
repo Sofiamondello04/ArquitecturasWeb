@@ -19,44 +19,44 @@ import com.example.microusuarios.response.UsuarioResponseRest;
 import com.example.microusuarios.service.UsuarioService;
 
 @RestController
-@RequestMapping("api/v1") //URL general
+@RequestMapping("api/v1/usuarios") //URL general
 public class UsuarioControllerJPA {
 	@Autowired //Se utiliza para realizar la inyección de dependencias automáticamente
 	private UsuarioService usuarioService;
 	
-	@GetMapping("/usuarios")
+	@GetMapping("")
 	public ResponseEntity<UsuarioResponseRest> getUsuarios() {		
 		ResponseEntity<UsuarioResponseRest> response = usuarioService.getAll();
 		return response;
 		
 	}
 		
-	@GetMapping("/usuario/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<UsuarioResponseRest> getUsuarioById(@PathVariable Long id) {	
 		ResponseEntity<UsuarioResponseRest> response = usuarioService.getById(id);
 		return response;
 	}
 	
-	@PostMapping("/usuario")
+	@PostMapping("")
 	public ResponseEntity<UsuarioResponseRest> save(@RequestBody Usuario usuario) {
 		
 		ResponseEntity<UsuarioResponseRest> response = usuarioService.save(usuario);
 		return response;
 	}
 	
-	@PutMapping("/usuario/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<UsuarioResponseRest> update(@RequestBody Usuario usuario, @PathVariable Long id) {
 		ResponseEntity<UsuarioResponseRest> response = usuarioService.updateById(usuario, id);
 		return response;
 	}
 	
-	@DeleteMapping("/usuario/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<UsuarioResponseRest> delete(@PathVariable Long id) {
 		ResponseEntity<UsuarioResponseRest> response = usuarioService.deleteById(id);
 		return response;
 	}
 	
-	@PostMapping("/usuario/{idUsuario}/vincularCuenta/{idCuenta}")
+	@PostMapping("/{idUsuario}/vincularCuenta/{idCuenta}")
 	public ResponseEntity<UsuarioResponseRest> vincularCuentaAUsuario(
 	    @PathVariable("idUsuario") Long idUsuario,
 	    @PathVariable("idCuenta") Long idCuenta
