@@ -21,11 +21,9 @@ import com.example.microusuarios.service.JwtUtilService;
 
 
 @RestController
-@RequestMapping("api/v1") //URL general
+@RequestMapping("") //URL general
 public class AutenticacionControllerJPA {
 	
-
-
 
 	  @Autowired
 	  private AuthenticationManager authenticationManager;
@@ -37,62 +35,12 @@ public class AutenticacionControllerJPA {
 	  private JwtUtilService jwtUtilService;
 	  private static final Logger logger = LoggerFactory.getLogger(AutenticacionControllerJPA.class);
 
-	  @GetMapping("/mensaje")
-	  public ResponseEntity<?> getMensaje() {
-	    logger.info("Obteniendo el mensaje");
-
-	    var auth =  SecurityContextHolder.getContext().getAuthentication();
-	    logger.info("Datos del Usuario: {}", auth.getPrincipal());
-	    logger.info("Datos de los Roles {}", auth.getAuthorities());
-	    logger.info("Esta autenticado {}", auth.isAuthenticated());
-
-	    Map<String, String> mensaje = new HashMap<>();
-	    mensaje.put("contenido", "Hola Peru");
-	    return ResponseEntity.ok(mensaje);
-	  }
-
-	  @GetMapping("/admin")
-	  public ResponseEntity<?> getMensajeAdmin() {
-
-	    var auth =  SecurityContextHolder.getContext().getAuthentication();
-	    logger.info("Datos del Usuario: {}", auth.getPrincipal());
-	    logger.info("Datos de los Permisos {}", auth.getAuthorities());
-	    logger.info("Esta autenticado {}", auth.isAuthenticated());
-
-	    Map<String, String> mensaje = new HashMap<>();
-	    mensaje.put("contenido", "Hola Admin");
-	    return ResponseEntity.ok(mensaje);
-	  }
-
-	  @GetMapping("/publico")
-	  public ResponseEntity<?> getMensajePublico() {
-	    var auth =  SecurityContextHolder.getContext().getAuthentication();
-	    logger.info("Datos del Usuario: {}", auth.getPrincipal());
-	    logger.info("Datos de los Permisos {}", auth.getAuthorities());
-	    logger.info("Esta autenticado {}", auth.isAuthenticated());
-
-	    Map<String, String> mensaje = new HashMap<>();
-	    mensaje.put("contenido", "Hola. esto es publico");
-	    return ResponseEntity.ok(mensaje);
-	  }
-
-
+	 
 
 	  @PostMapping("/publico/authenticate")
 	  public ResponseEntity<TokenInfo> authenticate(@RequestBody Usuario usuario) {
 	    logger.info("Autenticando al usuario {}", usuario.getEmail());
 
-	    /*authenticationManager.authenticate(
-	        new UsernamePasswordAuthenticationToken(usuario.getEmail(),
-	        		usuario.getPassword()));
-	    logger.info("Autenticando al usuario con password {}", usuario.getPassword());
-
-	    final UserDetails userDetails = usuarioDetailsService.loadUserByUsername(
-	    		usuario.getEmail());
-
-	    final String jwt = jwtUtilService.generateToken(userDetails);
-
-	    return ResponseEntity.ok(new TokenInfo(jwt));*/
 	    try {
 	        authenticationManager.authenticate(
 	            new UsernamePasswordAuthenticationToken(usuario.getEmail(), usuario.getPassword()));

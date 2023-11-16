@@ -6,7 +6,11 @@ import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -187,7 +191,12 @@ public class UsuarioService {
 		    return new ResponseEntity<UsuarioResponseRest>(responseU, HttpStatus.OK);
 	}
 
-	public ResponseEntity<UsuarioResponseRest> desVincularCuentaUsuario(Long idUsuario, Long idCuenta) {
+	
+	
+	/*---------------------------administrador------------------------------------------*/
+		
+	@Transactional
+	public ResponseEntity<UsuarioResponseRest> anularCuenta(Long idUsuario, Long idCuenta) {
 		UsuarioResponseRest responseU = new UsuarioResponseRest();
 
 	    try {
@@ -222,5 +231,25 @@ public class UsuarioService {
 
 	    return new ResponseEntity<UsuarioResponseRest>(responseU, HttpStatus.OK);
 	}
+
+
+	/*@Transactional
+	public ResponseEntity<MonopatinResponseRest> requiereMantenimiento() {
+		 HttpHeaders headers = new HttpHeaders();
+		    headers.setContentType(MediaType.APPLICATION_JSON);
+
+		    // Puedes crear un objeto para enviar en el cuerpo de la solicitud si es necesario
+		    // Ejemplo: RequestBody requestBody = new RequestBody(idUsuario, idCuenta);
+		    
+		    HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+		    ResponseEntity<MonopatinResponseRest> response = restTemplate.exchange(
+		    		"http://localhost:8081/api/v1/mantenimientoMonopatines",
+		            HttpMethod.GET,
+		            requestEntity,
+		            MonopatinResponseRest.class);
+		     
+		    return response;
+	}*/
 	
 }

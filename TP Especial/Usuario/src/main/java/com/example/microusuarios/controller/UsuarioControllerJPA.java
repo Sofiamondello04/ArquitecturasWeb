@@ -65,13 +65,21 @@ public class UsuarioControllerJPA {
 	    return response;
 	}
 	
-	@PostMapping("/usuario/{idUsuario}/desvincularCuenta/{idCuenta}")
-	public ResponseEntity<UsuarioResponseRest> desVincularCuentaAUsuario(
-	    @PathVariable("idUsuario") Long idUsuario,
-	    @PathVariable("idCuenta") Long idCuenta
-	) {
-	    ResponseEntity<UsuarioResponseRest> response = usuarioService.desVincularCuentaUsuario(idUsuario, idCuenta);
-	    return response;
-	}
+
+	/*---------------------------------endpoints administradores-----------------------------*/
+	
+	@PostMapping("/anularCuenta/{idUsuario}/{idCuenta}")
+    public ResponseEntity<UsuarioResponseRest> anularCuenta(@PathVariable Long idUsuario, @PathVariable Long idCuenta ) {
+        ResponseEntity<UsuarioResponseRest> response = usuarioService.anularCuenta(idUsuario, idCuenta);
+        return response;
+    }
+	 
+
+    
+    /*@GetMapping("/monopatines")
+    public ResponseEntity<MonopatinResponseRest> getEstadoMonopatines() {
+        ResponseEntity<MonopatinResponseRest> response = administradorService.requiereMantenimiento();
+        return response;
+    }*/
 	
 }
