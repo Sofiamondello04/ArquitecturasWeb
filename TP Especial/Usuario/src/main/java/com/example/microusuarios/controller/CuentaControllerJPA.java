@@ -16,38 +16,38 @@ import com.example.microusuarios.response.CuentaResponseRest;
 import com.example.microusuarios.service.CuentaService;
 
 @RestController
-@RequestMapping("api/v1") //URL general
+@RequestMapping("api/v1/cuentas") //URL general
 public class CuentaControllerJPA {
 	@Autowired //Se utiliza para realizar la inyección de dependencias automáticamente
 	private CuentaService cuentaService;
 
-	@GetMapping("/cuentas")
+	@GetMapping("")
 	public ResponseEntity<CuentaResponseRest> getCuentas() {		
 		ResponseEntity<CuentaResponseRest> response = cuentaService.getAll();
 		return response;
 		
 	}
 		
-	@GetMapping("/cuenta/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<CuentaResponseRest> getCuentasById(@PathVariable Long id) {	
 		ResponseEntity<CuentaResponseRest> response = cuentaService.getById(id);
 		return response;
 	}
 	
-	@PostMapping("/cuenta")
+	@PostMapping("")
 	public ResponseEntity<CuentaResponseRest> save(@RequestBody Cuenta cuenta) {
 		
 		ResponseEntity<CuentaResponseRest> response = cuentaService.save(cuenta);
 		return response;
 	}
 	
-	@PutMapping("/cuenta/{id}")
+	@PutMapping("{id}")
 	public ResponseEntity<CuentaResponseRest> update(@RequestBody Cuenta cuenta, @PathVariable Long id) {
 		ResponseEntity<CuentaResponseRest> response = cuentaService.updateById(cuenta, id);
 		return response;
 	}
 	
-	@DeleteMapping("/cuenta/{id}")
+	@DeleteMapping("{id}")
 	public ResponseEntity<CuentaResponseRest> delete(@PathVariable Long id) {
 		ResponseEntity<CuentaResponseRest> response = cuentaService.deleteById(id);
 		return response;
