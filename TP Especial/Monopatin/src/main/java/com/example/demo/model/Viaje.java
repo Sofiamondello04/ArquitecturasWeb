@@ -18,6 +18,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 
@@ -32,6 +33,7 @@ public class Viaje implements Serializable {
 	private Long idViaje;
 	
 	@Column
+	@NotNull
 	private LocalDate fechaYHoraInicio;
 	
 	@Column
@@ -42,9 +44,7 @@ public class Viaje implements Serializable {
 	
 	@Column
 	private LocalDate fechaYHoraFinPausa;
-	/*
-	@Column
-	private Long idMonopatin;*/
+
 	
 	@ManyToOne
 	@JsonIgnoreProperties("viajes")
@@ -55,6 +55,8 @@ public class Viaje implements Serializable {
 
 	@Column
 	private double kilometros;
+	
+
 	
 	
 }

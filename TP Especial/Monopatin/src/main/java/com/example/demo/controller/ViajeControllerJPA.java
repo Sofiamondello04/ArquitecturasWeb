@@ -3,6 +3,7 @@ package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,10 +20,12 @@ import com.example.demo.model.Viaje;
 import com.example.demo.response.ViajeResponseRest;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 
 //ACA SE MAPEAN LOS METODOS DEL SERVICE CON REST
 
 @RestController
+@Validated
 @RequestMapping("api/v1/viajes") //URL general
 public class ViajeControllerJPA {
 
@@ -51,7 +54,7 @@ public class ViajeControllerJPA {
 	
 	@Operation(summary = "Crear viaje", description = "Da de alta un nuevo viaje.")
 	@PostMapping("")
-	public ResponseEntity<ViajeResponseRest> save(@RequestBody Viaje viaje) {
+	public ResponseEntity<ViajeResponseRest> save(@Valid @RequestBody Viaje viaje) {
 		
 		ResponseEntity<ViajeResponseRest> response = viajeService.save(viaje);
 		return response;
