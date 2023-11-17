@@ -14,10 +14,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.microusuarios.model.TokenInfo;
 import com.example.microusuarios.model.Usuario;
 import com.example.microusuarios.service.JwtUtilService;
+
+import io.swagger.v3.oas.annotations.Operation;
 
 
 @RestController
@@ -35,8 +38,12 @@ public class AutenticacionControllerJPA {
 	  private JwtUtilService jwtUtilService;
 	  private static final Logger logger = LoggerFactory.getLogger(AutenticacionControllerJPA.class);
 
-	 
+	  @RequestMapping(value = "/", method = RequestMethod.GET)
+		public ModelAndView method() {
+		    return new ModelAndView("redirect:/swagger-ui.html");
+		}
 
+	  @Operation(summary = "Autenticar usuario", description = "Retorna un JWT dado un email y password válidos. El usuario debe tener un rol asignado.")
 	  @PostMapping("/publico/authenticate")
 	  public ResponseEntity<TokenInfo> authenticate(@RequestBody Usuario usuario) {
 	    logger.info("Autenticando al usuario {}", usuario.getEmail());

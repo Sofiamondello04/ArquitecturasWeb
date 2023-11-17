@@ -73,7 +73,7 @@ public class ViajeService {
 		List <Viaje> list = new ArrayList<>();
 		
 		try {
-			Optional <Monopatin> monopatinSearch = monopatinRepository.findById(viaje.getIdMonopatin());
+			Optional <Monopatin> monopatinSearch = monopatinRepository.findById(viaje.getMonopatin().getIdMonopatin());
 			if (monopatinSearch.isPresent()) {
 				Viaje viajeSaved = viajeRepository.save(viaje);
 				Monopatin monopatin = monopatinSearch.get();

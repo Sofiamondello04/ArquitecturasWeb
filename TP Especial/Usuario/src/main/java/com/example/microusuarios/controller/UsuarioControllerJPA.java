@@ -44,14 +44,14 @@ public class UsuarioControllerJPA {
 		
 	}
 		
-	@Operation(summary = "Buscar un usuario", description = "Retorna un usuario por su ID.")	
+	@Operation(summary = "Buscar un usuario", description = "Retorna un usuario dado un ID.")	
 	@GetMapping("/{id}")
 	public ResponseEntity<UsuarioResponseRest> getUsuarioById(@PathVariable Long id) {	
 		ResponseEntity<UsuarioResponseRest> response = usuarioService.getById(id);
 		return response;
 	}
 	
-	@Operation(summary = "Alta Usuario", description = "Da de alta un usuario.")
+	@Operation(summary = "Crear Usuario", description = "Da de alta un usuario.")
 	@PostMapping("")
 	public ResponseEntity<UsuarioResponseRest> save(@RequestBody Usuario usuario) {
 		
@@ -59,14 +59,14 @@ public class UsuarioControllerJPA {
 		return response;
 	}
 	
-	@Operation(summary = "Actualizar un usuario", description = "Actualiza un usuario por su ID.")
+	@Operation(summary = "Actualizar un usuario", description = "Actualiza un usuario dado un ID.")
 	@PutMapping("/{id}")
 	public ResponseEntity<UsuarioResponseRest> update(@RequestBody Usuario usuario, @PathVariable Long id) {
 		ResponseEntity<UsuarioResponseRest> response = usuarioService.updateById(usuario, id);
 		return response;
 	}
 	
-	@Operation(summary = "Eliminar un usuario", description = "Elimina un usuario por su ID.")
+	@Operation(summary = "Eliminar un usuario", description = "Elimina un usuario dado un ID.")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<UsuarioResponseRest> delete(@PathVariable Long id) {
 		ResponseEntity<UsuarioResponseRest> response = usuarioService.deleteById(id);
@@ -74,7 +74,7 @@ public class UsuarioControllerJPA {
 	}
 	
 	
-	@Operation(summary = "Vincular cuenta", description = "Vincula una cuenta a un usuario por sus ID.")
+	@Operation(summary = "Vincular cuenta", description = "Vincula una cuenta a un usuario dado un ID de usuario y un ID de cuenta.")
 	@PostMapping("/{idUsuario}/vincularCuenta/{idCuenta}")
 	public ResponseEntity<UsuarioResponseRest> vincularCuentaAUsuario(
 	    @PathVariable("idUsuario") Long idUsuario,
@@ -87,8 +87,8 @@ public class UsuarioControllerJPA {
 
 	/*---------------------------------endpoints administradores-----------------------------*/
 	
-	@Operation(summary = "Anular cuenta", description = "Anula la cuenta de un usuario por sus ID.")
-	@PostMapping("/anularCuenta/{idUsuario}/{idCuenta}")
+	@Operation(summary = "Anular cuenta", description = "Anula la cuenta de un usuario dado un ID de usuario y un ID de cuenta.")
+	@PostMapping("/{idUsuario}/anularCuenta/{idCuenta}")
     public ResponseEntity<UsuarioResponseRest> anularCuenta(@PathVariable Long idUsuario, @PathVariable Long idCuenta ) {
         ResponseEntity<UsuarioResponseRest> response = usuarioService.anularCuenta(idUsuario, idCuenta);
         return response;

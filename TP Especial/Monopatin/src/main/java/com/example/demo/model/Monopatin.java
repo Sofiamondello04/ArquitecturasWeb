@@ -42,8 +42,8 @@ public class Monopatin implements Serializable {
 	@Column
 	private boolean requiereMantenimiento;
 	
-	@OneToMany
-	@JsonIgnoreProperties("idMonopatin")
+	@OneToMany(mappedBy = "monopatin")
+	@JsonIgnoreProperties("monopatin")
 	private List <Viaje> viajes;
 	
 
