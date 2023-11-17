@@ -201,28 +201,27 @@ public class MonopatinService {
 		
 	}*/
 	@Transactional
-	public ResponseEntity<MonopatinResponseRest> getEstadoMonopatines() {
-	MonopatinResponseRest response = new MonopatinResponseRest();
-	List<Monopatin> monopatines = (List<Monopatin>) monopatinRepository.findAll();
+	public List<Monopatin> getEstadoMonopatines() {
 
+	List<Monopatin> monopatines = (List<Monopatin>) monopatinRepository.findAll();
+	List<Monopatin> requierenMantenimiento = new ArrayList<Monopatin>();
 	for (Monopatin monopatin : monopatines) {
 	    double kilometrosTotales = monopatin.getViajes().stream().mapToDouble(Viaje::getKilometros).sum();
 
 	    if (kilometrosTotales > 5000) {
 	        monopatin.setRequiereMantenimiento(true);
+	        requierenMantenimiento.add(monopatin);
 	    }
 	}
 
 	monopatinRepository.saveAll(monopatines); // Guarda todos los monopatines en una sola operación
-	return new ResponseEntity<MonopatinResponseRest>(response, HttpStatus.OK);
+	return requierenMantenimiento;
 	}	
 		
-		/*return new ResponseEntity<MonopatinResponseRest>(response, HttpStatus.OK);
-		
-		return totalKilometros;
-	}
 	
-*/
+
+
+
 
 }
 
