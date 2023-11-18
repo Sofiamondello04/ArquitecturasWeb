@@ -35,11 +35,12 @@ public class WebSecurityConfig {
     	.csrf( AbstractHttpConfigurer::disable )
         
         .authorizeHttpRequests((authorize) -> authorize
-        	
+        		
             .requestMatchers("/api/v1/usuarios/{idUsuario}/anularCuenta/{idCuenta}").hasAuthority("admin")
             .requestMatchers("/api/v1/usuarios/mantenimientoMonopatines").hasAuthority("mant")
+            
             .requestMatchers("/publico/authenticate").permitAll()
-            .requestMatchers("/swagger-ui-index.html").permitAll()
+            .requestMatchers("/swagger-ui/index.html", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
             .requestMatchers("/api/v1/**").permitAll()
           
             
