@@ -32,18 +32,18 @@ public class WebSecurityConfig {
 	  
     http
     
-    	/*.csrf( AbstractHttpConfigurer::disable )
+    	.csrf( AbstractHttpConfigurer::disable )
         
         .authorizeHttpRequests((authorize) -> authorize
         	
             .requestMatchers("/api/v1/usuarios/{idUsuario}/anularCuenta/{idCuenta}").hasAuthority("admin")
-            .requestMatchers("/api/v1/cuentas").hasAuthority("user")
+            .requestMatchers("/api/v1/usuarios/mantenimientoMonopatines").hasAuthority("mant")
             .requestMatchers("/publico/authenticate").permitAll()
             .requestMatchers("/swagger-ui-index.html").permitAll()
             .requestMatchers("/api/v1/**").permitAll()
           
             
-            ).anonymous().disable()*/
+            ).anonymous().disable()
         
         .cors(withDefaults())
         .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
