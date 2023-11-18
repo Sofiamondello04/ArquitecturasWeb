@@ -17,8 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.Service.MonopatinService;
-
-import com.example.demo.model.Monopatin;
+import com.example.demo.model.mysql.Monopatin;
 import com.example.demo.response.MonopatinResponseRest;
 
 import io.swagger.v3.oas.annotations.Operation;

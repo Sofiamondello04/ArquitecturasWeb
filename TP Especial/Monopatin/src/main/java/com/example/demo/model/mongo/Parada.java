@@ -1,4 +1,6 @@
-package com.example.demo.model;
+package com.example.demo.model.mongo;
+
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,13 +11,13 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 
-@Entity
+@Document
 @Data
 @Table(name= "parada")
 public class Parada {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idParada;
 
 	@Column

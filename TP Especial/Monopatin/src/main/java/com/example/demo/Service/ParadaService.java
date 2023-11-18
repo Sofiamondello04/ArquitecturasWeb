@@ -11,10 +11,9 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.transaction.annotation.Transactional;
 
-
-import com.example.demo.model.Parada;
 import com.example.demo.response.ParadaResponseRest;
-import com.example.demo.repository.ParadaRepository;
+import com.example.demo.model.mongo.Parada;
+import com.example.demo.repository.mongo.ParadaRepository;
 
 @Service
 public class ParadaService {

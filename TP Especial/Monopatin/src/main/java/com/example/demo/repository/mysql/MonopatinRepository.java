@@ -1,8 +1,8 @@
-package com.example.demo.repository;
+package com.example.demo.repository.mysql;
 
 
 import com.example.demo.dto.MonopatinPorKilometrosDTO;
-import com.example.demo.model.Monopatin;
+import com.example.demo.model.mysql.Monopatin;
 
 import java.util.List;
 

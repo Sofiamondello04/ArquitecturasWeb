@@ -1,11 +1,9 @@
-package com.example.demo.repository;
-
-
-import com.example.demo.model.Tarifa;
-
+package com.example.demo.repository.mysql;
 
 
 import org.springframework.data.repository.CrudRepository;
+
+import com.example.demo.model.mysql.Tarifa;
 
 
 

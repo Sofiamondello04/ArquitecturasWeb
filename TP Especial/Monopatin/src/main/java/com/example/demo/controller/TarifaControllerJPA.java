@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.Service.TarifaService;
-import com.example.demo.model.Tarifa;
+import com.example.demo.model.mysql.Tarifa;
 import com.example.demo.response.TarifaResponseRest;
 
 import io.swagger.v3.oas.annotations.Operation;

@@ -13,10 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dto.MonopatinPorKilometrosDTO;
-import com.example.demo.model.Monopatin;
-import com.example.demo.model.Viaje;
+import com.example.demo.model.mysql.Monopatin;
+import com.example.demo.model.mysql.Viaje;
+import com.example.demo.repository.mysql.MonopatinRepository;
 import com.example.demo.response.MonopatinResponseRest;
-import com.example.demo.repository.MonopatinRepository;
 
 @Service
 public class MonopatinService {

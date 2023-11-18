@@ -2,7 +2,7 @@ package com.example.demo.response;
 
 import java.util.List;
 
-import com.example.demo.model.Viaje;
+import com.example.demo.model.mysql.Viaje;
 
 import lombok.Data;
 

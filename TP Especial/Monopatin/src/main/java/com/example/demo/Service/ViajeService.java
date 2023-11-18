@@ -11,11 +11,11 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.model.Monopatin;
-import com.example.demo.model.Viaje;
 import com.example.demo.response.ViajeResponseRest;
-import com.example.demo.repository.MonopatinRepository;
-import com.example.demo.repository.ViajeRepository;
+import com.example.demo.model.mysql.Monopatin;
+import com.example.demo.model.mysql.Viaje;
+import com.example.demo.repository.mysql.MonopatinRepository;
+import com.example.demo.repository.mysql.ViajeRepository;
 
 @Service
 public class ViajeService {

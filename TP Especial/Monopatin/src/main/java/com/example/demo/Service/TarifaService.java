@@ -11,10 +11,9 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.transaction.annotation.Transactional;
 
-
-import com.example.demo.model.Tarifa;
 import com.example.demo.response.TarifaResponseRest;
-import com.example.demo.repository.TarifaRepository;
+import com.example.demo.model.mysql.Tarifa;
+import com.example.demo.repository.mysql.TarifaRepository;
 
 @Service
 public class TarifaService {

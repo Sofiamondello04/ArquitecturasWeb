@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.Service.ParadaService;
-import com.example.demo.model.Parada;
+import com.example.demo.model.mongo.Parada;
 import com.example.demo.response.ParadaResponseRest;
 
 import io.swagger.v3.oas.annotations.Operation;
