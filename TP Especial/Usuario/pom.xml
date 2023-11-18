@@ -135,6 +135,14 @@
 		<!--FIN SWAGGER-->
 
 
+
+	<!--Monopatin-->
+	
+	<dependency>
+			<groupId>com.microMonopatin</groupId>
+			<artifactId>monopatin</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		
 	</dependencies>
 

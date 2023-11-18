@@ -59,7 +59,7 @@ public class Monopatin implements Serializable {
 		
 	}
 	
-	public void requiereMantenimiento() {
+	/*public void requiereMantenimiento() {
 		double kilometrosTotales=0;
 		for (Viaje viaje: viajes) {
 			kilometrosTotales = kilometrosTotales + viaje.getKilometros();
@@ -70,7 +70,7 @@ public class Monopatin implements Serializable {
 			
 		}
 	
-	}
+	}*/
 	
 	
 }

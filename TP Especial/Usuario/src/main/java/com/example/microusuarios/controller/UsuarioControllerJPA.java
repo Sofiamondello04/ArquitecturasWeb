@@ -2,6 +2,8 @@ package com.example.microusuarios.controller;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.microusuarios.model.Usuario;
 import com.example.microusuarios.response.UsuarioResponseRest;
 import com.example.microusuarios.service.UsuarioService;
+import com.example.demo.model.mysql.Monopatin;
+import com.example.demo.response.MonopatinResponseRest;
 
 
 import org.springframework.web.servlet.ModelAndView;
@@ -96,10 +100,10 @@ public class UsuarioControllerJPA {
 	 
 
     
-    /*@GetMapping("/monopatines")
-    public ResponseEntity<MonopatinResponseRest> getEstadoMonopatines() {
-        ResponseEntity<MonopatinResponseRest> response = administradorService.requiereMantenimiento();
+    @GetMapping("/mantenimientoMonopatines")
+    public List<Monopatin> getEstadoMonopatines() {
+        List<Monopatin> response = usuarioService.requiereMantenimiento();
         return response;
-    }*/
+    }
 	
 }

@@ -32,7 +32,7 @@ public class WebSecurityConfig {
 	  
     http
     
-    	.csrf( AbstractHttpConfigurer::disable )
+    	/*.csrf( AbstractHttpConfigurer::disable )
         
         .authorizeHttpRequests((authorize) -> authorize
         	
@@ -43,7 +43,7 @@ public class WebSecurityConfig {
             .requestMatchers("/api/v1/**").permitAll()
           
             
-            ).anonymous().disable()
+            ).anonymous().disable()*/
         
         .cors(withDefaults())
         .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
