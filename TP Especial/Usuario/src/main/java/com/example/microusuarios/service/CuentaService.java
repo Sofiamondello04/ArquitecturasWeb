@@ -1,4 +1,4 @@
-package com.example.microusuarios.service;
+package com.example.microusuarios.Service;
 
 import java.util.ArrayList;
 import java.util.List;
