@@ -5,11 +5,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,6 +25,10 @@ import lombok.EqualsAndHashCode;
 @Table(name= "usuario")
 public class Usuario implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L; //agregado 10/11
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idUsuario;
@@ -38,32 +38,45 @@ public class Usuario implements Serializable {
 	private String apellido;
 	@Column
 	private Long nroCelular;
-	@Column
+	@Column ( nullable = false )
 	private String email;
+	
+	
+	@Column( nullable = false )
+    private String password;
 	
 	@Column
 	private LocalDate fechaAlta;
 	
 
 	@ManyToMany(mappedBy = "usuarios", fetch = FetchType.LAZY)
-	/*@JsonBackReference*/
 	@JsonIgnoreProperties("usuarios") // Ignora la propiedad "cuentas" al serializar
 	private List<Cuenta> cuentas;
+	
+	@ManyToMany(mappedBy = "usuarios", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties("usuarios")
+    private List<Rol> roles;
+	
 
 	public Usuario() {
 		this.fechaAlta = LocalDate.now();
 		this.cuentas = new ArrayList<>();
+		this.roles = new ArrayList<>();
 	}
 	
-	public Usuario(String nombre, String apellido, Long nroCelular, String email) {
+	/*Usuarios monopatines*/
+	public Usuario(String nombre, String apellido, Long nroCelular, String email, String password) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.nroCelular = nroCelular;
 		this.email = email;
+		this.password = password;
 		this.fechaAlta = LocalDate.now();
 		this.cuentas = new ArrayList<>();
+		this.roles = new ArrayList<>();
 		
 	}
-
+	
+	
 }

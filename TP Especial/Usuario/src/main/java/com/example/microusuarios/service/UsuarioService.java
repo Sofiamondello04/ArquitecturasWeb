@@ -1,4 +1,4 @@
-package com.example.microusuarios.Service;
+package com.example.microusuarios.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,16 +6,25 @@ import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
+import com.example.demo.response.MonopatinResponseRest;
 import com.example.microusuarios.model.Cuenta;
 import com.example.microusuarios.model.Usuario;
 import com.example.microusuarios.repository.CuentaRepository;
 import com.example.microusuarios.repository.UsuarioRepository;
 import com.example.microusuarios.response.UsuarioResponseRest;
+import com.example.demo.model.mysql.Monopatin;
 
 @Service
 public class UsuarioService {
@@ -23,6 +32,10 @@ public class UsuarioService {
 	UsuarioRepository usuarioRepository;
 	@Autowired
 	CuentaRepository cuentaRepository;
+	 @Autowired
+	   private PasswordEncoder passwordEncoder;
+	 @Autowired
+	 private RestTemplate restTemplate;
 	
 	@Transactional(readOnly=true)
 	public ResponseEntity<UsuarioResponseRest> getAll() {
@@ -71,6 +84,10 @@ public class UsuarioService {
 		List <Usuario> list = new ArrayList<>();
 		
 		try {
+			// Codificar la contraseña antes de guardarla en la base de datos
+            String rawPassword = usuario.getPassword(); // Obtener la contraseña sin codificar
+            String encodedPassword = passwordEncoder.encode(rawPassword);
+            usuario.setPassword(encodedPassword); // Establecer la contraseña codificada en el objeto Usuari
 			Usuario usuarioSaved = usuarioRepository.save(usuario);
 			if (usuarioSaved != null) {
 				list.add(usuarioSaved);
@@ -180,7 +197,12 @@ public class UsuarioService {
 		    return new ResponseEntity<UsuarioResponseRest>(responseU, HttpStatus.OK);
 	}
 
-	public ResponseEntity<UsuarioResponseRest> desVincularCuentaUsuario(Long idUsuario, Long idCuenta) {
+	
+	
+	/*---------------------------administrador------------------------------------------*/
+		
+	@Transactional
+	public ResponseEntity<UsuarioResponseRest> anularCuenta(Long idUsuario, Long idCuenta) {
 		UsuarioResponseRest responseU = new UsuarioResponseRest();
 
 	    try {
@@ -215,5 +237,43 @@ public class UsuarioService {
 
 	    return new ResponseEntity<UsuarioResponseRest>(responseU, HttpStatus.OK);
 	}
+
+
+	
+	/*@Transactional
+	 * public List<Monopatin> requiereMantenimiento() {
+		 HttpHeaders headers = new HttpHeaders();
+		    headers.setContentType(MediaType.APPLICATION_JSON);
+		    
+		    HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+		    List<Monopatin> response = (List<Monopatin>) restTemplate.exchange(
+		    		"http://localhost:8081/api/v1/monopatines/mantenimientoMonopatines",
+		            HttpMethod.GET,
+		            requestEntity,
+		            new ParameterizedTypeReference<List<Monopatin>>() {});
+		     
+		    return response;
+	}*/
+	
+	@Transactional
+	public List<Monopatin> requiereMantenimiento() {
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
+
+	    HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+	    ResponseEntity<List<Monopatin>> responseEntity = restTemplate.exchange(
+	            "http://localhost:8081/api/v1/monopatines/mantenimientoMonopatines",
+	            HttpMethod.GET,
+	            requestEntity,
+	            new ParameterizedTypeReference<List<Monopatin>>() {});
+
+	    List<Monopatin> response = responseEntity.getBody();
+	    
+	    return response;
+	}
+
+	
 	
 }
